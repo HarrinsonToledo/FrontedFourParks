@@ -1,27 +1,31 @@
 <div class="m-auto h-20 w-1/12 border-2 border-firtsColor flex justify-center items-center rounded-full">
     <h1>IMAGEN LOGO</h1>
 </div>
-<div class="bg-firtsColor h-20 my-10 w-3/6">
+<div class="{{changeColorBG}} h-20 my-10 w-3/6">
     <div class="container mx-auto flex justify-between items-center px-20 mt-5">
+        <a routerLink="/" (click)="autheticate.setIsLoginShow(false)"
+        class="{{changeColorTX}} text-2xl font-medium hover:border-b-2 {{changeBorder}}">INICIO</a>
         <a href="#" 
-        class="text-white text-2xl font-medium hover:text-white hover:border-b-2 hover:border-white">INICIO</a>
+        class="{{changeColorTX}} text-2xl font-medium hover:border-b-2 {{changeBorder}}">SERVICIOS</a>
         <a href="#" 
-        class="text-white text-2xl font-medium hover:text-white hover:border-b-2 hover:border-white">SERVICIOS</a>
+        class="{{changeColorTX}} text-2xl font-medium hover:border-b-2 {{changeBorder}}">NOSOTROS</a>
         <a href="#" 
-        class="text-white text-2xl font-medium hover:text-white hover:border-b-2 hover:border-white">NOSOTROS</a>
-        <a href="#" 
-        class="text-white text-2xl font-medium hover:text-white hover:border-b-2 hover:border-white">CONTACTO</a>
+        class="{{changeColorTX}} text-2xl font-medium hover:border-b-2 {{changeBorder}}">CONTACTO</a>
     </div>
 </div>
-<div class="m-auto flex justify-center">
-    <a href="" 
-        class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-2 font-bold flex justify-center items-center hover:bg-firtsColor"
-    >
-        <img src="../../../assets/resources/Login icon.png"
-         class="w-10 mr-2"
-         alt="">
-        Login
-    </a>
-</div>
+@if (!autheticate.getIsLoginShow()) {
+    <div class="m-auto flex justify-center">
+        <a  
+            routerLink="/authentication"
+            class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-2 font-bold flex justify-center items-center hover:bg-firtsColor"
+            (click)="autheticate.setIsLoginShow(true)"
+        >
+            <img src="../../../assets/resources/Login icon.png"
+             class="w-10 mr-2"
+             alt="">
+            Login
+        </a>
+    </div>
+}
 
 <img src="../../../assets/resources/formas.png" class="absolute bottom-4 left-4 w-7" alt="">
