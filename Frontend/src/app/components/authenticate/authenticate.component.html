@@ -1,26 +1,52 @@
-<div class="lg:w-1/3 w-5/6 border-2 border-firtsColor m-auto overflow-hidden rounded-4xl flex flex-col">
+<div 
+class="min_oculy:w-1/3 w-autox border-2 border-firtsColor mx-auto 
+min_oculy:my-0 my-14 overflow-hidden rounded-4xl flex flex-col"
+>
     <section class="w-full bg-firtsColor bg-opacity-20 flex border-b-2 border-firtsColor">
         <button class="w-full my-2 py-3 border-r-2 border-firtsColor font-medium lg:text-3xl text-xl"><b>Iniciar sesión</b></button>
         <button class="w-full my-2 py-3 font-medium lg:text-3xl text-xl"><b>Registrarse</b></button>
     </section>
     <section class="w-full h-1/2 py-10 px-5">
-        <form action="">
-            <label for="" class="font-medium text-2xl">Correo electrónico:</label>
+        @if (dataInvalid !== '') {
+            <div class="flex justify-center mb-5">
+                <p class="text-red-700 text-xl font-medium mx-auto">{{dataInvalid}}</p>
+            </div>
+        }
+        <form action="" novalidate [formGroup]="FormLoginData">
+            <label for="" class="font-medium text-2xl">Usuario:</label>
         <div class="relative my-4">
-            <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" id="">
+            <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="user">
             <img src="../../../assets/resources/EmailIcon.png"
             class="absolute right-3 top-3 h-8 w-10"
             alt="">
+            @if (verifyCC(FormLoginData.value.user) && FormLoginData.value.user !== '') {
+                <p class="font-medium my-1 text-red-700"> Usuario de 5 a 8 Caracteres </p>
+            }
+            @if (verifyHaveSpaces(FormLoginData.value.user) && FormLoginData.value.user !== '') {
+                <p class="font-medium my-1 text-red-700"> Usuario sin espacios </p>
+            }
         </div>
         <label for="" class="font-medium text-2xl">Contraseña:</label>
         <div class="relative my-4">
-            <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" id="">
+            <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
             <img src="../../../assets/resources/PWIcon.png"
             class="absolute right-4 top-2 h-10 w-8"
             alt="">
+            @if (verifyCC(FormLoginData.value.password) && FormLoginData.value.password !== '') {
+                <p class="font-medium my-1 text-red-700"> Contraseña de 5 a 8 Caracteres </p>
+            }
+            @if (verifyHaveSpaces(FormLoginData.value.password) && FormLoginData.value.user !== '') {
+                <p class="font-medium my-1 text-red-700"> Contraseña sin espacios </p>
+            }
         </div>
         <div class="flex justify-center">
-            <button class="bg-secondColor mt-2 text-xl px-5 py-3 border rounded-full font-bold hover:bg-firtsColor">Iniciar sesión</button>
+            <button 
+                class="bg-secondColor mt-2 text-xl px-5 py-3 border rounded-full font-bold hover:bg-firtsColor"
+                [disabled]="!FormLoginData.valid"
+                (click)="sendLogin()"
+            >
+                Iniciar sesión
+            </button>
         </div>
         </form>
     </section>

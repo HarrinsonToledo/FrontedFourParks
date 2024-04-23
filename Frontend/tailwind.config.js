@@ -8,6 +8,11 @@ module.exports = {
       fontFamily: {
         impact: ['Impact', 'sans']
       },
+      screens: {
+        md: '1200px',
+        sc: '1250px',
+        min_oculy: '800px'
+      },
       colors: {
         firtsColor: '#400E32',
         secondColor: '#F8DE22'

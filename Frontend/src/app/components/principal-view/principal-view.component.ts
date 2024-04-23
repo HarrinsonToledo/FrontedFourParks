@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticateState } from '../../core/class/AuthenticateState';
 
 @Component({
   selector: 'app-principal-view',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './principal-view.component.css'
 })
 export class PrincipalViewComponent {
-
+  constructor() {
+    
+  }
 }
