@@ -1,3 +1,5 @@
+const { keyframes } = require('@angular/animations');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -14,15 +16,8 @@ module.exports = {
         min_oculy: '800px'
       },
       colors: {
-        firtsColor: '#400E32',
+        firstColor: '#400E32',
         secondColor: '#F8DE22'
-         
-        // firtsColor: '#41644A',
-        // secondColor: '#ABC4AA'
-
-        // firtsColor: '#3E3232',
-        // secondColor: '#ABC4aA'
-        
       }
     },
   },

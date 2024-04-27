@@ -1,3 +1,7 @@
 .bgprincipal {
     background-image: url("../assets/resources/BG.png");
 }
+
+body {
+    width: 100%;
+}

@@ -1,9 +1,9 @@
-<div (click)="narvarResponsive()" class="min_oculy:m-auto my-3 h-20 min_oculy:w-1/12 w-4/12 border-2 border-firtsColor flex justify-center items-center rounded-full">
+<div (click)="narvarResponsive()" class="min_oculy:m-auto my-3 h-20 min_oculy:w-1/12 w-4/12 border-2 border-firstColor flex justify-center items-center rounded-full">
     <h1>IMAGEN LOGO</h1>
 </div>
 <div class="{{changeColorBG}} h-20 my-10 min_oculy:w-3/6 w-full min_oculy:relative absolute min_oculy:top-0 top-16">
     <div class="mx-auto flex justify-between items-center md:px-20 px-5 mt-5">
-        <a routerLink="/" (click)="autheticate.setIsLoginShow(false)"
+        <a routerLink="/" (click)="goPrincipalView()"
         class="{{changeColorTX}} min_oculy::text-xl sc:text-2xl font-medium hover:border-b-2 {{changeBorder}}">INICIO</a>
         <a href="#" 
         class="{{changeColorTX}} min_oculy::text-xl sc:text-2xl font-medium hover:border-b-2 {{changeBorder}}">SERVICIOS</a>
@@ -13,14 +13,17 @@
         class="{{changeColorTX}} min_oculy::text-xl sc:text-2xl font-medium hover:border-b-2 {{changeBorder}}">CONTACTO</a>
     </div>
 </div>
-@if (!autheticate.getIsLoginShow()) {
+@if (!authenticate.getIsLoginShow()) {
     <div class="min_oculy:m-auto ml-20 flex justify-center">
         <a  
             routerLink="/authentication"
-            class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-2 font-bold flex justify-center items-center hover:bg-firtsColor"
-            (click)="autheticate.setIsLoginShow(true)"
+            class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-2 font-bold flex justify-center items-center hover:bg-firstColor hover:text-white"
+            (click)="goLogin()"
+            (mouseover)="over(false)"
+            (mouseout)="over(true)"
         >
-            <img src="../../../assets/resources/Login icon.png"
+            <img 
+             src="{{img}}"
              class="w-10 mr-2"
              alt="">
             Login
@@ -28,4 +31,4 @@
     </div>
 }
 
-<img src="../../../assets/resources/formas.png" class="absolute min_oculy:block hidden bottom-4 left-4 w-7" alt="">
+<img src="../../../assets/resources/formas.png" class="fixed bottom-4 left-2 w-7" alt="">

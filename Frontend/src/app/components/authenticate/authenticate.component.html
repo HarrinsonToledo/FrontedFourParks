@@ -1,53 +1,150 @@
+<app-nar-bar class="min_oculy:mb-5 mb-24 flex justify-center items-center"></app-nar-bar>
 <div 
-class="min_oculy:w-1/3 w-autox border-2 border-firtsColor mx-auto 
-min_oculy:my-0 my-14 overflow-hidden rounded-4xl flex flex-col"
+class="min_oculy:w-1/3 w-autox border-2 border-firstColor mx-auto 
+min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
 >
-    <section class="w-full bg-firtsColor bg-opacity-20 flex border-b-2 border-firtsColor">
-        <button class="w-full my-2 py-3 border-r-2 border-firtsColor font-medium lg:text-3xl text-xl"><b>Iniciar sesión</b></button>
-        <button class="w-full my-2 py-3 font-medium lg:text-3xl text-xl"><b>Registrarse</b></button>
+    <section class="w-full bg-firstColor bg-opacity-20 flex border-b-2 overflow-hidden border-firstColor">
+        <button (click)="changeSelectedView(true)" class="{{selectLog}} w-full py-5 border-r-2 border-firstColor font-medium lg:text-3xl text-xl"><b>Iniciar sesión</b></button>
+        <button (click)="changeSelectedView(false)" class="{{selectSign}} w-full py-5 border-l-2 border-firstColor font-medium lg:text-3xl text-xl"><b>Registrarse</b></button>
     </section>
     <section class="w-full h-1/2 py-10 px-5">
-        @if (dataInvalid !== '') {
+        @if (dataInvalid !== '' && dataInvalid[0] !== 'c') {
             <div class="flex justify-center mb-5">
                 <p class="text-red-700 text-xl font-medium mx-auto">{{dataInvalid}}</p>
             </div>
         }
-        <form action="" novalidate [formGroup]="FormLoginData">
-            <label for="" class="font-medium text-2xl">Usuario:</label>
-        <div class="relative my-4">
-            <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="user">
-            <img src="../../../assets/resources/EmailIcon.png"
-            class="absolute right-3 top-3 h-8 w-10"
-            alt="">
-            @if (verifyCC(FormLoginData.value.user) && FormLoginData.value.user !== '') {
-                <p class="font-medium my-1 text-red-700"> Usuario de 5 a 8 Caracteres </p>
-            }
-            @if (verifyHaveSpaces(FormLoginData.value.user) && FormLoginData.value.user !== '') {
-                <p class="font-medium my-1 text-red-700"> Usuario sin espacios </p>
-            }
-        </div>
-        <label for="" class="font-medium text-2xl">Contraseña:</label>
-        <div class="relative my-4">
-            <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
-            <img src="../../../assets/resources/PWIcon.png"
-            class="absolute right-4 top-2 h-10 w-8"
-            alt="">
-            @if (verifyCC(FormLoginData.value.password) && FormLoginData.value.password !== '') {
-                <p class="font-medium my-1 text-red-700"> Contraseña de 5 a 8 Caracteres </p>
-            }
-            @if (verifyHaveSpaces(FormLoginData.value.password) && FormLoginData.value.user !== '') {
-                <p class="font-medium my-1 text-red-700"> Contraseña sin espacios </p>
-            }
-        </div>
-        <div class="flex justify-center">
-            <button 
-                class="bg-secondColor mt-2 text-xl px-5 py-3 border rounded-full font-bold hover:bg-firtsColor"
-                [disabled]="!FormLoginData.valid"
-                (click)="sendLogin()"
-            >
-                Iniciar sesión
-            </button>
-        </div>
-        </form>
+        @if (dataInvalid !== '' && dataInvalid[0] === 'c') {
+            <div class="flex justify-center mb-5">
+                <p class="text-green-600 text-xl font-medium mx-auto">{{dataInvalid}}</p>
+            </div>
+        }
+        @if (authenticate.getLogShow()) {
+            <form action="" novalidate [formGroup]="FormLoginData">
+                <label for="" class="font-medium text-2xl">Usuario:</label>
+                <div class="relative my-4">
+                    <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="user">
+                    <img src="../../../assets/resources/User Photo.png"
+                    class="absolute right-3 top-2 h-10 w-10"
+                    alt="">
+                </div>
+                <label for="" class="font-medium text-2xl">Contraseña:</label>
+                <div class="relative my-4">
+                    <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
+                    <img src="../../../assets/resources/PWIcon.png"
+                    class="absolute right-4 top-2 h-10 w-8"
+                    alt="">
+                </div>
+                <div class="flex justify-center">
+                    <button 
+                        class="bg-secondColor disabled:opacity-70 mt-2 text-xl px-5 py-3 border rounded-full font-bold hover:bg-firstColor"
+                        [disabled]="!FormLoginData.valid"
+                        (click)="sendLogin()"
+                    >
+                        Iniciar sesión
+                    </button>
+                </div>
+            </form>
+        }
+        @if (authenticate.getSignShow()) {
+            <form action="" novalidate [formGroup]="FormSignData">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Primer Nombre</label>
+                        <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="firstName">
+                        @if (setError(FormSignData.value.firstName, '') !== '' && FormSignData.value.firstName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.firstName, '')"></p>
+                        }
+                    </div>
+                    <div>
+                        <label for="" class="font-medium text-2xl">Segundo Nombre</label>
+                        <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="secondName">
+                        @if (setError(FormSignData.value.secondName, '') !== '' && FormSignData.value.secondName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.secondName, '')"></p>
+                        }
+                    </div>
+                    <div>
+                        <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Primer Apellido</label>
+                        <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="firstLastName">
+                        @if (setError(FormSignData.value.firstLastName, '') !== '' && FormSignData.value.firstLastName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.firstLastName, '')"></p>
+                        }
+                    </div>
+                    <div>
+                        <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Segundo Apellido</label>
+                        <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="secondLastName">
+                        @if (setError(FormSignData.value.secondLastName, '') !== '' && FormSignData.value.secondLastName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.secondLastName, '')"></p>
+                        }
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-10/12 mr-3">
+                        <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">N° Identidad:</label>
+                        <div class="relative my-4">
+                            <input type="number" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="NID">
+                        </div>
+                    </div>
+                    <div class="w-2/12">
+                        <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Tipo:</label>
+                        <div class="relative my-4">
+                            <select name="" id="" class="w-full rounded-3xl py-4 pl-5 font-medium" formControlName="typeID">
+                                <option class="font-medium text-xl" value="C.C">C.C</option>
+                                <option class="font-medium text-xl" value="C.E">C.E</option>
+                                <option class="font-medium text-xl" value="NIT">NIT</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">N° Celular:</label>
+                <div class="relative my-4">
+                    <input type="number" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="numberCell">
+                </div>
+                <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Email:</label>
+                <div class="relative my-4">
+                    <input type="email" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="email">
+                    <img src="../../../assets/resources/EmailIcon.png"
+                    class="absolute right-3 top-3 h-8 w-10"
+                    alt="">
+                    @if (setError(FormSignData.value.email, 'e') !== '' && FormSignData.value.email !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.email, 'e')"></p>
+                    }
+                </div>
+                <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Nombre de Usuario:</label>
+                <div class="relative my-4">
+                    <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="userName">
+                    <img src="../../../assets/resources/User Photo.png"
+                    class="absolute right-3 top-2 h-10 w-10"
+                    alt="">
+                    @if (setError(FormSignData.value.userName, 'u') !== '' && FormSignData.value.userName !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.userName, 'u')"></p>
+                    }
+                </div>
+                <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Contraseña:</label>
+                <div class="relative my-4">
+                    <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
+                    <img src="../../../assets/resources/PWIcon.png"
+                    class="absolute right-4 top-2 h-10 w-8"
+                    alt="">
+                    @if (setError(FormSignData.value.password, 'p') !== '' && FormSignData.value.password !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.password, 'p')"></p>
+                    }
+                </div>
+                <div class="flex justify-center">
+                    <button 
+                        class="bg-secondColor disabled:opacity-70 mt-2 text-xl px-5 py-3 border rounded-full font-bold hover:bg-firstColor"
+                        [disabled]="!FormSignData.valid"
+                        (click)="sendSignin()"
+                    >
+                        Registrarse
+                    </button>
+                    
+                </div>
+                <div class="flex justify-center mt-2">
+                    @if(!FormSignData.valid) {
+                        <p class="font-medium text-red-700"> Por Favor, ingrese los datos de forma correcta </p>
+                    }
+                </div>
+            </form>
+        }
     </section>
 </div>

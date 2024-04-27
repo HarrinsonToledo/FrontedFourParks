@@ -12,9 +12,25 @@ import { RouterLink } from '@angular/router';
 export class NarBarComponent {
   changeColorBG!: string;
   changeColorTX!: string;
-  changeBorder!: string;
+  changeBorder!:string;
+
+  img: string = '../../../assets/resources/Login icon.png';
   
-  constructor(public autheticate: AuthenticateState) {
+  constructor(public authenticate: AuthenticateState) {
+  }
+
+  ngOnInit() {
+    
+  }
+
+  over(e: boolean) {
+    this.img = e ? '../../../assets/resources/Login icon.png' : '../../../assets/resources/Login iconWhite.png'
+  }
+
+  ngDoCheck() {
+    this.changeColorBG = this.authenticate.getIsLoginShow() ? 'bg-firstColor min_oculy:bg-opacity-0 bg-opacity-30' : 'bg-firstColor';
+    this.changeColorTX = this.authenticate.getIsLoginShow() ?  'text-firstColor' : 'text-white';
+    this.changeBorder = this.authenticate.getIsLoginShow() ?  'hover:border-firstColor' : 'hover:border-white';
   }
 
   @HostListener('window:resize', ['$event'])
@@ -22,11 +38,23 @@ export class NarBarComponent {
     return window.innerWidth;
   }
 
-  ngDoCheck() {
-    this.changeColorBG = this.autheticate.getIsLoginShow() ? 'bg-firtsColor min_oculy:bg-opacity-0 bg-opacity-30' : 'bg-firtsColor';
-    this.changeColorTX = this.autheticate.getIsLoginShow() ?  'text-firtsColor' : 'text-white';
-    this.changeBorder = this.autheticate.getIsLoginShow() ?  'hover:border-firtsColor' : 'hover:border-white';
+  goPrincipalView() {
+    this.authenticate.setIsLoginShow(false);
+    this.authenticate.setLogShow(false);
+    this.authenticate.setSignShow(false);
   }
+
+  goLogin() {
+    this.authenticate.setIsLoginShow(true);
+    this.authenticate.setLogShow(true);
+    this.authenticate.setSignShow(false);
+  }
+
+  // ngDoCheck() {
+  //   this.changeColorBG = this.authenticate.getIsLoginShow() ? 'bg-firstColor min_oculy:bg-opacity-0 bg-opacity-30' : 'bg-firstColor';
+  //   this.changeColorTX = this.authenticate.getIsLoginShow() ?  'text-firstColor' : 'text-white';
+  //   this.changeBorder = this.authenticate.getIsLoginShow() ?  'hover:border-firstColor' : 'hover:border-white';
+  // }
 
   narvarResponsive() {
     console.log(this.onResize())
