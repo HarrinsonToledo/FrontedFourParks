@@ -13,7 +13,8 @@ module.exports = {
       screens: {
         md: '1200px',
         sc: '1250px',
-        min_oculy: '800px'
+        min_oculy: '800px',
+        cell: '552px'
       },
       colors: {
         firstColor: '#400E32',

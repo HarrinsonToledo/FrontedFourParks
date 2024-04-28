@@ -1,9 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
 import { LoginDataInterface, LoginResponse } from '../../../interfaces/Login';
-import { error } from 'node:console';
 import { SigninDataInterface, SigninResponse } from '../../../interfaces/Signin';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +16,6 @@ export class AuthenticateService {
   }
 
   public ActionSignin(body: SigninDataInterface): Observable<SigninResponse> {
-    return this.http.post<SigninResponse>("https://four-parks-be142f13c4de.herokuapp.com/login",body);
+    return this.http.post<SigninResponse>("https://four-parks-be142f13c4de.herokuapp.com/registrar",body);
   }
 }

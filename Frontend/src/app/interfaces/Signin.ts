@@ -3,9 +3,9 @@ export interface SigninDataInterface {
     secondName: string,
     firstLastName: string,
     secondLastName: string,
-    NID: number,
+    NID: string,
     typeID: string,
-    numberCell: number,
+    numberCell: string,
     email: string,
     userName: string,
     password: string

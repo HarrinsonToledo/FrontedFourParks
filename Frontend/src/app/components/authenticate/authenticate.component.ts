@@ -21,6 +21,7 @@ export class AuthenticateComponent {
   infoLogin!: LoginDataInterface;
   infoSignin!: SigninDataInterface;
   dataInvalid: string = '';
+  status: boolean = false;
 
   selectLog!: string;
   selectSign!: string;
@@ -55,6 +56,9 @@ export class AuthenticateComponent {
       this.authenticate.setLogShow(false);
       this.authenticate.setSignShow(true);
     }
+
+    this.status = false;
+    this.dataInvalid = '';
   }
 
   createForms() {
@@ -80,15 +84,17 @@ export class AuthenticateComponent {
   sendLogin() {
     this.infoLogin = {
       user: this.FormLoginData.value.user,
-      password: this.FormLoginData.value.password
+      password: sha1.sha1(this.FormLoginData.value.password)
     }
 
     this.AuService.ActionLogin(this.infoLogin).subscribe({
       next: Response => {
         this.dataInvalid = Response.mensaje
+        this.status = false;
       },
       error: Error => {
         this.dataInvalid = Error.error.mensaje;
+        this.status = true;
       }
     })
   }
@@ -99,15 +105,24 @@ export class AuthenticateComponent {
       secondName: this.FormSignData.value.secondName,
       firstLastName: this.FormSignData.value.firstLastName,
       secondLastName: this.FormSignData.value.secondLastName,
-      NID: this.FormSignData.value.NID,
+      NID: String(this.FormSignData.value.NID),
       typeID: this.FormSignData.value.typeID,
-      numberCell: this.FormSignData.value.numberCell,
+      numberCell: String(this.FormSignData.value.numberCell),
       email: this.FormSignData.value.email,
       userName: this.FormSignData.value.userName,
       password: sha1.sha1(this.FormSignData.value.password)
     }
 
-    console.log(this.infoSignin)
+    this.AuService.ActionSignin(this.infoSignin).subscribe({
+      next: Response => {
+        this.dataInvalid = Response.message;
+        this.status = false;
+      },
+      error: Error => {
+        this.dataInvalid = Error.error.message;
+        this.status = true;
+      }
+    })
   }
 
   customValidator(type: string): ValidatorFn {
