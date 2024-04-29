@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        '300': '300ms'
+      },
       fontFamily: {
         impact: ['Impact', 'sans']
       },

@@ -1,5 +1,8 @@
 .bgprincipal {
     background-image: url("../assets/resources/BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 body {
