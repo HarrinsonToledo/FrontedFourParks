@@ -2,43 +2,43 @@
     <div class="mt-10 mx-auto">
         <img src="../../../assets/resources/User Photo.png" class="mx-auto w-14" alt="">
         @if (view) {
-            <p class="font-medium text-xl text-white" >Nombre de Usuario</p>
+            <p class="font-medium min_oculy:text-xl text-sm text-white" >Nombre de Usuario</p>
         }
     </div>
     <div class="mb-4 mx-auto">
         <a href="" class="my-6 flex" (mouseover)="location = 'Location Icon.png'" (mouseout)="location = 'Location IconWhite.png'">
             <img src="../../../assets/resources/{{location}}" class="w-6 mx-5" alt="">
             @if (view) {
-                <p class="font-medium text-xl text-white hover:text-secondColor" >Reservar Parqueadero</p>
+                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Reservar Parqueadero</p>
             }
         </a>
         <a href="" class="my-6 flex" (mouseover)="car = 'CarIconYellow.png'" (mouseout)="car = 'CarIcon.png'">
             <img src="../../../assets/resources/{{car}}" class="w-8 mx-4" alt="">
             @if (view) {
-                <p class="font-medium text-xl text-white hover:text-secondColor" >Mis Reservas</p>
+                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Reservas</p>
             }
         </a>
         <a href="" class="my-6 flex" (mouseover)="histo = 'HistorialIconYellow.png'" (mouseout)="histo = 'HistorialIcon.png'">
             <img src="../../../assets/resources/{{histo}}" class="w-8 mx-4" alt="">
             @if (view) {
-                <p class="font-medium text-xl text-white hover:text-secondColor" >Historial</p>
+                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Historial</p>
             }
         </a>
         <a href="" class="my-6 flex" (mouseover)="data = 'DataIconYellow.png'" (mouseout)="data = 'DataIcon.png'">
             <img src="../../../assets/resources/{{data}}" class="w-8 mx-4" alt="">
             @if (view) {
-                <p class="font-medium text-xl text-white hover:text-secondColor" >Mis Datos</p>
+                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
             }
         </a>
         <a href="" class="my-6 flex" (mouseover)="log = 'LogOutIconYellow.png'" (mouseout)="log = 'LogOutIcon.png'">
             <img src="../../../assets/resources/{{log}}" class="w-8 mx-4" alt="">
             @if (view) {
-                <p class="font-medium text-xl text-white hover:text-secondColor" >Cerrar Sesión</p>
+                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Cerrar Sesión</p>
             }
         </a>
     </div>
     <div class="mx-auto">
-        <img src="https://static-cse.canva.com/blob/951768/1650logotiposqueteinspiraran.png" class="w-16 h-16 my-10 rounded-full border-2 border-secondColor" alt="">
+        <img src="../../../assets/resources/Logo/{{logo}}" class="{{logoStyle}}" alt="">
         <img src="../../../assets/resources/{{arrow}}" class="w-12 my-10 mx-auto" (click)="view = !view" alt="">
     </div>
 </div>

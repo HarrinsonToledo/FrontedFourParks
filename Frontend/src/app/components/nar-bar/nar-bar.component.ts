@@ -56,7 +56,4 @@ export class NarBarComponent {
   //   this.changeBorder = this.authenticate.getIsLoginShow() ?  'hover:border-firstColor' : 'hover:border-white';
   // }
 
-  narvarResponsive() {
-    console.log(this.onResize())
-  }
 }
