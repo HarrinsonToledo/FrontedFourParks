@@ -7,28 +7,35 @@ import { NarBarComponent } from '../nar-bar/nar-bar.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SigninDataInterface } from '../../interfaces/Signin';
 import * as sha1 from 'js-sha1'
+import { Router } from '@angular/router';
+import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-authenticate',
   standalone: true,
-  imports: [ReactiveFormsModule, NarBarComponent],
+  imports: [ReactiveFormsModule, NarBarComponent, RecaptchaV3Module],
   templateUrl: './authenticate.component.html',
   styleUrl: './authenticate.component.css'
 })
 export class AuthenticateComponent {
-  FormLoginData!: FormGroup;
-  FormSignData!: FormGroup;
-  infoLogin!: LoginDataInterface;
-  infoSignin!: SigninDataInterface;
+  protected FormLoginData!: FormGroup;
+  protected FormSignData!: FormGroup;
+  protected infoLogin!: LoginDataInterface;
+  protected infoSignin!: SigninDataInterface;
   dataInvalid: string = '';
   status: boolean = false;
+
+  siteKey: string;
 
   selectLog!: string;
   selectSign!: string;
 
   constructor(private form: FormBuilder, private AuService: AuthenticateService, public authenticate: AuthenticateState,
-      private cookieService: CookieService
+      private cookieService: CookieService, private root: Router, private recatchap: ReCaptchaV3Service
   ) {
+    this.siteKey = environment.siteKey;
+
     this.authenticate.setIsLoginShow(true);
     this.authenticate.setLogShow(this.cookieService.get('loginState') === 'true' ? true : false);
     this.authenticate.setSignShow(this.cookieService.get('signState') === 'true' ? true : false);
@@ -64,7 +71,8 @@ export class AuthenticateComponent {
   createForms() {
     this.FormLoginData = this.form.group({
       user: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      recaptcha: ['', Validators.required]
     })
 
     this.FormSignData = this.form.group({
@@ -91,12 +99,17 @@ export class AuthenticateComponent {
       next: Response => {
         this.dataInvalid = Response.mensaje
         this.status = false;
+
+        this.AuService.cookieSession(this.infoLogin.user, this.infoLogin.password);
+        this.root.navigate(['/userInterface'])
       },
       error: Error => {
         this.dataInvalid = Error.error.mensaje;
         this.status = true;
       }
     })
+
+    this.recatchap.execute('importantAction').subscribe((token) =>{})
   }
 
   sendSignin() {
@@ -117,6 +130,11 @@ export class AuthenticateComponent {
       next: Response => {
         this.dataInvalid = Response.message;
         this.status = false;
+
+        this.AuService.cookieSession(this.infoSignin.userName, this.infoSignin.password);
+        setTimeout(() => {
+        }, 2000)
+        this.root.navigate(['/userInterface']);
       },
       error: Error => {
         this.dataInvalid = Error.error.message;

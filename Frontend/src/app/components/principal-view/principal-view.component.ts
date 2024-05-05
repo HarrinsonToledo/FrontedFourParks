@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { RouterLink } from '@angular/router';
 import { NarBarComponent } from '../nar-bar/nar-bar.component';
-import { NewsapicolombiaService } from '../../core/services/newapi/newsapicolombia.service';
 import { NewsInterface } from '../../interfaces/News';
 
 @Component({
@@ -16,17 +15,12 @@ export class PrincipalViewComponent {
 
   newsColombia!: NewsInterface;
 
-  constructor(private authenticate: AuthenticateState, private news: NewsapicolombiaService) {
+  constructor(private authenticate: AuthenticateState) {
     
   }
 
   ngOnInit() {
-    this.news.getInfoNews().subscribe({
-      next: Response => {
-        this.newsColombia = Response;
-        this.newsColombia.articles = this.newsColombia.articles.slice(0,9)
-      }
-    })
+    
   }
 
   goSign() {

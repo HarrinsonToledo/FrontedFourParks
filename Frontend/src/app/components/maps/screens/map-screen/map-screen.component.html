@@ -1,0 +1,5 @@
+<app-loading *ngIf="!isUserLocationReady; else mapReady"></app-loading>
+<ng-template #mapReady>
+    <app-btn-my-location class="absolute z-10"></app-btn-my-location>
+    <app-map-view></app-map-view>
+</ng-template>

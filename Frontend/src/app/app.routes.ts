@@ -4,8 +4,7 @@ import { AuthenticateComponent } from './components/authenticate/authenticate.co
 import { UserInterfaceComponent } from './components/user-interface/user-interface.component';
 
 export const routes: Routes = [
-    {path: 'a', component: PrincipalViewComponent},
+    {path: '', component: PrincipalViewComponent},
     {path: 'authentication', component: AuthenticateComponent},
-    {path: '', component: UserInterfaceComponent}
-    // {path: 'userInterface', component: UserInterfaceComponent}
+    {path: 'userInterface', component: UserInterfaceComponent}
 ];

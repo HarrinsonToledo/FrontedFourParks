@@ -1,0 +1,9 @@
+<div class="w-full h-full relative">
+    <input type="text" 
+    class="w-full h-12 border-4 border-firstColor rounded-2xl pl-2 font-medium text-xl" 
+    placeholder="Buscar lugar..."
+    #txtQuery
+    (keyup)="onQueryChanged(txtQuery.value)"
+    >
+    <app-search-results class="absolute top-10 left-0 w-full"></app-search-results>
+</div>
