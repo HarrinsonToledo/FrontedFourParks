@@ -72,7 +72,6 @@ export class AuthenticateComponent {
     this.FormLoginData = this.form.group({
       user: ['', Validators.required],
       password: ['', Validators.required],
-      recaptcha: ['', Validators.required]
     })
 
     this.FormSignData = this.form.group({
