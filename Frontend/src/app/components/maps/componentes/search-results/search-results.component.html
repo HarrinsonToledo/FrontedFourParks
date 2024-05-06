@@ -8,7 +8,6 @@
     </div>
   </div>
 <ul class="mt-2 relative z-20" *ngIf="places.length>0">
-
     <li *ngFor="let place of places" class="bg-white shadow-xl shadow-black cursor-pointer p-2 font-medium"
         [class.active]="place.id===selectedId" (click)="flyTo(place)">
         <h6>{{place.text_es}}</h6>
@@ -18,6 +17,5 @@
         [ngClass]="(place.id===selectedId) ? 'btn-outline-ligh':'btn-outline-primary'">
             Direcciones
         </button>
-
     </li>
 </ul>
