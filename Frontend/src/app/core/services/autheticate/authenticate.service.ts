@@ -23,10 +23,10 @@ export class AuthenticateService {
   }
 
   public ActionLogin(body: LoginDataInterface): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiAuthen}\login`,body);
+    return this.http.post<LoginResponse>(`${environment.apiAuthen}/login`,body);
   }
 
   public ActionSignin(body: SigninDataInterface): Observable<SigninResponse> {
-    return this.http.post<SigninResponse>(`${environment.apiAuthen}\registrar`,body);
+    return this.http.post<SigninResponse>(`${environment.apiAuthen}/registrar`,body);
   }
 }
