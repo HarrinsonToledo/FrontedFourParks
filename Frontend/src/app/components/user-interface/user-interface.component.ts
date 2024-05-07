@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { ParkingServices } from '../../core/services/parking/parking.service';
 import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
+import { MapService, PlacesService } from '../maps/servicios';
 
 @Component({
   selector: 'app-user-interface',
@@ -31,14 +32,14 @@ export class UserInterfaceComponent {
   public user!: string;
 
   constructor(private cookieService: CookieService, private root: Router, private autheticate: AuthenticateState,
-    private parkingService: ParkingServices
+    private parkingService: ParkingServices, private mapService: MapService, private placeService: PlacesService
   ) {
-    // if(cookieService.check('session')) {
-    //   let cache = cookieService.get('session').split('|');
-    //   this.user = cache[0];
-    // } else {
-    //   root.navigate(['/'])
-    // }
+    if(cookieService.check('session')) {
+      let cache = cookieService.get('session').split('|');
+      this.user = cache[0];
+    } else {
+      root.navigate(['/'])
+    }
   }
 
   ngOnInit() {
@@ -68,8 +69,35 @@ export class UserInterfaceComponent {
     this.logo = this.view ? 'LOGOBL.png' : 'LOGOLocation.png';
   }
 
+  filterCity(city: Event) {
+    let c = <HTMLSelectElement>city.target
+    this.parkingService.getParking().subscribe({
+      next: Response => {
+        this.parking = Response;
+      },
+      error: Error => {
+
+      }
+    })
+    this.parking = this.parking.filter(p => p.ciudad === c.value)
+  }
+
+  flyTo(park: infoParking) {
+    const [lng, lat] = [park.longitud, park.latitud]
+    this.mapService.flyTo([lng, lat])
+    this.mapService.createMarkersFromPark(park);
+  }
+
   clearCookies() {
     this.autheticate.setIsLoginShow(false);
     this.cookieService.deleteAll();
+  }
+
+  routePark(park: infoParking) {
+    if(!this.placeService.useLocation) throw Error('No hay userLocation');
+    const start=this.placeService.useLocation;
+    const end = [park.longitud, park.latitud] as [number, number];
+
+    this.mapService.getRouteBetweenPoints(start,end);
   }
 }

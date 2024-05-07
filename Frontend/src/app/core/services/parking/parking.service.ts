@@ -17,7 +17,7 @@ export class ParkingServices {
     }
 
     public getParking(): Observable<Array<infoParking>>  {
-        return this.http.get<Array<infoParking>>(`${environment.apiReser}/parqueaderos`);
+        return this.http.get<Array<infoParking>>(`${environment.apiReser}/parqueaderosCiudad`);
     }
 
     public getParkingCity(city: string): Observable<Array<infoParking>> {

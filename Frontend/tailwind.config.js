@@ -20,6 +20,9 @@ module.exports = {
       colors: {
         firstColor: '#400E32',
         secondColor: '#F8DE22'
+      },
+      height: {
+        'h-90-h': '90%'
       }
     },
   },

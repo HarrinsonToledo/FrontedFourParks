@@ -16,6 +16,7 @@ export interface infoParking {
     longitud: number,
     codGerente: string,
     tipoParqueadero: string,
-    codCiudad: string,
-    codTarifa: string
+    ciudad: string,
+    codTarifa: string,
+    numPuestos: number
 }

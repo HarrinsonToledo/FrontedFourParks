@@ -10,6 +10,7 @@ import {
 import { Feature } from '../interfaces/places';
 import { DirectionsApiClient } from '../api';
 import { DirectionsResponse, Route } from '../interfaces/directions';
+import { infoParking } from '../../../interfaces/Paqueaderos';
 @Injectable({
   providedIn: 'root',
 })
@@ -56,6 +57,32 @@ export class MapService {
     this.markers = newMarkers;
 
     if (places.length === 0) return;
+
+
+    //Borrar linea si no se toca el boton
+     if(this.map.getLayer('RouteString')){
+       this.map.removeLayer('RouteString');
+       this.map.removeSource('RouteString');
+     }
+  }
+
+  createMarkersFromPark(park: infoParking) {
+    if (!this.map) throw Error('Mapa no inicializado');
+
+    this.markers.forEach((marker) => marker.remove());
+    const newMarkers = [];
+
+      const [lng, lat] = [park.longitud, park.latitud];
+
+      const popup = new Popup().setHTML(`<h6>${park.nombre}</h6>
+      <span>${park.direccion}</span>`);
+
+      const newMarker = new Marker()
+        .setLngLat([lng, lat])
+        .setPopup(popup)
+        .addTo(this.map);
+      newMarkers.unshift(newMarker);
+    this.markers = newMarkers;
 
 
     //Borrar linea si no se toca el boton
