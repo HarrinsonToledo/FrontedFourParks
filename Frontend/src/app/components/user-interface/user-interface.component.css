@@ -1,0 +1,9 @@
+.h-inh {
+    height: inherit;
+}
+
+@media (max-width: 800px) {
+    .max-screen {
+        position: fixed;
+    }
+}

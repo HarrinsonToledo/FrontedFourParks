@@ -1,28 +1,64 @@
 import { Component } from '@angular/core';
 import { MapScreenComponent } from '../maps/screens/map-screen/map-screen.component';
 import { SearchBarComponent } from '../maps/componentes/search-bar/search-bar.component';
+import { CookieService } from 'ngx-cookie-service';
+import { Router, RouterLink } from '@angular/router';
+import { AuthenticateState } from '../../core/class/AuthenticateState';
+import { ParkingServices } from '../../core/services/parking/parking.service';
+import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
 
 @Component({
   selector: 'app-user-interface',
   standalone: true,
-  imports: [MapScreenComponent, SearchBarComponent],
+  imports: [MapScreenComponent, SearchBarComponent, RouterLink],
   templateUrl: './user-interface.component.html',
   styleUrl: './user-interface.component.css'
 })
 export class UserInterfaceComponent {
-  w: string = 'w-20';
-  view: boolean = false;
-  arrow: string = 'arrowBarInv.png';
-  location: string = 'Location IconWhite.png';
-  car: string = 'CarIcon.png';
-  histo: string = 'HistorialIcon.png';
-  data: string = 'DataIcon.png';
-  log: string = 'LogOutIcon.png';
-  logo: string = ''
-  logoStyle: string = 'w-16 h-16 my-10 rounded-full';
+  public w: string = 'w-20';
+  public view: boolean = false;
+  public arrow: string = 'arrowBarInv.png';
+  public location: string = 'Location IconWhite.png';
+  public car: string = 'CarIcon.png';
+  public histo: string = 'HistorialIcon.png';
+  public data: string = 'DataIcon.png';
+  public log: string = 'LogOutIcon.png';
+  public logo: string = ''
+  public logoStyle: string = 'w-16 h-16 my-10 rounded-full';
 
-  constructor() {
+  public cities!: Array<infoCities>; 
+  public parking!: Array<infoParking>;
+  public user!: string;
 
+  constructor(private cookieService: CookieService, private root: Router, private autheticate: AuthenticateState,
+    private parkingService: ParkingServices
+  ) {
+    // if(cookieService.check('session')) {
+    //   let cache = cookieService.get('session').split('|');
+    //   this.user = cache[0];
+    // } else {
+    //   root.navigate(['/'])
+    // }
+  }
+
+  ngOnInit() {
+    this.parkingService.getCities().subscribe({
+      next: Response => {
+        this.cities = Response;
+      },
+      error: Error => {
+
+      }
+    })
+
+    this.parkingService.getParking().subscribe({
+      next: Response => {
+        this.parking = Response;
+      },
+      error: Error => {
+
+      }
+    })
   }
 
   ngDoCheck() {
@@ -30,5 +66,10 @@ export class UserInterfaceComponent {
     this.arrow = this.view ? 'arrowBar.png' : 'arrowBarInv.png';
     this.logoStyle = this.view ? 'w-3/5 my-10 rounded-xl mx-auto p-1 border-2 border-white' : 'w-12 my-10 rounded-full';
     this.logo = this.view ? 'LOGOBL.png' : 'LOGOLocation.png';
+  }
+
+  clearCookies() {
+    this.autheticate.setIsLoginShow(false);
+    this.cookieService.deleteAll();
   }
 }

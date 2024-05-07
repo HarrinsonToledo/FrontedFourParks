@@ -20,7 +20,7 @@ export class PrincipalViewComponent {
   }
 
   ngOnInit() {
-    
+    this.authenticate.setIsLoginShow(false)
   }
 
   goSign() {
