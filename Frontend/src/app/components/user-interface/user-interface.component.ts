@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MapScreenComponent } from '../maps/screens/map-screen/map-screen.component';
 import { SearchBarComponent } from '../maps/componentes/search-bar/search-bar.component';
 import { CookieService } from 'ngx-cookie-service';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { ParkingServices } from '../../core/services/parking/parking.service';
 import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
@@ -11,7 +11,7 @@ import { MapService, PlacesService } from '../maps/servicios';
 @Component({
   selector: 'app-user-interface',
   standalone: true,
-  imports: [MapScreenComponent, SearchBarComponent, RouterLink],
+  imports: [MapScreenComponent, SearchBarComponent, RouterLink, RouterModule],
   templateUrl: './user-interface.component.html',
   styleUrl: './user-interface.component.css'
 })
@@ -74,12 +74,12 @@ export class UserInterfaceComponent {
     this.parkingService.getParking().subscribe({
       next: Response => {
         this.parking = Response;
+        this.parking = this.parking.filter(p => p.ciudad === c.value)
       },
       error: Error => {
 
       }
     })
-    this.parking = this.parking.filter(p => p.ciudad === c.value)
   }
 
   flyTo(park: infoParking) {

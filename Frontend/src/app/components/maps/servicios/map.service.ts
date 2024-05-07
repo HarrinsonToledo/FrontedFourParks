@@ -97,6 +97,7 @@ export class MapService {
       .get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
       .subscribe((resp) => this.drawPolyLine(resp.routes[0]));
   }
+
   private drawPolyLine(route: Route) {
     console.log({ kms: route.distance / 1000, duration: route.duration / 60 });
 
@@ -108,7 +109,7 @@ export class MapService {
     });
 
     this.map?.fitBounds(bounds, {
-      padding: 200,
+      padding: 20,
     });
 
     const sourceData: AnySourceData = {
