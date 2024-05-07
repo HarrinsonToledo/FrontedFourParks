@@ -5,10 +5,9 @@ import { isPlatformBrowser } from '@angular/common';
 import { MapService } from './map.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PlacesService {
-
   public useLocation?: [number, number];
 
   public isLoadingPlaces: boolean = false;
@@ -19,7 +18,11 @@ export class PlacesService {
     return !!this.useLocation;
   }
 
-  constructor(private placesApi: PlacesApiClient, @Inject(PLATFORM_ID) private platformId: Object, private mapService: MapService) {
+  constructor(
+    private placesApi: PlacesApiClient,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private mapService: MapService
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       this.getUserLocation();
     }
@@ -27,41 +30,42 @@ export class PlacesService {
 
   public setPlaceSelected(place: Feature) {
     this.placeSelect = place;
-    this.mapService.createMarkersFromPlaces([this.placeSelect])
+    this.mapService.createMarkersFromPlaces(
+      [this.placeSelect],
+      this.useLocation!
+    );
   }
 
   public async getUserLocation(): Promise<[number, number]> {
     return new Promise((resolve, reject) => {
-
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
           this.useLocation = [coords.longitude, coords.latitude];
-          resolve(this.useLocation)
+          resolve(this.useLocation);
         },
         (err) => {
           console.log(err);
         }
       );
-
     });
   }
 
-
   getPlacesByquery(query: string = '') {
     //evaluar query nulo
-    if(query.length===0){
-      this.places=[]
-      this.isLoadingPlaces=false;
-      return
+    if (query.length === 0) {
+      this.places = [];
+      this.isLoadingPlaces = false;
+      return;
     }
     if (!this.useLocation) throw Error('No hay user location');
     this.isLoadingPlaces = true;
-    this.placesApi.get<PlacesResponse>(`/${query}.json`, {
-      params: {
-        proximity: this.useLocation.join(',')
-      }
-    })
-      .subscribe(resp => {
+    this.placesApi
+      .get<PlacesResponse>(`/${query}.json`, {
+        params: {
+          proximity: this.useLocation.join(','),
+        },
+      })
+      .subscribe((resp) => {
         this.isLoadingPlaces = false;
         this.places = resp.features;
       });

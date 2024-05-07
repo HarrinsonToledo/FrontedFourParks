@@ -8,14 +8,15 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.css',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass]
+  imports: [NgIf, NgFor, NgClass],
 })
 export class SearchResultsComponent {
-  public selectedId: string = "";
+  public selectedId: string = '';
 
-  constructor(private placesService: PlacesService,
-    private mapService: MapService,
-  ) { }
+  constructor(
+    private placesService: PlacesService,
+    private mapService: MapService
+  ) {}
 
   get isLoadingPlaces(): boolean {
     return this.placesService.isLoadingPlaces;
@@ -31,5 +32,13 @@ export class SearchResultsComponent {
     this.mapService.flyTo([lng, lat]);
     this.placesService.setPlaceSelected(place);
     this.placesService.places = [];
+  }
+  getDirections(place: Feature) {
+
+    if(!this.placesService.useLocation) throw Error('No hay userLocation');
+    const start=this.placesService.useLocation;
+    const end= place.center as [number, number];
+
+    this.mapService.getRouteBetweenPoints(start,end);
   }
 }
