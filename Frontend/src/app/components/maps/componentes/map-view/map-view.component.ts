@@ -32,10 +32,11 @@ export class MapViewComponent implements AfterViewInit {
   <h6>Ubicación actual</h6>
   <span>Estoy acá</span>`);
 
-    new Marker({ color: 'ref' })
+    new Marker({ color: 'red' })
       .setLngLat(this.placeService.useLocation)
       .setPopup(popup)
       .addTo(map)
+      
 
       this.mapService.setMap(map);
   }
