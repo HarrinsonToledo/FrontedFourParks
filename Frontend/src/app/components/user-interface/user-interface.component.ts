@@ -7,11 +7,12 @@ import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { ParkingServices } from '../../core/services/parking/parking.service';
 import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
 import { MapService, PlacesService } from '../maps/servicios';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-user-interface',
   standalone: true,
-  imports: [MapScreenComponent, SearchBarComponent, RouterLink, RouterModule],
+  imports: [MapScreenComponent, SidebarComponent,SearchBarComponent, RouterLink, RouterModule],
   templateUrl: './user-interface.component.html',
   styleUrl: './user-interface.component.css',
 })
@@ -78,7 +79,7 @@ export class UserInterfaceComponent {
       next: (Response) => {
         this.parking = Response;
         this.parking = this.parking.filter((p) => p.ciudad === c.value);
-        this.mapService.createMarkersForAllParks(this.parking);
+        this.mapService.createMarkersForAllParks(this.parking)
       },
       error: (Error) => {},
     });
