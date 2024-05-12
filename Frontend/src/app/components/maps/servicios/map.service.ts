@@ -88,6 +88,13 @@ export class MapService {
     }
     this.markers = newMarkers;
 
+
+    const bounds= new LngLatBounds;
+    newMarkers.forEach((marker) =>bounds. extend(marker.getLngLat()));
+    this.map.fitBounds(bounds, {
+      padding: 50,
+    });
+
     //Borrar linea si no se toca el boton
     if (this.map.getLayer('RouteString')) {
       this.map.removeLayer('RouteString');
