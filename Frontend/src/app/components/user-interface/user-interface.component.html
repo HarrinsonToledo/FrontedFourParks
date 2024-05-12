@@ -1,49 +1,5 @@
 <div class="max-screen w-full top-0 min-h-screen left-0 flex">
-    <div id="sidebar" class=" bg-firstColor transition-width duration-300 {{w}} flex-shrink-0 flex flex-col justify-between">
-        <div class="mt-10 mx-auto">
-            <img src="../../../assets/resources/User Photo.png" class="mx-auto w-14" alt="">
-            @if (view) {
-                <p class="font-medium min_oculy:text-xl text-sm text-white text-center" >{{user}}</p>
-            }
-        </div>
-        <div class="mb-4 mx-auto">
-            <a routerLink="" class="my-6 flex" (mouseover)="location = 'Location Icon.png'" (mouseout)="location = 'Location IconWhite.png'">
-                <img src="../../../assets/resources/{{location}}" class="w-6 mx-5 aspect-auto" alt="">
-                @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Reservar Parqueadero</p>
-                }
-            </a>
-            <a routerLink="" class="my-6 flex" (mouseover)="car = 'CarIconYellow.png'" (mouseout)="car = 'CarIcon.png'">
-                <img src="../../../assets/resources/{{car}}" class="w-8 mx-4 aspect-auto" alt="">
-                @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Reservas</p>
-                }
-            </a>
-            <a routerLink="" class="my-6 flex" (mouseover)="histo = 'HistorialIconYellow.png'" (mouseout)="histo = 'HistorialIcon.png'">
-                <img src="../../../assets/resources/{{histo}}" class="w-8 mx-4 aspect-auto" alt="">
-                @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Historial</p>
-                }
-            </a>
-            <a routerLink="" class="my-6 flex" (mouseover)="data = 'DataIconYellow.png'" (mouseout)="data = 'DataIcon.png'">
-                <img src="../../../assets/resources/{{data}}" class="w-8 mx-4 aspect-auto" alt="">
-                @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
-                }
-            </a>
-            <a routerLink="/" (click)="clearCookies()" class="my-6 flex" (mouseover)="log = 'LogOutIconYellow.png'" (mouseout)="log = 'LogOutIcon.png'">
-                <img src="../../../assets/resources/{{log}}" class="w-8 mx-4 aspect-auto" alt="">
-                @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Cerrar Sesión</p>
-                }
-            </a>
-        </div>
-        <div class="mx-auto">
-            <img src="../../../assets/resources/Logo/{{logo}}" class="{{logoStyle}}" alt="">    
-            <img src="../../../assets/resources/{{arrow}}" class="w-12 my-10 mx-auto" (click)="view = !view" alt="">
-        </div>
-    </div>
-    <img src="../../../assets/resources/formas.png" class="min_oculy:block hidden fixed bottom-6 right-4 w-7" alt="">
+    <app-sidebar class="min-h-screen"></app-sidebar>
     <div class="w-full max-h-screen min_oculy:p-10 p-2 flex flex-col">
         <section class="w-full grid min_oculy:grid-cols-3 min_oculy:gap-7 gap-3 min_oculy:p-6 p-4 bg-white rounded-xl shadow-md shadow-black align-middle">
             <p class="min_oculy:text-3xl m-auto text-center w-full text-xl font-impact">Encuentra tu estacionamiento ideal:</p>

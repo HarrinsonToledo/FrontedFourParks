@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, DoCheck, HostListener, OnInit } from '@angular/core';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { RouterLink } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nar-bar.component.html',
   styleUrl: './nar-bar.component.css'
 })
-export class NarBarComponent {
+export class NarBarComponent implements OnInit, DoCheck {
   changeColorBG!: string;
   changeColorTX!: string;
   changeBorder!:string;

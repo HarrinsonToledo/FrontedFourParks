@@ -1,5 +1,6 @@
 export interface NewsInterface {
-    status: string,
-    articles: Array<any>,
-    totalResults: number
+    anuncioId: number,
+    contenido: string,
+    titulo: string,
+    img: string
 }

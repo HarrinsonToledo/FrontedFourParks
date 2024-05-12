@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { LoginDataInterface } from '../../interfaces/Login';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './authenticate.component.html',
   styleUrl: './authenticate.component.css'
 })
-export class AuthenticateComponent {
+export class AuthenticateComponent implements OnInit, DoCheck {
   protected FormLoginData!: FormGroup;
   protected FormSignData!: FormGroup;
   protected infoLogin!: LoginDataInterface;
