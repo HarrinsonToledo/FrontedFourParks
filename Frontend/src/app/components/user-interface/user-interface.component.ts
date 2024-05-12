@@ -61,8 +61,8 @@ export class UserInterfaceComponent {
         this.parking = Response;
         if (c.value !== "Seleccionar") {
           this.parking = this.parking.filter((p) => p.ciudad === c.value);
+          this.mapService.createMarkersForAllParks(this.parking)
         }
-        this.mapService.createMarkersForAllParks(this.parking)
       },
       error: (Error) => {},
     });

@@ -8,8 +8,8 @@
                 <legend class="text-firstColor bg-white text-base font-medium absolute left-2">Ciudad:</legend>
                 <img src="../../../assets/resources/Location IconMorado.png" class="w-6 absolute top-5 left-2" alt="">
                 <select (change)="filterCity($event)" class="w-full mt-3 h-12 border-2 rounded-2xl text-lg text-firstColor font-medium border-firstColor pl-10" name="" id="">
-                    <option value="" selected>Seleccionar</option>
                     @for (city of cities; track $index) {<option [value]="city.nombre" selected>{{city.nombre}}</option>}
+                    <option value="Seleccionar" selected>Seleccionar</option>
                 </select>
             </fieldset>
         </section>
