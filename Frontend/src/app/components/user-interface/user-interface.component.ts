@@ -59,7 +59,9 @@ export class UserInterfaceComponent {
     this.parkingService.getParking().subscribe({
       next: (Response) => {
         this.parking = Response;
-        this.parking = this.parking.filter((p) => p.ciudad === c.value);
+        if (c.value !== "Seleccionar") {
+          this.parking = this.parking.filter((p) => p.ciudad === c.value);
+        }
         this.mapService.createMarkersForAllParks(this.parking)
       },
       error: (Error) => {},
