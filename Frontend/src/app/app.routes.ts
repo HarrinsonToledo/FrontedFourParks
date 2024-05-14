@@ -6,11 +6,13 @@ import { MyReservationsComponent } from './components/my-reservations/my-reserva
 import { MyDataComponent } from './components/my-data/my-data.component';
 import { ServicesComponent } from './components/p-view/services/services.component';
 import { WeViewComponent } from './components/p-view/we-view/we-view.component';
+import { ContactsComponent } from './components/p-view/contacts/contacts.component';
 
 export const routes: Routes = [
     {path: '', component: PrincipalViewComponent},
     {path: 'services', component: ServicesComponent},
     {path: 'us', component: WeViewComponent},
+    {path: 'contacts', component: ContactsComponent},
     {path: 'authentication', component: AuthenticateComponent},
     {path: 'userInterface', component: UserInterfaceComponent},
     {path: 'myReservations', component: MyReservationsComponent},
