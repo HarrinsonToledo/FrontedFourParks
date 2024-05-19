@@ -1,44 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { ParkingServices } from '../../core/services/parking/parking.service';
 import { CookieService } from 'ngx-cookie-service';
 import { InfoCard, InfoUser } from '../../interfaces/User';
+import { Customer } from '../../core/class/Customer';
+import { UpdateDataModalComponent } from '../modals/update-data-modal/update-data-modal.component';
 
 @Component({
   selector: 'app-my-data',
   standalone: true,
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, UpdateDataModalComponent],
   templateUrl: './my-data.component.html',
   styleUrl: './my-data.component.css'
 })
-export class MyDataComponent implements OnInit {
-  public userCookie: string = '';
+export class MyDataComponent implements OnInit, DoCheck {
   public userData!: InfoUser;
   public cardsData!: Array<InfoCard>;
+  public show: boolean[] = [this.customer.showUpdateData, this.customer.showUpdatePassword];
 
-  constructor(private parkingService: ParkingServices, private cookiesService: CookieService) {
-    if (cookiesService.check('session')) {
-      this.userCookie = cookiesService.get('session').split('|')[0];
-    }
+  constructor(
+    public customer: Customer, 
+    private cookiesService: CookieService
+  ) {
+    
   }
 
   ngOnInit() {
-    this.parkingService.getDataUser(this.userCookie).subscribe({
-      next: Response => {
-        this.userData = Response;
-        this.parkingService.getCards(this.userData.K_NUM_DOCUMENTO, this.userData.I_TIPO_DOC).subscribe({
-          next: Response => {
-            this.cardsData = Response;
-            console.log(this.cardsData)
-          },
-          error: Error => {
-            console.log(Error)
-          }
-        })
-      },
-      error: Error => {
-        console.log(Error)
-      }
-    })
+    this.userData = this.customer.getInfo();
+    this.cardsData = this.customer.getCards();
   }
+  ngDoCheck() {
+    this.userData = this.customer.getInfo();
+    this.cardsData = this.customer.getCards();
+    this.show = [this.customer.showUpdateData, this.customer.showUpdatePassword];
+  }
+
+
 }

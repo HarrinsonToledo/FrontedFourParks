@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { MapScreenComponent } from '../maps/screens/map-screen/map-screen.component';
 import { SearchBarComponent } from '../maps/componentes/search-bar/search-bar.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,19 +8,22 @@ import { ParkingServices } from '../../core/services/parking/parking.service';
 import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
 import { MapService, PlacesService } from '../maps/servicios';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
+import { ReserveState } from '../../core/class/ReserveState';
 
 @Component({
   selector: 'app-user-interface',
   standalone: true,
-  imports: [MapScreenComponent, SidebarComponent,SearchBarComponent, RouterLink, RouterModule],
+  imports: [MapScreenComponent, SidebarComponent,SearchBarComponent, RervModalComponent, RouterLink, RouterModule],
   templateUrl: './user-interface.component.html',
   styleUrl: './user-interface.component.css',
 })
-export class UserInterfaceComponent {
+export class UserInterfaceComponent implements DoCheck, OnInit {
 
   public cities!: Array<infoCities>;
   public parking!: Array<infoParking>;
   public user!: string;
+  public show: boolean = this.reserveState.showModalReserve;
 
   constructor(
     private cookieService: CookieService,
@@ -28,7 +31,8 @@ export class UserInterfaceComponent {
     private autheticate: AuthenticateState,
     private parkingService: ParkingServices,
     private mapService: MapService,
-    private placeService: PlacesService
+    private placeService: PlacesService,
+    private reserveState: ReserveState
   ) {
     if (cookieService.check('session')) {
       let cache = cookieService.get('session').split('|');
@@ -36,6 +40,10 @@ export class UserInterfaceComponent {
     } else {
       root.navigate(['/']);
     }
+  }
+
+  ngDoCheck(): void {
+      this.show = this.reserveState.showModalReserve;
   }
 
   ngOnInit() {
@@ -81,9 +89,15 @@ export class UserInterfaceComponent {
 
   routePark(park: infoParking) {
     if (!this.placeService.useLocation) throw Error('No hay userLocation');
+    this.flyTo(park)
     const start = this.placeService.useLocation;
     const end = [park.longitud, park.latitud] as [number, number];
 
     this.mapService.getRouteBetweenPoints(start, end);
+  }
+
+  reserve(park: infoParking) {
+    this.reserveState.showModalReserve = true;
+    this.reserveState.setReservePark(park);
   }
 }

@@ -51,29 +51,29 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <div>
                         <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Primer Nombre</label>
                         <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="firstName">
-                        @if (setError(FormSignData.value.firstName, '') !== '' && FormSignData.value.firstName !== '') {
-                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.firstName, '')"></p>
+                        @if (authenticate.setError(FormSignData.value.firstName, '') !== '' && FormSignData.value.firstName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.firstName, '')"></p>
                         }
                     </div>
                     <div>
                         <label for="" class="font-medium text-2xl">Segundo Nombre</label>
                         <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="secondName">
-                        @if (setError(FormSignData.value.secondName, '') !== '' && FormSignData.value.secondName !== '') {
-                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.secondName, '')"></p>
+                        @if (authenticate.setError(FormSignData.value.secondName, '') !== '' && FormSignData.value.secondName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.secondName, '')"></p>
                         }
                     </div>
                     <div>
                         <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Primer Apellido</label>
                         <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="firstLastName">
-                        @if (setError(FormSignData.value.firstLastName, '') !== '' && FormSignData.value.firstLastName !== '') {
-                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.firstLastName, '')"></p>
+                        @if (authenticate.setError(FormSignData.value.firstLastName, '') !== '' && FormSignData.value.firstLastName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.firstLastName, '')"></p>
                         }
                     </div>
                     <div>
                         <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Segundo Apellido</label>
                         <input type="text" class="w-full my-2 rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="secondLastName">
-                        @if (setError(FormSignData.value.secondLastName, '') !== '' && FormSignData.value.secondLastName !== '') {
-                            <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.secondLastName, '')"></p>
+                        @if (authenticate.setError(FormSignData.value.secondLastName, '') !== '' && FormSignData.value.secondLastName !== '') {
+                            <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.secondLastName, '')"></p>
                         }
                     </div>
                 </div>
@@ -105,8 +105,8 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <img src="../../../assets/resources/EmailIcon.png"
                     class="absolute right-3 top-3 h-8 w-10"
                     alt="">
-                    @if (setError(FormSignData.value.email, 'e') !== '' && FormSignData.value.email !== '') {
-                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.email, 'e')"></p>
+                    @if (authenticate.setError(FormSignData.value.email, 'e', FormSignData.get('email')?.hasError('email')) !== '' && FormSignData.value.email !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.email, 'e', FormSignData.get('email')?.hasError('email'))"></p>
                     }
                 </div>
                 <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Nombre de Usuario:</label>
@@ -115,8 +115,8 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <img src="../../../assets/resources/User Photo.png"
                     class="absolute right-3 top-2 h-10 w-10"
                     alt="">
-                    @if (setError(FormSignData.value.userName, 'u') !== '' && FormSignData.value.userName !== '') {
-                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.userName, 'u')"></p>
+                    @if (authenticate.setError(FormSignData.value.userName, 'u') !== '' && FormSignData.value.userName !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.userName, 'u')"></p>
                     }
                 </div>
                 <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Contraseña:</label>
@@ -125,8 +125,8 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <img src="../../../assets/resources/PWIcon.png"
                     class="absolute right-4 top-2 h-10 w-8"
                     alt="">
-                    @if (setError(FormSignData.value.password, 'p') !== '' && FormSignData.value.password !== '') {
-                        <p class="font-medium my-1 text-red-700" [innerHTML]="setError(FormSignData.value.password, 'p')"></p>
+                    @if (authenticate.setError(FormSignData.value.password, 'p') !== '' && FormSignData.value.password !== '') {
+                        <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.password, 'p')"></p>
                     }
                 </div>
                 <div class="flex justify-center">

@@ -1,0 +1,7 @@
+.scroll-view::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.scroll-view::-webkit-scrollbar:vertical {
+    width: 0px;
+}

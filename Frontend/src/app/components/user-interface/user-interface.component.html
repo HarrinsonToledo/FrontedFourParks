@@ -1,57 +1,113 @@
+@if (show) {
+    <app-rerv-modal class="min-w-full min-h-screen absolute top-0 left-0"></app-rerv-modal>
+}
+
 <div class="max-screen w-full top-0 min-h-screen left-0 flex">
     <app-sidebar class="min-h-screen"></app-sidebar>
     <div class="w-full max-h-screen min_oculy:p-10 p-2 flex flex-col">
-        <section class="w-full grid min_oculy:grid-cols-3 min_oculy:gap-7 gap-3 min_oculy:p-6 p-4 bg-white rounded-xl shadow-md shadow-black align-middle">
-            <p class="min_oculy:text-3xl m-auto text-center w-full text-xl font-impact">Encuentra tu estacionamiento ideal:</p>
+        <section
+            class="w-full grid min_oculy:grid-cols-3 min_oculy:gap-7 gap-3 min_oculy:p-6 p-4 bg-white rounded-xl shadow-md shadow-black align-middle">
+            <p class="min_oculy:text-3xl m-auto text-center w-full text-xl font-impact">Encuentra tu estacionamiento
+                ideal:</p>
             <app-search-bar class="w-full m-auto"></app-search-bar>
             <fieldset class="relative m-auto w-full">
                 <legend class="text-firstColor bg-white text-base font-medium absolute left-2">Ciudad:</legend>
                 <img src="../../../assets/resources/Location IconMorado.png" class="w-6 absolute top-5 left-2" alt="">
-                <select (change)="filterCity($event)" class="w-full mt-3 h-12 border-2 rounded-2xl text-lg text-firstColor font-medium border-firstColor pl-10" name="" id="">
-                    @for (city of cities; track $index) {<option [value]="city.nombre" selected>{{city.nombre}}</option>}
+                <select (change)="filterCity($event)"
+                    class="w-full mt-3 h-12 border-2 rounded-2xl text-lg text-firstColor font-medium border-firstColor pl-10"
+                    name="" id="">
+                    @for (city of cities; track $index) {<option [value]="city.nombre" selected>{{city.nombre}}</option>
+                    }
                     <option value="Seleccionar" selected>Seleccionar</option>
                 </select>
             </fieldset>
         </section>
         <section class="w-full h-full flex min_oculy:flex-row flex-col min_oculy:mt-10 mt-2">
-            <section class="min_oculy:w-4/5 w-full min_oculy:h-full h-3/5 bg-white rounded-xl shadow-md shadow-black p-4 relative">
+            <section
+                class="min_oculy:w-4/5 w-full min_oculy:h-full h-3/5 bg-white rounded-xl shadow-md shadow-black p-4 relative">
                 <app-map-screen></app-map-screen>
             </section>
-            <section class="min_oculy:w-3/12 min_oculy:h-full h-2/5 min_oculy:mt-0 mt-2 w-full rounded-xl bg-white shadow-md shadow-black min_oculy:ml-10 ml-0 p-2">
+            <section
+                class="min_oculy:w-3/12 min_oculy:h-full h-2/5 min_oculy:mt-0 mt-2 w-full rounded-xl bg-white shadow-md shadow-black min_oculy:ml-10 ml-0 p-2">
                 <p class="min_oculy:text-3xl m-auto text-center font-impact">Lista de Parqueaderos</p>
                 <section class="relative m-auto w-11/12 min_oculy:h-[90%] h-[80%] overflow-hidden">
                     <div class="absolute w-full h-full overflow-x-hidden overflow-y-scroll scroll-view">
                         @for (park of parking; track $index) {
-                            <div class="bg-secondColor rounded-xl text-firstColor font-bold mx-1 mb-5 p-2" (click)="flyTo(park)">
-                                <p class="text-base">{{park.nombre}}</p>
-                                <div class="mt-2 flex">
-                                    <img src="../../../assets/resources/Location IconMorado.png" class="w-5 h-7" alt="">
-                                    <div class="mx-4">
-                                        <p class="text-xs">{{park.direccion}}</p>
-                                        <p class="text-xs">{{park.ciudad}}</p>
-                                    </div>
-                                    <div class="ml-auto w-[40%]">
-                                        <p class="text-xs flex">
-                                            <svg class="w-4 h-4 mr-2" fill="#400E32" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.006 512.006" xml:space="preserve" stroke="#400E32"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M499.2,428.791h-12.8V181.299l7.834,3.302c1.613,0.674,3.302,0.998,4.966,0.998c4.983,0,9.737-2.935,11.802-7.834 c2.739-6.511-0.316-14.012-6.835-16.759l-243.2-102.4c-3.174-1.323-6.75-1.323-9.924,0l-243.2,102.4 c-6.528,2.748-9.574,10.249-6.835,16.759c2.748,6.537,10.3,9.54,16.759,6.835l7.834-3.302v247.492H12.8 c-7.074,0-12.8,5.726-12.8,12.8s5.726,12.8,12.8,12.8h486.4c7.074,0,12.8-5.726,12.8-12.8 C512,434.517,506.274,428.791,499.2,428.791z M409.6,428.791H102.4v-51.2h307.2V428.791z M409.6,352H102.4v-51.2h307.2V352z M409.6,275.2H102.4V224h307.2V275.2z M460.8,428.791h-25.6v-204.8c0-14.131-11.46-25.591-25.6-25.591H102.4 c-14.14,0-25.6,11.46-25.6,25.6v204.8H51.2V170.521L256,84.284l204.8,86.229V428.791z"></path> </g> </g> </g></svg>
-                                            {{park.numPuestos}}
-                                        </p>
-                                        <p class="text-xs flex">
-                                            <svg class="w-4 mr-2" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#400E32"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 7V12H15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#400E32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                            @if(park.i24Hrs === 'S') {
-                                                24Hrs
-                                            } @else {
-                                                {{park.horaApertura.slice(0, -3) + "-" + park.horaCierre.slice(0, -3)}}
-                                            }
-                                        </p>
-                                    </div>
+                        <div class="bg-secondColor rounded-xl text-firstColor font-bold mx-1 mb-5 p-2">
+                            <p class="text-base" (click)="flyTo(park)">{{park.nombre}}</p>
+                            <div class="mt-2 flex" (click)="flyTo(park)">
+                                <img src="../../../assets/resources/Location IconMorado.png" class="w-5 h-7" alt="">
+                                <div class="mx-4">
+                                    <p class="text-xs">{{park.direccion}}</p>
+                                    <p class="text-xs">{{park.ciudad}}</p>
                                 </div>
-                                <div class="w-full mt-2 flex justify-center">
-                                    <button (click)="routePark(park)" class="bg-firstColor flex text-white text-base px-2 rounded-xl">
-                                        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 21C7.5 19.4 9 17.9673 9 16.2C9 14.4327 7.65685 13 6 13C4.34315 13 3 14.4327 3 16.2C3 17.9673 4.5 19.4 6 21ZM6 21H17.5C18.8807 21 20 19.8807 20 18.5C20 17.1193 18.8807 16 17.5 16H15M18 11C19.5 9.4 21 7.96731 21 6.2C21 4.43269 19.6569 3 18 3C16.3431 3 15 4.43269 15 6.2C15 7.96731 16.5 9.4 18 11ZM18 11H14.5C13.1193 11 12 12.1193 12 13.5C12 14.8807 13.1193 16 14.5 16H15.6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                                        <p class="ml-2 my-auto">Ruta</p>
-                                    </button>
+                                <div class="ml-auto w-[40%]">
+                                    <p class="text-xs flex">
+                                        <svg class="w-4 h-4 mr-2" fill="#400E32" height="200px" width="200px"
+                                            version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.006 512.006"
+                                            xml:space="preserve" stroke="#400E32">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <g>
+                                                    <g>
+                                                        <path
+                                                            d="M499.2,428.791h-12.8V181.299l7.834,3.302c1.613,0.674,3.302,0.998,4.966,0.998c4.983,0,9.737-2.935,11.802-7.834 c2.739-6.511-0.316-14.012-6.835-16.759l-243.2-102.4c-3.174-1.323-6.75-1.323-9.924,0l-243.2,102.4 c-6.528,2.748-9.574,10.249-6.835,16.759c2.748,6.537,10.3,9.54,16.759,6.835l7.834-3.302v247.492H12.8 c-7.074,0-12.8,5.726-12.8,12.8s5.726,12.8,12.8,12.8h486.4c7.074,0,12.8-5.726,12.8-12.8 C512,434.517,506.274,428.791,499.2,428.791z M409.6,428.791H102.4v-51.2h307.2V428.791z M409.6,352H102.4v-51.2h307.2V352z M409.6,275.2H102.4V224h307.2V275.2z M460.8,428.791h-25.6v-204.8c0-14.131-11.46-25.591-25.6-25.591H102.4 c-14.14,0-25.6,11.46-25.6,25.6v204.8H51.2V170.521L256,84.284l204.8,86.229V428.791z">
+                                                        </path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        {{park.numPuestos}}
+                                    </p>
+                                    <p class="text-xs flex">
+                                        <svg class="w-4 mr-2" viewBox="0 0 24.00 24.00" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" stroke="#400E32">
+                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                stroke-linejoin="round"></g>
+                                            <g id="SVGRepo_iconCarrier">
+                                                <path
+                                                    d="M12 7V12H15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                    stroke="#400E32" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round"></path>
+                                            </g>
+                                        </svg>
+                                        @if(park.i24Hrs === 'S') {
+                                        24Hrs
+                                        } @else {
+                                        {{park.horaApertura.slice(0, -3) + "-" + park.horaCierre.slice(0, -3)}}
+                                        }
+                                    </p>
                                 </div>
                             </div>
+                            <div class="w-full mt-2 flex justify-center">
+                                <button (click)="routePark(park)"
+                                    class="bg-firstColor flex hover:opacity-80 text-white text-base px-2 rounded-lg">
+                                    <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" stroke="#FFFFFF">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M6 21C7.5 19.4 9 17.9673 9 16.2C9 14.4327 7.65685 13 6 13C4.34315 13 3 14.4327 3 16.2C3 17.9673 4.5 19.4 6 21ZM6 21H17.5C18.8807 21 20 19.8807 20 18.5C20 17.1193 18.8807 16 17.5 16H15M18 11C19.5 9.4 21 7.96731 21 6.2C21 4.43269 19.6569 3 18 3C16.3431 3 15 4.43269 15 6.2C15 7.96731 16.5 9.4 18 11ZM18 11H14.5C13.1193 11 12 12.1193 12 13.5C12 14.8807 13.1193 16 14.5 16H15.6"
+                                                stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                    <p class="ml-2 my-auto">Ruta</p>
+                                </button>
+                                <button
+                                    (click)="reserve(park)"
+                                    class="ml-5 font-bold block text-white bg-firstColor hover:opacity-80 focus:ring-4 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center"
+                                    type="button">
+                                    <b>Reservar</b>
+                                </button>
+                            </div>
+                        </div>
                         }
                     </div>
                 </section>

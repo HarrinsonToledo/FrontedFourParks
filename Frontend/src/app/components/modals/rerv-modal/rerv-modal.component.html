@@ -1,0 +1,130 @@
+<div class="w-full min-h-screen relative flex items-center justify-center">
+    <div (click)="reserveState.showModalReserve = false" class="w-full min-h-screen absolute bg-black opacity-30"
+        style="z-index: 60;"></div>
+    <div class="absolute m-auto bg-white rounded-xl min_oculy:w-1/2 w-11/12" style="z-index: 70;">
+        <div class="relative bg-white rounded-lg shadow">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-4xl font-bold text-firstColor">
+                    {{park.nombre}}
+                </h3>
+                <button (click)="reserveState.showModalReserve = false" type="button"
+                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-base w-8 h-8 ms-auto inline-flex justify-center items-center">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" novalidate [formGroup]="formReserve">
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2">
+                        <p class="text-2xl font-medium">{{park.direccion}}</p>
+                        <p class="text-lg font-medium">Puestos disponibles: {{park.numPuestos}}</p>
+                        <p class="text-base font-medium">Horario:
+                            @if(park.i24Hrs === 'S') {
+                            24Hrs
+                            } @else {
+                            {{park.horaApertura.slice(0, -3) + "-" + park.horaCierre.slice(0, -3)}}
+                            }</p>
+                        <p class="text-base font-medium">Tarifa Carro: </p>
+                        <p class="text-base font-medium">Tarifa Moto: </p>
+                    </div>
+                    <div>
+                        <label for="name" class="block mb-2 text-base font-medium text-gray-900">Fecha
+                            de Reserva</label>
+                        <input type="date" formControlName="date"
+                            class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                            placeholder="Type product name" required="">
+                    </div>
+                    <div>
+                        <label for="category"
+                            class="block mb-2 text-base font-medium text-gray-900">Vehiculo</label>
+                        <select id="category" formControlName="vehiculo"
+                            class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                            <option class="text-center text-base font-medium" value="C">Carro</option>
+                            <option class="text-center text-base font-medium" value="M">Moto</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="category"
+                            class="block mb-2 text-base font-medium text-gray-900">Hora Inicio</label>
+                        <div class="flex">
+                            <select id="category" formControlName="horaIni"
+                                class="min_oculy:w-1/3 w-1/2 scroll-view text-base font-medium bg-gray-50 border border-firstColor text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                @for (number of horas; track $index) {
+                                <option class="text-center text-base font-medium" value="{{number}}">{{number}}</option>
+                                        }
+                            </select>
+                            <p class="my-auto mx-2">:</p>
+                            <select id="category" formControlName="minIni"
+                                class="min_oculy:w-1/3 w-1/2 scroll-view bg-gray-50 border border-firstColor text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                @for (number of minutos; track $index) {
+                                <option class="text-center text-base font-medium" value="{{number}}">{{number}}</option>
+                                        }
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="category"
+                            class="block mb-2 text-base font-medium text-gray-900">Hora Fin</label>
+                        <div class="flex">
+                            <select id="category" formControlName="horaFin"
+                                class="min_oculy:w-1/3 w-1/2 scroll-view bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                @for (number of horas; track $index) {
+                                <option class="text-center text-base font-medium" value="{{number}}">{{number}}</option>
+                                        }
+                            </select>
+                            <p class="my-auto mx-2">:</p>
+                            <select id="category" formControlName="minFin"
+                                class="min_oculy:w-1/3 w-1/2 scroll-view bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                @for (number of minutos; track $index) {
+                                <option class="text-center text-base font-medium" value="{{number}}">{{number}}</option>
+                                        }
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="category"
+                            class="block mb-2 text-base font-medium text-gray-900">Tarjetas</label>
+                        <select id="category" formControlName="card"
+                            class="w-full scroll-view bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                            @for (card of cards; track $index) {
+                            <option class="text-center text-base font-medium" value="{{card.identificador}}">{{customer.setCardNumber(card.numTarjeta)}}</option>
+                                    }
+                        </select>
+                    </div>
+                    <div>
+                        <label for="category"
+                            class="block mb-2 text-base font-medium text-gray-900">CSV</label>
+                        <input type="number" formControlName="csv"
+                            class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                            placeholder="CSV">
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                    <button
+                        [disabled]="!formReserve.valid"
+                        (click)="sendReserve()"
+                        class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
+                        Reservar
+                    </button>
+                    <button (click)="reserveState.showModalReserve = false"
+                        class="py-2.5 px-5 ms-3 text-base font-medium text-gray-900 focus:outline-none bg-white hover:bg-gray-300 rounded-lg border border-gray-200">
+                        Cancelar
+                    </button>
+                    @if (errorMessage !== [] || errorMessage !== undefined || !formReserve.valid) {
+                        <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-red-700">
+                            @if (!formReserve.valid) {Datos Incompletos. <br>}
+                            @if (cards == [] || cards == undefined) {No tienes tarjetas registradas. Ve a Mis datos para añadir una tarjeta. <br>}
+                            @for (men of errorMessage; track $index) { {{men}} <br> }
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,5 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDataInterface } from '../../interfaces/Login';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
@@ -10,6 +10,7 @@ import * as sha1 from 'js-sha1'
 import { Router } from '@angular/router';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../environments/environment';
+import { Customer } from '../../core/class/Customer';
 
 @Component({
   selector: 'app-authenticate',
@@ -31,17 +32,23 @@ export class AuthenticateComponent implements OnInit, DoCheck {
   selectLog!: string;
   selectSign!: string;
 
-  constructor(private form: FormBuilder, private AuService: AuthenticateService, public authenticate: AuthenticateState,
-      private cookieService: CookieService, private root: Router, private recatchap: ReCaptchaV3Service
+  constructor(
+    private form: FormBuilder,
+    private AuService: AuthenticateService,
+    public authenticate: AuthenticateState,
+    private cookieService: CookieService,
+    private root: Router,
+    private recatchap: ReCaptchaV3Service,
+    private customer: Customer,
   ) {
     this.siteKey = environment.siteKey;
 
     this.authenticate.setIsLoginShow(true);
     this.authenticate.setLogShow(this.cookieService.get('loginState') === 'true' ? true : false);
     this.authenticate.setSignShow(this.cookieService.get('signState') === 'true' ? true : false);
-    
-    this.selectLog = authenticate.getLogShow() ? 'bg-firstColor text-white': ''
-    this.selectSign = authenticate.getSignShow() ? 'bg-firstColor text-white': ''
+
+    this.selectLog = authenticate.getLogShow() ? 'bg-firstColor text-white' : ''
+    this.selectSign = authenticate.getSignShow() ? 'bg-firstColor text-white' : ''
   }
 
   ngOnInit() {
@@ -49,12 +56,12 @@ export class AuthenticateComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    
+
   }
 
   changeSelectedView(who: boolean) {
-    this.selectLog = who ? 'bg-firstColor text-white': ''
-    this.selectSign = !who ? 'bg-firstColor text-white': ''
+    this.selectLog = who ? 'bg-firstColor text-white' : ''
+    this.selectSign = !who ? 'bg-firstColor text-white' : ''
 
     if (who) {
       this.authenticate.setLogShow(true);
@@ -75,16 +82,16 @@ export class AuthenticateComponent implements OnInit, DoCheck {
     })
 
     this.FormSignData = this.form.group({
-      firstName: ['', [Validators.required, this.customValidator('')]],
-      secondName:[],
-      firstLastName: ['', [Validators.required, this.customValidator('')]],
+      firstName: ['', [Validators.required, this.authenticate.customValidator('')]],
+      secondName: [],
+      firstLastName: ['', [Validators.required, this.authenticate.customValidator('')]],
       secondLastName: ['', Validators.required],
       NID: ['', Validators.required],
       typeID: ['', Validators.required],
       numberCell: ['', Validators.required],
-      email: ['', Validators.email],
-      userName: ['', [Validators.required, this.customValidator('u')]],
-      password: ['', [Validators.required, this.customValidator('p')]]
+      email: ['', [Validators.required, Validators.email]],
+      userName: ['', [Validators.required, this.authenticate.customValidator('u')]],
+      password: ['', [Validators.required, this.authenticate.customValidator('p')]]
     })
   }
 
@@ -100,6 +107,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.status = false;
 
         this.AuService.cookieSession(this.infoLogin.user, this.infoLogin.password);
+        this.customer.loadCustomer(this.infoLogin.user, true)
         this.root.navigate(['/userInterface'])
       },
       error: Error => {
@@ -108,7 +116,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
       }
     })
 
-    this.recatchap.execute('importantAction').subscribe((token) =>{})
+    this.recatchap.execute('importantAction').subscribe((token) => { })
   }
 
   sendSignin() {
@@ -133,6 +141,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.AuService.cookieSession(this.infoSignin.userName, this.infoSignin.password);
         setTimeout(() => {
         }, 2000)
+        this.customer.loadCustomer(this.infoSignin.userName)
         this.root.navigate(['/userInterface']);
       },
       error: Error => {
@@ -140,46 +149,5 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.status = true;
       }
     })
-  }
-
-  customValidator(type: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if(this.setError(control.value, type) !== '') {
-        return { error: { value: control.value}};
-      }
-      return null;
-    };
-  }
-
-  setError(value: string, type: string): string {
-    let messageError = '';
-    messageError = this.verifyHaveSpaces(value) ? messageError + 'Sin Espacios <br>' : messageError +  ''
-    if(type === 'u' || type === 'p') {
-      messageError = this.verifyCC(value) ? messageError + '5 a 8 Caracteres <br>' : messageError +  ''
-    } 
-    if (type === 'p') {
-      messageError = !this.verifyValidPassword(value) ? messageError + 'Debe contener almenos una letra minúscula <br> una letra mayúscula y un número' : messageError +  ''
-    }
-    if (type === 'e') {
-      messageError = this.FormSignData.get('email')?.hasError('email') ? messageError + 'Formato de Email Invalido <br>' : messageError +  ''
-    }
-    return messageError;
-  }
-
-  verifyCC(input: string): boolean {
-    if(input.length > 4 && input.length < 9) {
-      return false
-    }
-    return true
-  }
-
-  verifyHaveSpaces(input: string): boolean {
-    let regex = /\s/;
-    return regex.test(input);
-  }
-
-  verifyValidPassword(input: string) {
-    let regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*/;
-    return regex.test(input);
   }
 }

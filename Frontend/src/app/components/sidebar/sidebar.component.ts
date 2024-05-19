@@ -2,6 +2,7 @@ import { Component, DoCheck } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
+import { Customer } from '../../core/class/Customer';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,12 +25,22 @@ export class SidebarComponent implements DoCheck {
 
   public user!: string;
 
-  constructor(private cookieService: CookieService, private root: Router, private authenticate: AuthenticateState) {
-    if(cookieService.check('session')) {
-      let cache = cookieService.get('session').split('|');
+  constructor(
+    private cookieService: CookieService, 
+    private root: Router, 
+    private authenticate: AuthenticateState,
+    private customer: Customer
+  ) {
+    
+  }
+
+  ngOnInit() {
+    if(this.cookieService.check('session')) {
+      let cache = this.cookieService.get('session').split('|');
       this.user = cache[0];
+      this.customer.loadCustomer(cache[0], true);
     } else {
-      root.navigate(['/'])
+      this.root.navigate(['/'])
     }
   }
 

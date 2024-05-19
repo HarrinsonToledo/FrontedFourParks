@@ -1,4 +1,4 @@
-<app-nar-bar class="min_oculy:mb-5 mb-36 flex justify-center items-center relative"></app-nar-bar>
+<app-nar-bar class="min_oculy:mb-5 mb-36 flex justify-center items-center "></app-nar-bar>
 <div class="w-full min_oculy:mt-0 mt-24 lg:flex lg:flex-row flex-col">
     <img src="../../../assets/resources/Parking.png"
         class="lg:w-1/2 w-full h-auto min_oculy:my-10 my-16 min_oculy:ml-10 ml-0 mr-10"
@@ -32,9 +32,9 @@
     </h2>
 </div>
 @defer {
-    <div class="w-full flex p-10">
+    <div class="w-full min_oculy:flex min_oculy:p-10">
         @for (item of News; track $index) {
-            <div class="w-1/5 mx-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <div class="min_oculy:w-1/5 w-full mx-2 max-w-sm rounded overflow-hidden shadow-lg">
                 <img class="w-full h-3/5" src="{{item.img}}" alt="Sunset in the mountains">
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">{{item.titulo}}</div>
