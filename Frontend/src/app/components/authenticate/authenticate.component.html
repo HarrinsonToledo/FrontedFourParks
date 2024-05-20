@@ -81,7 +81,9 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <div class="w-10/12 mr-3">
                         <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">N° Identidad:</label>
                         <div class="relative my-4">
-                            <input type="number" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="NID">
+                            <input 
+                            type="text" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                            class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="NID">
                         </div>
                     </div>
                     <div class="w-2/12">
@@ -97,7 +99,7 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                 </div>
                 <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">N° Celular:</label>
                 <div class="relative my-4">
-                    <input type="number" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="numberCell">
+                    <input type="text" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="numberCell">
                 </div>
                 <label for="" class="after:content-['*'] after:text-red-500 font-medium text-2xl">Email:</label>
                 <div class="relative my-4">

@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { Customer } from '../../core/class/Customer';
+import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +27,7 @@ export class SidebarComponent implements DoCheck {
   public user!: string;
 
   constructor(
-    private cookieService: CookieService, 
+    private authenticaService: AuthenticateService, 
     private root: Router, 
     private authenticate: AuthenticateState,
     private customer: Customer
@@ -35,10 +36,9 @@ export class SidebarComponent implements DoCheck {
   }
 
   ngOnInit() {
-    if(this.cookieService.check('session')) {
-      let cache = this.cookieService.get('session').split('|');
-      this.user = cache[0];
-      this.customer.loadCustomer(cache[0], true);
+    if(this.authenticaService.isSession()) {
+      this.user = this.authenticaService.getCookieSession()[0];
+      this.customer.loadCustomer(this.user, true);
     } else {
       this.root.navigate(['/'])
     }
@@ -53,6 +53,6 @@ export class SidebarComponent implements DoCheck {
 
   clearCookies() {
     this.authenticate.setIsLoginShow(false);
-    this.cookieService.deleteAll();
+    this.authenticaService.clearCookies();
   }
 }

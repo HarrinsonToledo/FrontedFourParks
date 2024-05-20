@@ -103,10 +103,11 @@ export class AuthenticateComponent implements OnInit, DoCheck {
 
     this.AuService.ActionLogin(this.infoLogin).subscribe({
       next: Response => {
-        this.dataInvalid = Response.mensaje
+        this.dataInvalid = Response.message
         this.status = false;
 
         this.AuService.cookieSession(this.infoLogin.user, this.infoLogin.password);
+        this.AuService.cookieToken(Response.token);
         this.customer.loadCustomer(this.infoLogin.user, true)
         this.root.navigate(['/userInterface'])
       },
@@ -139,6 +140,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.status = false;
 
         this.AuService.cookieSession(this.infoSignin.userName, this.infoSignin.password);
+        this.AuService.cookieToken(Response.token);
         setTimeout(() => {
         }, 2000)
         this.customer.loadCustomer(this.infoSignin.userName)

@@ -22,3 +22,34 @@ export interface InfoCard {
     numDocumento: number,
     tipoDoc: string
 }
+
+export interface InfoCardSend {
+    idCard: string,
+    namePro: string,
+    numberCard: string,
+    csv: number,
+    dateExp: string,
+    numDoc: number,
+    typeDoc: string
+}
+
+export interface InfoChangeUser {
+    numDoc: number,
+    nameUser: string,
+    typeDoc: string,
+    numberCel: number,
+    email: string,
+    N_SEGUNDO_APELLIDO: string,
+    N_SEGUNDO_NOMBRE: string,
+    N_PRIMER_NOMBRE: string,
+    N_PRIMER_APELLIDO: string
+}
+
+export interface InfoSendPassword {
+    nameUser: string,
+    password: string
+}
+
+export interface InfoDeleteCard {
+    idCard: string
+}

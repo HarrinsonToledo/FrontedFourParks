@@ -6,24 +6,12 @@ import { infoParking } from "../../interfaces/Paqueaderos";
     providedIn: 'root'
 })
 export class ReserveState {
-    private reservePark: infoParking = {
-        codParqueadero: "string",
-        nombre: "string",
-        iEstado: "string",
-        i24Hrs: "string",
-        horaApertura: "string",
-        horaCierre: "string",
-        iFidelizacion: "string",
-        direccion: "string",
-        latitud: 0,
-        longitud: 0,
-        codGerente: "string",
-        tipoParqueadero: "string",
-        ciudad: "string",
-        codTarifa: "string",
-        numPuestos: 0
-    };
+    private reservePark!: infoParking;
+    private editReserve!: infoParking;
+    private parkArrive!: infoParking;
 
+    public showArriveModal: boolean = false;
+    public showEditReserve: boolean = false;
     public showModalReserve: boolean = false;
 
     constructor() {
@@ -36,5 +24,21 @@ export class ReserveState {
 
     public setReservePark(rp: infoParking) {
         this.reservePark = rp;
+    }
+
+    public getEditReserve(): infoParking {
+        return this.editReserve;
+    }
+
+    public setEditReserve(rp: infoParking) {
+        this.editReserve = rp;
+    }
+
+    public getParkArrive(): infoParking {
+        return this.parkArrive;
+    }
+
+    public setParkArrive(pa: infoParking) {
+        this.parkArrive = pa;
     }
 }

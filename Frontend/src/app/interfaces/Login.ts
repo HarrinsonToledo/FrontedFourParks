@@ -4,5 +4,6 @@ export interface LoginDataInterface {
 }
 
 export interface LoginResponse {
-    mensaje: string
+    message: string,
+    token: string 
 }

@@ -16,7 +16,7 @@
                 <select (change)="filterCity($event)"
                     class="w-full mt-3 h-12 border-2 rounded-2xl text-lg text-firstColor font-medium border-firstColor pl-10"
                     name="" id="">
-                    @for (city of cities; track $index) {<option [value]="city.nombre" selected>{{city.nombre}}</option>
+                    @for (city of cities; track $index) {<option [value]="city.nombre">{{city.nombre}}</option>
                     }
                     <option value="Seleccionar" selected>Seleccionar</option>
                 </select>
@@ -33,7 +33,7 @@
                 <section class="relative m-auto w-11/12 min_oculy:h-[90%] h-[80%] overflow-hidden">
                     <div class="absolute w-full h-full overflow-x-hidden overflow-y-scroll scroll-view">
                         @for (park of parking; track $index) {
-                        <div class="bg-secondColor rounded-xl text-firstColor font-bold mx-1 mb-5 p-2">
+                        <div class="bg-secondColor rounded-xl overflow-hidden text-firstColor font-bold mx-1 mb-5 p-2">
                             <p class="text-base" (click)="flyTo(park)">{{park.nombre}}</p>
                             <div class="mt-2 flex" (click)="flyTo(park)">
                                 <img src="../../../assets/resources/Location IconMorado.png" class="w-5 h-7" alt="">

@@ -5,7 +5,9 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 class="text-4xl font-bold text-firstColor">
-                    @if (viewU) {Actualizar datos} @else {Actualizar contraseña}
+                    @if (customer.showUpdateData) {Actualizar datos} 
+                    @if (customer.showUpdatePassword) {Actualizar contraseña}
+                    @if (customer.showAddCard) {Añadir tarjeta}
                 </h3>
                 <button (click)="ocult()" type="button"
                     class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-base w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -64,7 +66,7 @@
                         <div>
                             <label for="category"
                                 class="block mb-2 text-base font-medium text-gray-900">N° Celular</label>
-                            <input type="number" formControlName="numberCell"
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="numberCell"
                                 class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="N° Celular">
                         </div>
@@ -83,6 +85,7 @@
                     <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                         <button
                             [disabled]="!formData.valid"
+                            (click)="sendInfoUser()"
                             class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
                             Actualizar Datos
                         </button>
@@ -90,9 +93,15 @@
                             class="py-2.5 px-5 ms-3 text-base font-medium text-gray-900 focus:outline-none bg-white hover:bg-gray-300 rounded-lg border border-gray-200">
                             Cancelar
                         </button>
-                        @if (!formData.valid) {
+                        @if (errorMessage !== [] || errorMessage !== undefined || !formData.valid) {
                             <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-red-700">
-                                Datos Incompletos.
+                                @if (!formData.valid) {Datos Incompletos. <br>}
+                                @for (men of errorMessage; track $index) { {{men}} <br> }
+                            </div>
+                        } 
+                        @if (succes) {
+                            <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-green-500">
+                                Guardada con éxito.
                             </div>
                         }
                     </div>
@@ -126,6 +135,7 @@
                     <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                         <button
                             [disabled]="!formPassword.valid"
+                            (click)="sendPassword()"
                             class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
                             Actualizar Contraseña
                         </button>
@@ -133,9 +143,83 @@
                             class="py-2.5 px-5 ms-3 text-base font-medium text-gray-900 focus:outline-none bg-white hover:bg-gray-300 rounded-lg border border-gray-200">
                             Cancelar
                         </button>
-                        @if (!formPassword.valid || formPassword.value.password != formPassword.value.passwordConfirm) {
+                        @if (errorMessage !== [] || errorMessage !== undefined || !formPassword.valid) {
                             <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-red-700">
-                                Datos Incompletos.
+                                @if (!formPassword.valid) {Datos Incompletos. <br>}
+                                @for (men of errorMessage; track $index) { {{men}} <br> }
+                            </div>
+                        } 
+                        @if (succes) {
+                            <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-green-500">
+                                Guardada con éxito.
+                            </div>
+                        }
+                    </div>
+                </form>
+            }
+            @if (customer.showAddCard) {
+                <form class="p-4 md:p-5" novalidate [formGroup]="formCard">
+                    <div class="grid gap-4 mb-4 grid-cols-2">
+                        <div>
+                            <label for="category"
+                                class="block mb-2 text-base font-medium text-gray-900">Nombre del propietario</label>
+                            <input type="text" formControlName="nameProp"
+                                class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Nombre del propietario">
+                        </div>
+                        <div>
+                            <label for="category"
+                                class="block mb-2 text-base font-medium text-gray-900">Número de tarjeta</label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="numberCard"
+                                class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Número de tarjeta">
+                        </div>
+                        <div>
+                            <label for="name" class="block mb-2 text-base font-medium text-gray-900">Fecha de vencimiento</label>
+                            <input type="date" formControlName="dateExpiration"
+                                class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                placeholder="Type product name" required="">
+                        </div>
+                        <div>
+                            <label for="category"
+                                class="block mb-2 text-base font-medium text-gray-900">CSV</label>
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="csv"
+                                class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                placeholder="CSV">
+                        </div>
+                        <div>
+                            <label for="category"
+                                class="block mb-2 text-base font-medium text-gray-900">Tipo de Tajeta</label>
+                            <select id="category" formControlName="typeCard" (change)="selectTypeCard($event)"
+                                class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                                <option class="text-center text-base font-medium" value="3">American Express</option>
+                                <option class="text-center text-base font-medium" value="4">Visa</option>
+                                <option class="text-center text-base font-medium" value="5">Mastercard</option>
+                                <option class="text-center text-base font-medium" value="6">Discover</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                        <button
+                            [disabled]="!formCard.valid"
+                            (click)="sendCard()"
+                            class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
+                            Guardar tarjeta
+                        </button>
+                        <button (click)="ocult()"
+                            class="py-2.5 px-5 ms-3 text-base font-medium text-gray-900 focus:outline-none bg-white hover:bg-gray-300 rounded-lg border border-gray-200">
+                            Cancelar
+                        </button>
+                        @if (errorMessage !== [] || errorMessage !== undefined || !formCard.valid) {
+                            <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-red-700">
+                                @if (!formCard.valid) {Datos Incompletos. <br>}
+                                @for (men of errorMessage; track $index) { {{men}} <br> }
+                            </div>
+                        } 
+                        @if (succes) {
+                            <div class="min_oculy:ml-10 min_oculy:mt-0 mt-5 text-base text-green-500">
+                                Guardada con éxito.
                             </div>
                         }
                     </div>

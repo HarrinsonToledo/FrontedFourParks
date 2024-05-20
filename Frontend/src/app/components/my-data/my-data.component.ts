@@ -1,7 +1,6 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { CookieService } from 'ngx-cookie-service';
-import { InfoCard, InfoUser } from '../../interfaces/User';
+import { InfoCard, InfoDeleteCard, InfoUser } from '../../interfaces/User';
 import { Customer } from '../../core/class/Customer';
 import { UpdateDataModalComponent } from '../modals/update-data-modal/update-data-modal.component';
 
@@ -18,8 +17,7 @@ export class MyDataComponent implements OnInit, DoCheck {
   public show: boolean[] = [this.customer.showUpdateData, this.customer.showUpdatePassword];
 
   constructor(
-    public customer: Customer, 
-    private cookiesService: CookieService
+    public customer: Customer
   ) {
     
   }
@@ -31,8 +29,15 @@ export class MyDataComponent implements OnInit, DoCheck {
   ngDoCheck() {
     this.userData = this.customer.getInfo();
     this.cardsData = this.customer.getCards();
-    this.show = [this.customer.showUpdateData, this.customer.showUpdatePassword];
+    this.show = [this.customer.showUpdateData, this.customer.showUpdatePassword, this.customer.showAddCard];
   }
 
+  deleteCard(id: string) {
+    const info: InfoDeleteCard = {
+      idCard: id
+    }
 
+    this.customer.deleteCard(info);
+    this.customer.loadCards();
+  }
 }

@@ -1,20 +1,19 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { MapScreenComponent } from '../maps/screens/map-screen/map-screen.component';
 import { SearchBarComponent } from '../maps/componentes/search-bar/search-bar.component';
-import { CookieService } from 'ngx-cookie-service';
-import { Router, RouterLink, RouterModule } from '@angular/router';
-import { AuthenticateState } from '../../core/class/AuthenticateState';
-import { ParkingServices } from '../../core/services/parking/parking.service';
+import { RouterLink, RouterModule } from '@angular/router';
 import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
 import { MapService, PlacesService } from '../maps/servicios';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
 import { ReserveState } from '../../core/class/ReserveState';
+import { Parking } from '../../core/class/Parking';
+import { ParkingServices } from '../../core/services/parking/parking.service';
 
 @Component({
   selector: 'app-user-interface',
   standalone: true,
-  imports: [MapScreenComponent, SidebarComponent,SearchBarComponent, RervModalComponent, RouterLink, RouterModule],
+  imports: [MapScreenComponent, SidebarComponent, SearchBarComponent, RervModalComponent, RouterLink, RouterModule],
   templateUrl: './user-interface.component.html',
   styleUrl: './user-interface.component.css',
 })
@@ -25,66 +24,49 @@ export class UserInterfaceComponent implements DoCheck, OnInit {
   public user!: string;
   public show: boolean = this.reserveState.showModalReserve;
 
+  private selectCity!: string;
+
   constructor(
-    private cookieService: CookieService,
-    private root: Router,
-    private autheticate: AuthenticateState,
-    private parkingService: ParkingServices,
+    private parks: Parking,
     private mapService: MapService,
     private placeService: PlacesService,
-    private reserveState: ReserveState
+    private reserveState: ReserveState,
+    private parkingService: ParkingServices
   ) {
-    if (cookieService.check('session')) {
-      let cache = cookieService.get('session').split('|');
-      this.user = cache[0];
-    } else {
-      root.navigate(['/']);
-    }
+
   }
 
   ngDoCheck(): void {
-      this.show = this.reserveState.showModalReserve;
+    this.show = this.reserveState.showModalReserve;
+
+    if (this.cities == undefined || this.parking == undefined) {
+      this.cities = this.parks.getCities()
+      this.parking = this.parks.getParkings()
+    }
   }
 
   ngOnInit() {
-    this.parkingService.getCities().subscribe({
-      next: (Response) => {
-        this.cities = Response;
-      },
-      error: (Error) => {},
-    });
 
-    this.parkingService.getParking().subscribe({
-      next: (Response) => {
-        this.parking = Response;
-      },
-      error: (Error) => {},
-    });
   }
 
   filterCity(city: Event) {
     let c = <HTMLSelectElement>city.target;
     this.parkingService.getParking().subscribe({
       next: (Response) => {
-        this.parking = Response;
-        if (c.value !== "Seleccionar") {
-          this.parking = this.parking.filter((p) => p.ciudad === c.value);
-          this.mapService.createMarkersForAllParks(this.parking)
-        }
+          this.parking = Response;
+          if (c.value !== "Seleccionar") {
+              this.parking = this.parking.filter((p) => p.ciudad === c.value);
+              this.mapService.createMarkersForAllParks(this.parking)
+          }
       },
-      error: (Error) => {},
-    });
+      error: (Error) => { },
+  });
   }
 
   flyTo(park: infoParking) {
     const [lng, lat] = [park.longitud, park.latitud];
     this.mapService.flyTo([lng, lat]);
     this.mapService.createMarkersFromPark(park);
-  }
-
-  clearCookies() {
-    this.autheticate.setIsLoginShow(false);
-    this.cookieService.deleteAll();
   }
 
   routePark(park: infoParking) {

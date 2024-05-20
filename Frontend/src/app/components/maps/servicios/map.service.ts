@@ -22,7 +22,7 @@ export class MapService {
     return !!this.map;
   }
 
-  constructor(private directionsApi: DirectionsApiClient) {}
+  constructor(private directionsApi: DirectionsApiClient) { }
 
   setMap(map: Map) {
     this.map = map;
@@ -60,37 +60,37 @@ export class MapService {
 
 
     //Borrar linea si no se toca el boton
-     if(this.map.getLayer('RouteString')){
-       this.map.removeLayer('RouteString');
-       this.map.removeSource('RouteString');
-     }
+    if (this.map.getLayer('RouteString')) {
+      this.map.removeLayer('RouteString');
+      this.map.removeSource('RouteString');
+    }
   }
 
-  createMarkersForAllParks(parking: Array<infoParking>){
+  createMarkersForAllParks(parking: Array<infoParking>) {
     if (!this.map) throw Error('Mapa no inicializado');
 
     this.markers.forEach((marker) => marker.remove());
     const newMarkers = [];
 
-    for(const park of parking){
-      
+    for (const park of parking) {
+
       const [lng, lat] = [park.longitud, park.latitud];
-      
+
       const popup = new Popup().setHTML(`<h6>${park.nombre}</h6>
       <span>${park.direccion}</span>`);
-      
+
       const newMarker = new Marker()
-      .setLngLat([lng, lat])
-      .setPopup(popup)
-      .addTo(this.map);
+        .setLngLat([lng, lat])
+        .setPopup(popup)
+        .addTo(this.map);
       newMarkers.push(newMarker);
-      
+
     }
     this.markers = newMarkers;
 
 
-    const bounds= new LngLatBounds;
-    newMarkers.forEach((marker) =>bounds. extend(marker.getLngLat()));
+    const bounds = new LngLatBounds;
+    newMarkers.forEach((marker) => bounds.extend(marker.getLngLat()));
     this.map.fitBounds(bounds, {
       padding: 50,
     });
@@ -108,30 +108,42 @@ export class MapService {
     this.markers.forEach((marker) => marker.remove());
     const newMarkers = [];
 
-      const [lng, lat] = [park.longitud, park.latitud];
+    const [lng, lat] = [park.longitud, park.latitud];
 
-      const popup = new Popup().setHTML(`<h6>${park.nombre}</h6>
+    const popup = new Popup().setHTML(`<h6>${park.nombre}</h6>
       <span>${park.direccion}</span>`);
 
-      const newMarker = new Marker()
-        .setLngLat([lng, lat])
-        .setPopup(popup)
-        .addTo(this.map);
-      newMarkers.unshift(newMarker);
+    const newMarker = new Marker()
+      .setLngLat([lng, lat])
+      .setPopup(popup)
+      .addTo(this.map);
+    newMarkers.unshift(newMarker);
     this.markers = newMarkers;
 
 
     //Borrar linea si no se toca el boton
-     if(this.map.getLayer('RouteString')){
-       this.map.removeLayer('RouteString');
-       this.map.removeSource('RouteString');
-     }
+    if (this.map.getLayer('RouteString')) {
+      this.map.removeLayer('RouteString');
+      this.map.removeSource('RouteString');
+    }
   }
 
   getRouteBetweenPoints(start: [number, number], end: [number, number]) {
     this.directionsApi
       .get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
-      .subscribe((resp) => this.drawPolyLine(resp.routes[0]));
+      .subscribe((resp) => {
+        this.drawPolyLine(resp.routes[0])
+      });
+  }
+
+  getRouteBetweenPointsArrive(start: [number, number], end: [number, number]) {
+    this.directionsApi
+      .get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
+      .subscribe((resp) => {
+        this.map?.on('load', () => {
+          this.drawPolyLine(resp.routes[0])
+        })
+      });
   }
 
   private drawPolyLine(route: Route) {
@@ -167,7 +179,7 @@ export class MapService {
 
     //limpiar ruta previa
 
-    if(this.map.getLayer('RouteString')){
+    if (this.map.getLayer('RouteString')) {
       this.map.removeLayer('RouteString');
       this.map.removeSource('RouteString');
     }

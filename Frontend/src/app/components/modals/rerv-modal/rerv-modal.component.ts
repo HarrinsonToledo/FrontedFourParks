@@ -21,6 +21,8 @@ export class RervModalComponent implements DoCheck, OnInit {
   protected formReserve!: FormGroup;
   public errorMessage: string[] = [];
 
+  private selectedCard!: InfoCard;
+
   constructor(
     public reserveState: ReserveState,
     public customer: Customer,
@@ -42,14 +44,20 @@ export class RervModalComponent implements DoCheck, OnInit {
     })
   }
 
+  changeSelectendCard(card: Event) {
+    let c = <HTMLSelectElement>card.target;
+    this.selectedCard = this.cards.filter((t) => t.identificador == c.value)[0]
+  }
+
   ngDoCheck(): void {
-    this.park = this.reserveState.getReservePark();
+    if(this.reserveState.showModalReserve) this.park = this.reserveState.getReservePark();
+    if(this.reserveState.showEditReserve) this.park = this.reserveState.getEditReserve();
   }
 
   sendReserve() {
     this.errorMessage = [];
     this.verifyTime();
-    if(this.formReserve.value.csv.toString().length !== 3) this.errorMessage.push('El CSV no es de 3 digitos.');
+    if(parseInt(this.formReserve.value.csv) !=  this.selectedCard.codSegur) this.errorMessage.push('El CSV no concuerda con sus datos.');
 
     if(this.errorMessage.length != 0) {
 
@@ -80,5 +88,10 @@ export class RervModalComponent implements DoCheck, OnInit {
     }
 
     if((fin - inicio) < 30) this.errorMessage.push('Tiempo de reserva menor a 30 min.')
+  }
+
+  ocult() {
+    this.reserveState.showModalReserve = false;
+    this.reserveState.showEditReserve = false;
   }
 }

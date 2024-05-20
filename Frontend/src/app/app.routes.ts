@@ -7,6 +7,7 @@ import { MyDataComponent } from './components/my-data/my-data.component';
 import { ServicesComponent } from './components/p-view/services/services.component';
 import { WeViewComponent } from './components/p-view/we-view/we-view.component';
 import { ContactsComponent } from './components/p-view/contacts/contacts.component';
+import { RecordsComponent } from './components/records/records.component';
 
 export const routes: Routes = [
     {path: '', component: PrincipalViewComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'authentication', component: AuthenticateComponent},
     {path: 'userInterface', component: UserInterfaceComponent},
     {path: 'myReservations', component: MyReservationsComponent},
-    {path: 'myData', component: MyDataComponent}
+    {path: 'myData', component: MyDataComponent},
+    {path: 'records', component: RecordsComponent}
 ];
