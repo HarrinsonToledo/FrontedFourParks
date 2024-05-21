@@ -28,29 +28,38 @@ export class Parking {
         Notiflix.Loading.dots()
         if(type) {
             this.parkingService.addReserve(info).subscribe({
-                next: Response => {
+                next: response => {
                     Notiflix.Loading.remove()
                     Notiflix.Report.success('Reserva guardada con éxito', 'Tu código: ' + info.idReserva,'ok');
                     this.reserveState.showModalReserve = false;
+                    this.reserveState.seguroReserves = true
                     this.Reserves = undefined;
                 },
-                error: Error => {
+                error: error => {
                     Notiflix.Loading.remove()
-                    Notiflix.Report.failure('Error al guardar tu reserva', Error,'ok');
+                    if (error.status == 400) {
+                        Notiflix.Report.warning('Error al reservar', error.error.Response, 'ok')
+                    } else {
+                        Notiflix.Report.failure('Error servidor', error, 'ok')
+                    }
                 }
             })
         } else {
             this.parkingService.updateReserve(info).subscribe({
-                next: Response => {
+                next: response => {
                     Notiflix.Loading.remove()
                     Notiflix.Report.success('Reserva ' + info.idReserva + ' actualizada', 'Tu reserva fue actualizada con éxito','ok');
                     this.reserveState.showEditReserve = false;
                     this.reserveState.seguroReserves = true;
                     this.Reserves = undefined;
                 },
-                error: Error => {
+                error: error => {
                     Notiflix.Loading.remove()
-                    Notiflix.Report.failure('Error al actualizar tu reserva', Error,'ok');
+                    if (error.status == 400) {
+                        Notiflix.Report.warning('error al actualizar tu reserva', error.error.Response,'ok');
+                    } else {
+                        Notiflix.Report.failure('Error servidor', error, 'ok')
+                    }
                 }
             })
         }
@@ -59,16 +68,20 @@ export class Parking {
     public deleteReserve(id: string) {
         Notiflix.Loading.dots()
         this.parkingService.deleteReserve(id).subscribe({
-            next: Response => {
+            next: response => {
                 Notiflix.Loading.remove()
                 Notiflix.Report.success('Reserva ' + id + ' eliminada', 'Tu reserva fue eliminada con éxito','ok');
                 this.reserveState.showEditReserve = false;
                 this.reserveState.seguroReserves = true;
                 this.Reserves = undefined;
             },
-            error: Error => {
+            error: error => {
                 Notiflix.Loading.remove()
-                Notiflix.Report.failure('Error al eliminar la reserva', Error,'ok');
+                if (error.status == 400) {
+                    Notiflix.Report.warning('error al eliminar la reserva', error.error.Response,'ok');
+                } else {
+                    Notiflix.Report.failure('Error servidor', error, 'ok')
+                }
             }
         })
     }
@@ -87,10 +100,10 @@ export class Parking {
 
     public loadReserves(doc: number, typeDoc: string) {
         this.parkingService.getReserves(doc, typeDoc).subscribe({
-            next: Response => {
-                this.Reserves = Response;
+            next: response => {
+                this.Reserves = response;
             },
-            error: Error => {
+            error: error => {
 
             }
         })
@@ -98,30 +111,30 @@ export class Parking {
 
     public loadFeePark(idFee: string) {
         this.parkingService.getFees(idFee).subscribe({
-            next: Response => {
-                this.fees = Response;
+            next: response => {
+                this.fees = response;
             },
-            error: Error => {
-                console.error(Error)
+            error: error => {
+                console.error(error)
             }
         })
     }
 
     public loadCities() {
         this.parkingService.getCities().subscribe({
-            next: (Response) => {
-                this.cities = Response;
+            next: (response) => {
+                this.cities = response;
             },
-            error: (Error) => { },
+            error: (error) => { },
         });
     }
 
     public loadParkings() {
         this.parkingService.getParking().subscribe({
-            next: (Response) => {
-                this.parkings = Response;
+            next: (response) => {
+                this.parkings = response;
             },
-            error: (Error) => { },
+            error: (error) => { },
         });
     }
 
