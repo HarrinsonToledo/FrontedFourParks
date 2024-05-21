@@ -15,10 +15,12 @@
         <h1 class="text-firstColor min_oculy:text-6xl text-5xl font-impact">EXPLORA Y ESTACIONA</h1>
         <h2 class="font-medium text-3xl w-5/6 my-5">Con un parqueadero seguro y conveniete justo donde lo necesitas</h2>
         <div class="flex min_oculy:mb-0 mb-10">
-            <a class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-2 font-bold hover:bg-firstColor hover:text-white">Saber más</a>
+            <a 
+            routerLink="/services"
+            class="bg-secondColor cursor-pointer text-xl px-5 py-3 border rounded-full ml-2 font-bold hover:bg-firstColor hover:text-white">Saber más</a>
             <a 
             routerLink="/authentication"
-            class="bg-secondColor text-xl px-5 py-3 border rounded-full ml-5 font-bold hover:bg-firstColor hover:text-white"
+            class="bg-secondColor cursor-pointer text-xl px-5 py-3 border rounded-full ml-5 font-bold hover:bg-firstColor hover:text-white"
             (click)="goSign()"
             >Registrarse</a>
         </div>

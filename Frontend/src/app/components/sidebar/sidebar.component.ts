@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthenticateState } from '../../core/class/AuthenticateState';
 import { Customer } from '../../core/class/Customer';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
+import { Parking } from '../../core/class/Parking';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,7 @@ import { AuthenticateService } from '../../core/services/autheticate/authenticat
 })
 export class SidebarComponent implements DoCheck {
   public w: string = 'w-20';
+  public wimg: string = 'w-14';
   public view: boolean = false;
   public arrow: string = 'arrowBarInv.png';
   public location: string = 'Location IconWhite.png';
@@ -30,7 +32,8 @@ export class SidebarComponent implements DoCheck {
     private authenticaService: AuthenticateService, 
     private root: Router, 
     private authenticate: AuthenticateState,
-    private customer: Customer
+    private customer: Customer,
+    private parking: Parking
   ) {
     
   }
@@ -46,12 +49,15 @@ export class SidebarComponent implements DoCheck {
 
   ngDoCheck() {
     this.w = this.view ? 'min_oculy:w-80 w-40' : 'min_oculy:w-20 w-15';
+    this.wimg = this.view ? 'min_oculy:w-20 w-14':'w-14'
     this.arrow = this.view ? 'arrowBar.png' : 'arrowBarInv.png';
     this.logoStyle = this.view ? 'w-3/5 my-10 rounded-xl mx-auto p-1 border-2 border-white' : 'w-12 my-10 rounded-full';
     this.logo = this.view ? 'LOGOBL.png' : 'LOGOLocation.png';
   }
 
   clearCookies() {
+    this.parking.clearReserves();
+    this.customer.clearInfo();
     this.authenticate.setIsLoginShow(false);
     this.authenticaService.clearCookies();
   }

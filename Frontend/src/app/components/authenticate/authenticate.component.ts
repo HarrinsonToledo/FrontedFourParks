@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../environments/environment';
 import { Customer } from '../../core/class/Customer';
+import Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-authenticate',
@@ -101,6 +102,8 @@ export class AuthenticateComponent implements OnInit, DoCheck {
       password: sha1.sha1(this.FormLoginData.value.password)
     }
 
+    Notiflix.Loading.dots()
+
     this.AuService.ActionLogin(this.infoLogin).subscribe({
       next: Response => {
         this.dataInvalid = Response.message
@@ -110,10 +113,18 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.AuService.cookieToken(Response.token);
         this.customer.loadCustomer(this.infoLogin.user, true)
         this.root.navigate(['/userInterface'])
+        Notiflix.Loading.remove()
+        Notiflix.Notify.success(Response.message, {timeout: 7000})
       },
       error: Error => {
         this.dataInvalid = Error.error.mensaje;
         this.status = true;
+        Notiflix.Loading.remove()
+        if(this.dataInvalid == null || this.dataInvalid == '' || this.dataInvalid == undefined) {
+          Notiflix.Notify.failure(Error.error, { timeout: 7000})
+        } else {
+          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 7000})
+        }
       }
     })
 
@@ -134,6 +145,8 @@ export class AuthenticateComponent implements OnInit, DoCheck {
       password: sha1.sha1(this.FormSignData.value.password)
     }
 
+    Notiflix.Loading.dots()
+
     this.AuService.ActionSignin(this.infoSignin).subscribe({
       next: Response => {
         this.dataInvalid = Response.message;
@@ -141,14 +154,19 @@ export class AuthenticateComponent implements OnInit, DoCheck {
 
         this.AuService.cookieSession(this.infoSignin.userName, this.infoSignin.password);
         this.AuService.cookieToken(Response.token);
-        setTimeout(() => {
-        }, 2000)
         this.customer.loadCustomer(this.infoSignin.userName)
+        Notiflix.Loading.remove()
+        Notiflix.Notify.success(Response.message, {timeout: 7000})
         this.root.navigate(['/userInterface']);
       },
       error: Error => {
         this.dataInvalid = Error.error.message;
         this.status = true;
+        if(this.dataInvalid == null || this.dataInvalid == '' || this.dataInvalid == undefined) {
+          Notiflix.Notify.failure(Error.error, { timeout: 7000})
+        } else {
+          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 7000})
+        }
       }
     })
   }

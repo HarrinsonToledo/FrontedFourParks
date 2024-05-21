@@ -6,23 +6,24 @@
             <div>
                 <label
                     class="block mb-2 text-base font-medium text-gray-900">Código reserva</label>
-                <input type="text" formControlName="code"
+                <input type="text" formControlName="code" (input)="select($event)"
                     class="bg-secondColor border border-firstColor text-black text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Código reserva">
             </div>
             <div>
                 <label class="block mb-2 text-base font-medium text-gray-900">Fecha</label>
-                <input type="date" formControlName="date"
+                <input type="date" formControlName="date" (change)="select($event)"
                     class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
             </div>
             <div>
                 <label
                     class="block mb-2 text-base font-medium text-gray-900">Estado</label>
-                <select id="category" formControlName="state" (change)="selectState($event)"
+                <select id="category" formControlName="state" (change)="select($event)"
                     class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                    <option class="text-center text-base font-medium" value="1">Finalizada</option>
-                    <option class="text-center text-base font-medium" value="2">Cancelada</option>
-                    <option class="text-center text-base font-medium" value="3">Activa</option>
+                    <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
+                    <option class="text-center text-base font-medium" value="T">Finalizada</option>
+                    <option class="text-center text-base font-medium" value="C">Cancelada</option>
+                    <option class="text-center text-base font-medium" value="A">Activa</option>
                 </select>
             </div>
         </form>
@@ -43,13 +44,17 @@
                     <tbody class="min_oculy:text-xl text-lg">
                         @for (item of items; track $index) {
                             <tr class="text-center">
-                                <td class="font-bold text-firstColor p-3 border border-firstColor">Código</td>
-                                <td class="font-bold text-black p-3 border border-firstColor">Parqueadero</td>
-                                <td class="p-3 border border-firstColor">Fecha</td>
-                                <td class="p-3 border border-firstColor">Inicio</td>
-                                <td class="p-3 border border-firstColor">Fin</td>
-                                <td class="p-3 border border-firstColor">Valor</td>
-                                <td class="p-3 border border-firstColor">Estado</td>
+                                <td class="font-bold text-firstColor p-3 border border-firstColor">{{item.codReserva}}</td>
+                                <td class="font-bold text-black p-3 border border-firstColor">{{getNamePark(item)}}</td>
+                                <td class="p-3 border border-firstColor">{{item.fechaReserva}}</td>
+                                <td class="p-3 border border-firstColor">{{item.fechaInicio.slice(0,-3)}}</td>
+                                <td class="p-3 border border-firstColor">{{item.fechaFinal.slice(0,-3)}}</td>
+                                <td class="p-3 border border-firstColor">${{item.subTotal}}</td>
+                                <td class="p-3 border border-firstColor">
+                                    @if (item.estado == 'A') {Activo}
+                                    @if (item.estado == 'T') {Finzalizado}
+                                    @if (item.estado == 'C') {Cancelado}
+                                </td>
                             </tr>
                         }
                     </tbody>

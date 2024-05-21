@@ -1,24 +1,27 @@
 import { Injectable } from "@angular/core";
-import { infoParking } from "../../interfaces/Paqueaderos";
+import { infoParking } from "../../interfaces/Parqueaderos";
+import { InfoReserveUser } from "../../interfaces/Reserve";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class ReserveState {
-    private reservePark!: infoParking;
-    private editReserve!: infoParking;
+    private reservePark: infoParking | undefined;
+    private editReserve!: InfoReserveUser;
     private parkArrive!: infoParking;
 
     public showArriveModal: boolean = false;
     public showEditReserve: boolean = false;
     public showModalReserve: boolean = false;
 
+    public seguroReserves: boolean = true;
+
     constructor() {
 
     }
 
-    public getReservePark(): infoParking {
+    public getReservePark(): infoParking | undefined {
         return this.reservePark;
     }
 
@@ -26,11 +29,11 @@ export class ReserveState {
         this.reservePark = rp;
     }
 
-    public getEditReserve(): infoParking {
+    public getEditReserve(): InfoReserveUser {
         return this.editReserve;
     }
 
-    public setEditReserve(rp: infoParking) {
+    public setEditReserve(rp: InfoReserveUser) {
         this.editReserve = rp;
     }
 

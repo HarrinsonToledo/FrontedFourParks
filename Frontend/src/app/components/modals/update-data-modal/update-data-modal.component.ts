@@ -21,6 +21,7 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
   public errorMessage: string[] = [];
 
   public succes: boolean = false;
+  public seguro: boolean = true;
 
   constructor(
     public customer: Customer,
@@ -31,9 +32,10 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.customer.isChangeDate == 1) {
+    if (this.customer.isChangeDate == 1 && this.seguro) {
       this.succes = true;
-      this.customer.loadCustomer(this.customer.getInfo().N_NOMBRE_USUARIO, true)
+      this.customer.loadCustomer(this.customer.getInfo()!.N_NOMBRE_USUARIO, true)
+      this.seguro = false;
     } else if (this.customer.isChangeDate == 2 && this.errorMessage.length == 0) {
       this.errorMessage.push('Error no fue posible actualizar la infomación.')
     }
@@ -44,9 +46,10 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
       this.errorMessage.push('Error no fue posible cambiar la contraseña.')
     }
 
-    if (this.customer.isAddCard == 1) {
+    if (this.customer.isAddCard == 1 && this.seguro) {
       this.succes = true;
       this.customer.loadCards();
+      this.seguro = false;
     } else if (this.customer.isAddCard == 2 && this.errorMessage.length == 0) {
       this.errorMessage.push('Error no fue posible guardar la tarjeta.')
     }
@@ -54,12 +57,12 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.formData = this.form.group({
-      firstName: [this.customer.getInfo().N_PRIMER_NOMBRE, [Validators.required, this.authenticate.customValidator('')]],
-      secondName: [this.customer.getInfo().N_SEGUNDO_NOMBRE == 'null' ? '':this.customer.getInfo().N_SEGUNDO_NOMBRE],
-      firstLastName: [this.customer.getInfo().N_PRIMER_APELLIDO, [Validators.required, this.authenticate.customValidator('')]],
-      secondLastName: [this.customer.getInfo().N_SEGUNDO_APELLIDO, Validators.required],
-      numberCell: [this.customer.getInfo().Q_NUM_CELULAR, Validators.required],
-      email: [this.customer.getInfo().O_EMAIL, [Validators.required, Validators.email]],
+      firstName: [this.customer.getInfo()!.N_PRIMER_NOMBRE, [Validators.required, this.authenticate.customValidator('')]],
+      secondName: [this.customer.getInfo()!.N_SEGUNDO_NOMBRE == 'null' ? '':this.customer.getInfo()!.N_SEGUNDO_NOMBRE],
+      firstLastName: [this.customer.getInfo()!.N_PRIMER_APELLIDO, [Validators.required, this.authenticate.customValidator('')]],
+      secondLastName: [this.customer.getInfo()!.N_SEGUNDO_APELLIDO, Validators.required],
+      numberCell: [this.customer.getInfo()!.Q_NUM_CELULAR, Validators.required],
+      email: [this.customer.getInfo()!.O_EMAIL, [Validators.required, Validators.email]],
     })
 
     this.formPassword = this.form.group({
@@ -83,7 +86,7 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
 
   sendPassword() {
     const info: InfoSendPassword = {
-      nameUser: this.customer.getInfo().N_NOMBRE_USUARIO,
+      nameUser: this.customer.getInfo()!.N_NOMBRE_USUARIO,
       password: sha1(this.formPassword.value.password)
     }
     this.customer.changePassword(info);
@@ -93,9 +96,9 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
     this.errorMessage = [];
     this.succes = false;
     const info: InfoChangeUser = {
-      numDoc: this.customer.getInfo().K_NUM_DOCUMENTO,
-      nameUser: this.customer.getInfo().N_NOMBRE_USUARIO,
-      typeDoc: this.customer.getInfo().I_TIPO_DOC,
+      numDoc: this.customer.getInfo()!.K_NUM_DOCUMENTO,
+      nameUser: this.customer.getInfo()!.N_NOMBRE_USUARIO,
+      typeDoc: this.customer.getInfo()!.I_TIPO_DOC,
       numberCel: parseInt(this.formData.value.numberCell),
       email: this.formData.value.email,
       N_SEGUNDO_APELLIDO: this.formData.value.secondLastName,
@@ -104,6 +107,7 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
       N_PRIMER_APELLIDO: this.formData.value.firstLastName
     }
 
+    this.seguro = true;
     this.customer.changeData(info);
   }
 
@@ -113,10 +117,11 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
     if (!this.verifyCard(this.formCard.value.numberCard)) this.errorMessage.push('Número de tarjeta inválido.')
     if (this.formCard.value.csv.toString().length !== 3) this.errorMessage.push('El CSV debe ser de 3 digitos.')
     if (parseInt(this.formCard.value.numberCard.toString()[0]) != this.typeCard) this.errorMessage.push('Número de tarjeta no coincide con el tipo.')
-    const find = this.customer.getCards().filter((t) => t.numTarjeta == this.formCard.value.numberCard.toString())
+    const find = this.customer.getCards()!.filter((t) => t.numTarjeta == this.formCard.value.numberCard.toString())
     if (find.length != 0) this.errorMessage.push('Tarjeta ya ingresada.')
     this.verifyDate(this.formCard.value.dateExpiration)
 
+    this.seguro = false;
     if (this.errorMessage.length == 0) this.sendInfoCard();
   }
 
@@ -124,13 +129,13 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
     this.errorMessage = [];
     this.succes = false;
     const info: InfoCardSend = {
-      idCard: this.customer.getInfo().N_NOMBRE_USUARIO.substring(0, 5) + this.formCard.value.numberCard.toString().substring(0, 5),
+      idCard: this.customer.getInfo()!.N_NOMBRE_USUARIO.substring(0, 5) + this.formCard.value.numberCard.toString().substring(0, 5),
       namePro: this.formCard.value.nameProp,
       numberCard: this.formCard.value.numberCard,
       csv: parseInt(this.formCard.value.csv),
       dateExp: this.formCard.value.dateExpiration,
-      numDoc: this.customer.getInfo().K_NUM_DOCUMENTO,
-      typeDoc: this.customer.getInfo().I_TIPO_DOC
+      numDoc: this.customer.getInfo()!.K_NUM_DOCUMENTO,
+      typeDoc: this.customer.getInfo()!.I_TIPO_DOC
     }
     this.customer.saveCard(info);
   }

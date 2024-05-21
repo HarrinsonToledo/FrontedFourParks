@@ -3,7 +3,7 @@ import { ReserveState } from '../../../core/class/ReserveState';
 import { MapScreenComponent } from '../../maps/screens/map-screen/map-screen.component';
 import { MapService } from '../../maps/servicios/map.service';
 import { PlacesService } from '../../maps/servicios/places.service';
-import { infoParking } from '../../../interfaces/Paqueaderos';
+import { infoParking } from '../../../interfaces/Parqueaderos';
 
 @Component({
   selector: 'app-arrive-modal',

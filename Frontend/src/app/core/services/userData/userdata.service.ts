@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { infoCities, infoParking } from "../../../interfaces/Paqueaderos";
 import { environment } from "../../../../environments/environment";
 import { InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoSendPassword, InfoUser } from "../../../interfaces/User";
 import { AuthenticateService } from "../autheticate/authenticate.service";

@@ -10,7 +10,7 @@ import {
 import { Feature } from '../interfaces/places';
 import { DirectionsApiClient } from '../api';
 import { DirectionsResponse, Route } from '../interfaces/directions';
-import { infoParking } from '../../../interfaces/Paqueaderos';
+import { infoParking } from '../../../interfaces/Parqueaderos';
 @Injectable({
   providedIn: 'root',
 })

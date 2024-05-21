@@ -2,7 +2,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { MapScreenComponent } from '../maps/screens/map-screen/map-screen.component';
 import { SearchBarComponent } from '../maps/componentes/search-bar/search-bar.component';
 import { RouterLink, RouterModule } from '@angular/router';
-import { infoCities, infoParking } from '../../interfaces/Paqueaderos';
+import { infoCities, infoParking } from '../../interfaces/Parqueaderos';
 import { MapService, PlacesService } from '../maps/servicios';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
@@ -24,8 +24,6 @@ export class UserInterfaceComponent implements DoCheck, OnInit {
   public user!: string;
   public show: boolean = this.reserveState.showModalReserve;
 
-  private selectCity!: string;
-
   constructor(
     private parks: Parking,
     private mapService: MapService,
@@ -40,8 +38,8 @@ export class UserInterfaceComponent implements DoCheck, OnInit {
     this.show = this.reserveState.showModalReserve;
 
     if (this.cities == undefined || this.parking == undefined) {
-      this.cities = this.parks.getCities()
-      this.parking = this.parks.getParkings()
+      this.cities = this.parks.getCities()!
+      this.parking = this.parks.getParkings()!
     }
   }
 

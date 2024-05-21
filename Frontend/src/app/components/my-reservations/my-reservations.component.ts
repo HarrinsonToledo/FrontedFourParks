@@ -2,9 +2,12 @@ import { Component, DoCheck } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ArriveModalComponent } from '../modals/arrive-modal/arrive-modal.component';
 import { ReserveState } from '../../core/class/ReserveState';
-import { infoParking } from '../../interfaces/Paqueaderos';
+import { infoParking } from '../../interfaces/Parqueaderos';
 import { Parking } from '../../core/class/Parking';
 import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
+import { Customer } from '../../core/class/Customer';
+import { InfoReserveUser } from '../../interfaces/Reserve';
+import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 
 @Component({
   selector: 'app-my-reservations',
@@ -14,29 +17,54 @@ import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
   styleUrl: './my-reservations.component.css'
 })
 export class MyReservationsComponent implements DoCheck {
-  public myReservations: infoParking[] = this.parks.getParkings();
+  public myReservations: Array<InfoReserveUser> | undefined;
   public hidden: string = 'hidden';
+
+  public seguros: boolean[] = [true, true, true];
 
   constructor(
     public reserveState: ReserveState,
-    private parks: Parking
+    private customer: Customer,
+    private parks: Parking,
+    private AutheService: AuthenticateService
   ) {
-
+    this.myReservations = undefined;
   }
 
   ngDoCheck(): void {
-    if (this.parks.getParkings() == undefined || this.parks.getParkings().length == 0) this.parks.loadParkings();
-    this.myReservations = this.parks.getParkings();
+    if (this.customer.getInfo() == undefined && this.seguros[0]) {this.customer.loadCustomer(this.AutheService.getCookieSession()[0]);this.seguros[0] = false}
+    if (this.parks.getParkings() == undefined && this.seguros[1]) {this.parks.loadParkings();this.seguros[1] = false}
+    if (this.parks.getCities() == undefined && this.seguros[2]) {this.parks.loadCities();this.seguros[2] = false}
+    if (this.parks.getReserves() == undefined && this.customer.getInfo() != undefined && this.reserveState.seguroReserves) {this.parks.loadReserves(this.customer.getInfo()!.K_NUM_DOCUMENTO, this.customer.getInfo()!.I_TIPO_DOC); this.reserveState.seguroReserves = false}
+    if (this.parks.getReserves() != undefined ) this.myReservations = this.parks.getReserves()!.filter((r) => r.estado == 'A');
   }
 
-  goMap(park: infoParking) {
-    this.reserveState.setParkArrive(park);
+
+  getNamePark(Info: InfoReserveUser): string {
+    const t = this.parks.getParkings()!.find((p) => p.codParqueadero === Info.codParqueadero)?.nombre!
+    return t;
+  }
+
+  getAddress(Info: InfoReserveUser): string {
+    const t = this.parks.getParkings()!.find((p) => p.codParqueadero === Info.codParqueadero)?.direccion!
+    return t;
+  }
+
+  getCity(Info: InfoReserveUser): string {
+    const t = this.parks.getParkings()!.find((p) => p.codParqueadero === Info.codParqueadero)?.ciudad!
+    return t;
+  }
+
+  goMap(park: string) {
+    const p: infoParking = this.parks.getParkings()!.find((e) => e.codParqueadero == park)!
+    this.reserveState.setParkArrive(p);
     this.reserveState.showArriveModal = true;
-
   }
 
-  goEdit(park: infoParking) {
-    this.reserveState.setEditReserve(park);
+  goEdit(reserve: InfoReserveUser) {
+    this.reserveState.setEditReserve(reserve);
+    const p: infoParking = this.parks.getParkings()!.find((e) => e.codParqueadero == reserve.codParqueadero)!
+    this.reserveState.setReservePark(p)
     this.reserveState.showEditReserve = true;
   }
 }

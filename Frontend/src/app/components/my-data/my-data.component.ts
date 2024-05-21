@@ -11,7 +11,7 @@ import { UpdateDataModalComponent } from '../modals/update-data-modal/update-dat
   templateUrl: './my-data.component.html',
   styleUrl: './my-data.component.css'
 })
-export class MyDataComponent implements OnInit, DoCheck {
+export class MyDataComponent implements DoCheck {
   public userData!: InfoUser;
   public cardsData!: Array<InfoCard>;
   public show: boolean[] = [this.customer.showUpdateData, this.customer.showUpdatePassword];
@@ -21,14 +21,11 @@ export class MyDataComponent implements OnInit, DoCheck {
   ) {
     
   }
-
-  ngOnInit() {
-    this.userData = this.customer.getInfo();
-    this.cardsData = this.customer.getCards();
-  }
   ngDoCheck() {
-    this.userData = this.customer.getInfo();
-    this.cardsData = this.customer.getCards();
+    if(this.userData == undefined || this.cardsData == undefined) {
+      this.userData = this.customer.getInfo()!;
+      this.cardsData = this.customer.getCards()!;
+    }
     this.show = [this.customer.showUpdateData, this.customer.showUpdatePassword, this.customer.showAddCard];
   }
 
