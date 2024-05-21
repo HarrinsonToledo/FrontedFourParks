@@ -82,9 +82,9 @@ export class RervModalComponent implements DoCheck, OnInit {
   sendReserve(type: string) {
     if (type == 'send') {
       this.errorMessage = [];
-      this.verifyTime();
       if (parseInt(this.formReserve.value.csv) != this.selectedCard.codSegur) this.errorMessage.push('El CSV no concuerda con sus datos.');
       this.calcuCost();
+      this.verifyTime();
       if (this.cost <= 0) this.errorMessage.push('La franja de tiempo ingresado no permite calcular el costo.')
       if (this.errorMessage.length == 0) {
         const info: InfoSendReserve = {
@@ -112,7 +112,7 @@ export class RervModalComponent implements DoCheck, OnInit {
 
   transformTime(data: string): number {
     const time = data.split(':')
-    const numero = parseInt(time[0] == '00' ? '24' : time[1] + time[1]);
+    const numero = parseInt(time[0] == '00' ? '24' : time[0] + time[1]);
     return numero;
   }
 
@@ -164,7 +164,7 @@ export class RervModalComponent implements DoCheck, OnInit {
       const cierre = this.transformTime(this.park.horaCierre)
 
       if (inicio < apertura || inicio > cierre - 30) this.errorMessage.push('Hora de inicio fuera de franja - Tiempo mínimo reserva 30 min.')
-      if (fin < apertura + 30 || fin > cierre) this.errorMessage.push('Hora de fin fuera de franja - Tiempo mínimo reserva 30 min.')
+      if (fin < apertura + 30 || fin > cierre) this.errorMessage.push('Hora de fin fuera de franja - Tiempo mínimo reserva 30 min.') 
     }
 
     if ((fin - inicio) < 30) this.errorMessage.push('Tiempo de reserva menor a 30 min.')
