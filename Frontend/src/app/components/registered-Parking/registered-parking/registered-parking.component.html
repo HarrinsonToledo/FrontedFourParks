@@ -25,17 +25,17 @@
                             <th class="p-3 border border-firstColor ">Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="min_oculy:text-xl text-lg">
                         @for (item of parking; track $index) {
                         <tr class="font-bold text-center">
                             <td class="border border-firstColor">
-                                <input type="checkbox" />
+                                <input type="checkbox" class="appearance-none w-4 h-4 bg-white border-firstColor outline-firstColor checked:bg-firstColor accent-firstColor" />
                             </td>
                             <td class="border border-firstColor">PK0001</td>
                             <td class="border border-firstColor">Parqueadero 1</td>
                             <td class="border border-firstColor">cll. 40</td>
                             <td class="border border-firstColor h-1 w-1 ">
-                                <button class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-2">
+                                <button class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-2 hover:bg-black">
                                     <svg class="w-10" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -56,11 +56,11 @@
                                 </button>
 
                             </td>
-                            <td class="border border-firstColor flex justify-center">
-                                <div class="bg-firstColor">
+                            <td class="border border-firstColor">
+                                <button class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-1 hover:bg-black">
                                     <img class="h-12 w-12 p-2" src="../../../../assets/resources/Recurso 30.png"
                                         alt="" />
-                                </div>
+                                </button>
                             </td>
                         </tr>
                         }
