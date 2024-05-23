@@ -89,6 +89,7 @@ export class RervModalComponent implements DoCheck, OnInit {
       if (this.errorMessage.length == 0) {
         const info: InfoSendReserve = {
           idReserva: this.reserveState.showEditReserve ? this.reserveEdit.codReserva : 'PCK' + sha1(
+            this.customer.getInfo()?.K_NUM_DOCUMENTO +
             this.formReserve.value.date +
             this.formReserve.value.horaIni + this.formReserve.value.minIni +
             this.formReserve.value.horaFin + this.formReserve.value.minFin).slice(0, 10),
