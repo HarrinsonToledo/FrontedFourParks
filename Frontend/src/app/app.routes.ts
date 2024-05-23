@@ -8,6 +8,7 @@ import { ServicesComponent } from './components/p-view/services/services.compone
 import { WeViewComponent } from './components/p-view/we-view/we-view.component';
 import { ContactsComponent } from './components/p-view/contacts/contacts.component';
 import { RecordsComponent } from './components/records/records.component';
+import { RegisteredParkingComponent } from './components/registered-Parking/registered-parking/registered-parking.component';
 
 export const routes: Routes = [
     {path: '', component: PrincipalViewComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path: 'userInterface', component: UserInterfaceComponent},
     {path: 'myReservations', component: MyReservationsComponent},
     {path: 'myData', component: MyDataComponent},
-    {path: 'records', component: RecordsComponent}
+    {path: 'records', component: RecordsComponent},
+    {path:'registeredParking', component: RegisteredParkingComponent},
 ];
