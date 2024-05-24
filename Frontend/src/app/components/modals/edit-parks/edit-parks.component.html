@@ -22,15 +22,103 @@
             </div>
             <form class="p-4 md:p-5" novalidate [formGroup]="formEdit">
                 <div class="grid gap-4 mb-4 grid-cols-2">
-                    
-                    <div>
-                        <label for="category" class="block mb-2 text-base font-medium text-gray-900">N° Celular</label>
+                    <div class="relative">
+                        <label class="block mb-2 text-base font-medium text-gray-900">Tarifa</label>
+                        <img class="absolute left-2 top-10 w-3" src="../../../../assets/resources/Recurso 20.png"
+                            alt="">
                         <input type="text" inputmode="numeric" pattern="[0-9]*"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="numberCell"
-                            class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="N° Celular">
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="fee"
+                            class="pl-10 bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Tarifa">
+                    </div>
+                    <div class="relative">
+                        <label class="block mb-2 text-base font-medium text-gray-900">Capacidad</label>
+                        <img class="absolute left-2 top-11 w-7" src="../../../../assets/resources/Recurso 22.png"
+                            alt="">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '');" formControlName="capacity"
+                            class="pl-10 bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Capacidad">
+                    </div>
+                    <div class="relative col-span-2">
+                        <label class="block mb-2 text-base font-medium text-gray-900">Características</label>
+                        <img class="absolute left-2 top-10 w-6" src="../../../../assets/resources/Recurso 31.png"
+                            alt="">
+                        <select id="category" formControlName="characteristics"
+                            class="bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                            <option class="text-center text-base font-medium" value="A">Abierto</option>
+                            <option class="text-center text-base font-medium" value="S">Semiabierto</option>
+                            <option class="text-center text-base font-medium" value="T">Techado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-base font-medium text-gray-900">Hora de
+                            Apertura</label>
+                        <div class="flex">
+                            <div class="min_oculy:w-1/3 w-1/2 relative">
+                                <img class="absolute left-2 top-3 w-6" src="../../../../assets/resources/Recurso 23.png"
+                                    alt="">
+                                <select id="category" formControlName="horaAper"
+                                    class="pl-10 w-full scroll-view text-base font-medium bg-gray-50 border border-firstColor text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                    @for (number of horas; track $index) {
+                                    <option class="text-base font-medium" value="{{number}}">{{number}}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            <p class="my-auto mx-2">:</p>
+                            <div class="min_oculy:w-1/3 w-1/2 relative">
+                                <img class="absolute left-2 top-3 w-6" src="../../../../assets/resources/Recurso 23.png"
+                                    alt="">
+                                <select id="category" formControlName="minAper"
+                                    class="pl-10 w-full scroll-view bg-gray-50 border border-firstColor text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                    @for (number of minutos; track $index) {
+                                    <option class="text-base font-medium" value="{{number}}">{{number}}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-base font-medium text-gray-900">Hora de
+                            Cierre</label>
+                        <div class="flex">
+                            <div class="min_oculy:w-1/3 w-1/2 relative">
+                                <img class="absolute left-2 top-3 w-6" src="../../../../assets/resources/Recurso 27.png"
+                                    alt="">
+                                <select id="category" formControlName="horaCier"
+                                    class="pl-10 w-full scroll-view bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                    @for (number of horas; track $index) {
+                                    <option class="text-base font-medium" value="{{number}}">{{number}}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            <p class="my-auto mx-2">:</p>
+                            <div class="min_oculy:w-1/3 w-1/2 relative">
+                                <img class="absolute left-2 top-3 w-6" src="../../../../assets/resources/Recurso 27.png"
+                                    alt="">
+                                <select id="category" formControlName="minCier"
+                                    class="pl-10 w-full scroll-view bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                                    @for (number of minutos; track $index) {
+                                    <option class="text-base font-medium" value="{{number}}">{{number}}
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <input class="w-6 mr-5 rounded-sm border border-black appearance-none outline-firstColor checked:bg-firstColor" type="checkbox">
+                        <label class="block my-auto text-base font-medium text-gray-900">24 Horas</label>
+                    </div>
+                    <div class="flex"> 
+                        <input class="w-6 mr-5 rounded-sm border border-black appearance-none outline-firstColor checked:bg-firstColor" type="checkbox">
+                        <label class="block my-auto text-base font-medium text-gray-900">Fidelización</label>
                     </div>
                 </div>
+                <p class="font-medium pb-2 text-base text-gray-600">(No se modificarán los datos vacíos.)</p>
                 <!-- Modal footer -->
                 <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                     <button [disabled]="!formEdit.valid"

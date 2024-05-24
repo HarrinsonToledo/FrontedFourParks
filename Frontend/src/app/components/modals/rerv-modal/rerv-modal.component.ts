@@ -19,6 +19,8 @@ export class RervModalComponent implements DoCheck, OnInit {
   private seguro: boolean = true;
   private seguroCost: boolean = true;
 
+  public imgVehiculo : string = '';
+
   public park: infoParking = this.reserveState.getReservePark()!;
   public reserveEdit: InfoReserveUser = this.reserveState.getEditReserve()!;
   public fees: InfoGetFee = {
@@ -53,12 +55,19 @@ export class RervModalComponent implements DoCheck, OnInit {
       date: [this.reserveState.showEditReserve ? this.reserveEdit.fechaReserva : '', Validators.required],
       card: ['', Validators.required],
       csv: ['', Validators.required],
-      vehiculo: [this.reserveState.showEditReserve ? this.reserveEdit.tipoVechiculo : '', Validators.required],
-      horaIni: [this.reserveState.showEditReserve ? this.reserveEdit.fechaInicio.slice(0,2) : '', Validators.required],
-      minIni: [this.reserveState.showEditReserve ? this.reserveEdit.fechaInicio.slice(3,5) : '', Validators.required],
-      horaFin: [this.reserveState.showEditReserve ? this.reserveEdit.fechaFinal.slice(0,2) : '', Validators.required],
-      minFin: [this.reserveState.showEditReserve ? this.reserveEdit.fechaFinal.slice(3,5) : '', Validators.required]
+      vehiculo: [this.reserveState.showEditReserve ? this.reserveEdit.tipoVechiculo : 'C', Validators.required],
+      horaIni: [this.reserveState.showEditReserve ? this.reserveEdit.fechaInicio.slice(0,2) : '00', Validators.required],
+      minIni: [this.reserveState.showEditReserve ? this.reserveEdit.fechaInicio.slice(3,5) : '00', Validators.required],
+      horaFin: [this.reserveState.showEditReserve ? this.reserveEdit.fechaFinal.slice(0,2) : '00', Validators.required],
+      minFin: [this.reserveState.showEditReserve ? this.reserveEdit.fechaFinal.slice(3,5) : '00', Validators.required]
     })
+
+    this.imgVehiculo = this.formReserve.value.vehiculo == 'C' ? 'Services1.png' : 'Services2.png';
+  }
+
+  changeSelectVehiculo(v: Event) {
+    let x = <HTMLSelectElement>v.target;
+    this.imgVehiculo = x.value == 'C' ? 'Services1.png' : 'Services2.png';
   }
 
   changeSelectendCard(card: Event) {
@@ -67,7 +76,6 @@ export class RervModalComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck(): void {
-    this.park = this.reserveState.getReservePark()!;
     if (this.park != undefined) if (this.fees.idTarifa == '' && this.seguro) {
       this.parking.loadFeePark(this.park.codTarifa);
       this.seguro = false;
@@ -77,6 +85,8 @@ export class RervModalComponent implements DoCheck, OnInit {
       this.reserveEdit = this.reserveState.getEditReserve()!;
       if(this.seguroCost) {this.cost = this.reserveEdit.subTotal;this.seguroCost = false}
     }
+    this.park = this.reserveState.getReservePark()!;
+    this.cards = this.customer.getCards()!;
   }
 
   sendReserve(type: string) {
@@ -85,6 +95,7 @@ export class RervModalComponent implements DoCheck, OnInit {
       if (parseInt(this.formReserve.value.csv) != this.selectedCard.codSegur) this.errorMessage.push('El CSV no concuerda con sus datos.');
       this.calcuCost();
       this.verifyTime();
+      this.verifyCardTime();
       if (this.cost <= 0) this.errorMessage.push('La franja de tiempo ingresado no permite calcular el costo.')
       if (this.errorMessage.length == 0) {
         const info: InfoSendReserve = {
@@ -146,6 +157,15 @@ export class RervModalComponent implements DoCheck, OnInit {
     } else {
       this.cost = 0;
     }
+  }
+
+  verifyCardTime() {
+    const today = new Date()
+    const dateCard = new Date(this.selectedCard.fechaVencimiento);
+
+    console.log(dateCard <= today)
+
+    if(dateCard <= today) this.errorMessage.push('La tarjeta ya expiro por favor elija otra tarjeta y actualice su infomación.')
   }
 
   verifyTime() {
