@@ -22,7 +22,7 @@ export class AuthenticateService {
     let name = '';
     if(type == 'C') {name = 'customer'; this.root.navigate(['/userInterface'])}
     else if (type == 'G') {name = 'manager'; this.root.navigate(['/registeredParking'])}
-    else if (type == 'A') {name = 'admin'; this.root.navigate(['/userAdmin'])}
+    else if (type == 'A') {name = 'admin'; this.root.navigate(['/generateStatistics'])}
         
     this.cookieService.set(name, user, { expires: expireDate, secure: true, sameSite: 'None'})
   }

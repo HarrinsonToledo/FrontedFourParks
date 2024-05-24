@@ -42,13 +42,36 @@
             <a routerLink="/generateReport" class="my-6 flex cursor-pointer" (mouseover)="reports = 'DataIconYellow.png'" (mouseout)="reports = 'DataIcon.png'">
                 <img src="../../../assets/resources/{{reports}}" class="w-8 mx-4 aspect-auto" alt="">
                 @if (view) {
-                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Reportes</p>
                 }
             </a>
         }
-        @if (
-            authenticaService.isAdmin()
-        ) {}
+        @if (authenticaService.isAdmin()) {
+            <a routerLink="/generateStatistics" class="my-6 flex cursor-pointer" (mouseover)="stadistics = 'Recurso 17 yellow.png'" (mouseout)="stadistics = 'Recurso 17.png'">
+                <img src="../../../assets/resources/{{stadistics}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Estadisticas</p>
+                }
+            </a>
+            <a routerLink="/userAdmin" class="my-6 flex cursor-pointer" (mouseover)="usersData = 'Recurso 18 yellow.png'" (mouseout)="usersData = 'Recurso 18.png'">
+                <img src="../../../assets/resources/{{usersData}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Usuarios</p>
+                }
+            </a>
+            <a routerLink="/trasabilidad" class="my-6 flex cursor-pointer" (mouseover)="trasabilidad = 'Recurso 19 yellow.png'" (mouseout)="trasabilidad = 'Recurso 19.png'">
+                <img src="../../../assets/resources/{{trasabilidad}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Auditoría</p>
+                }
+            </a>
+            <a routerLink="/registerAdmin" class="my-6 flex cursor-pointer" (mouseover)="managerSign = 'DataIconYellow.png'" (mouseout)="managerSign = 'DataIcon.png'">
+                <img src="../../../assets/resources/{{managerSign}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Registrar Gerente</p>
+                }
+            </a>
+        }
         <a routerLink="/" (click)="clearCookies()" class="my-6 flex cursor-pointer" (mouseover)="log = 'LogOutIconYellow.png'" (mouseout)="log = 'LogOutIcon.png'">
             <img src="../../../assets/resources/{{log}}" class="w-8 mx-4 aspect-auto" alt="">
             @if (view) {

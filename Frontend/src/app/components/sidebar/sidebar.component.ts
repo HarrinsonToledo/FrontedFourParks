@@ -18,13 +18,21 @@ export class SidebarComponent implements DoCheck {
   public wimg: string = 'w-14';
   public view: boolean = false;
   public arrow: string = 'arrowBarInv.png';
+
   public location: string = 'Location IconWhite.png';
   public car: string = 'CarIcon.png';
   public histo: string = 'HistorialIcon.png';
   public data: string = 'DataIcon.png';
   public log: string = 'LogOutIcon.png';
+  
   public parametri: string = 'Recurso 21.png';
   public reports: string = 'DataIcon.png';
+
+  public stadistics: string = 'Recurso 17.png';
+  public usersData: string = 'Recurso 18.png';
+  public trasabilidad: string = 'Recurso 19.png';
+  public managerSign: string = 'DataIcon.png';
+
   public logo: string = '';
   public logoStyle: string = 'w-16 h-16 my-10 rounded-full';
 

@@ -27,8 +27,8 @@ export const routes: Routes = [
     {path: 'records', component: RecordsComponent},
     {path: 'registeredParking', component: RegisteredParkingComponent},
     {path: 'generateReport', component: GenerateReportComponent},
-    {path: 'trasabilidad', component: TrasabilidadComponent},
-    {path: 'userAdmin', component: UserAdminComponent},
-    {path: 'registerAdmin', component: RegisterAdminComponent},
     {path: 'generateStatistics', component: GenerateStatisticsComponent},
+    {path: 'userAdmin', component: UserAdminComponent},
+    {path: 'trasabilidad', component: TrasabilidadComponent},
+    {path: 'registerAdmin', component: RegisterAdminComponent}
 ];
