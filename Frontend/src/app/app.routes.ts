@@ -13,6 +13,7 @@ import { GenerateReportComponent } from './components/generate-report/generate-r
 import { TrasabilidadComponent } from './components/trasabilidad/trasabilidad.component';
 import { UserAdminComponent } from './components/user-admin/user-admin.component';
 import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
+import { GenerateStatisticsComponent } from './components/generate-statistics/generate-statistics.component';
 
 export const routes: Routes = [
     {path: '', component: PrincipalViewComponent},
@@ -29,4 +30,5 @@ export const routes: Routes = [
     {path: 'trasabilidad', component: TrasabilidadComponent},
     {path: 'userAdmin', component: UserAdminComponent},
     {path: 'registerAdmin', component: RegisterAdminComponent},
+    {path: 'generateStatistics', component: GenerateStatisticsComponent},
 ];
