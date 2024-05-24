@@ -20,7 +20,7 @@ export class Customer {
   public isChagePassword: number = 0;
 
   constructor(private userDataService: UserDataService, private autheticate: AuthenticateService) {
-    this.loadCustomer(autheticate.getCookieSession()[0])
+    this.loadCustomer(autheticate. getCookieSessionCustomer()[0])
   }
 
   getCards(): InfoCard[] | undefined {

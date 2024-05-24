@@ -6,30 +6,49 @@
         }
     </div>
     <div class="mb-4 mx-auto">
-        <a routerLink="/userInterface" class="my-6 flex cursor-pointer" (mouseover)="location = 'Location Icon.png'" (mouseout)="location = 'Location IconWhite.png'">
-            <img src="../../../assets/resources/{{location}}" class="w-6 mx-5 aspect-auto" alt="">
-            @if (view) {
-                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Reservar Parqueadero</p>
-            }
-        </a>
-        <a routerLink="/myReservations" class="my-6 flex cursor-pointer" (mouseover)="car = 'CarIconYellow.png'" (mouseout)="car = 'CarIcon.png'">
-            <img src="../../../assets/resources/{{car}}" class="w-8 mx-4 aspect-auto" alt="">
-            @if (view) {
-                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Reservas</p>
-            }
-        </a>
-        <a routerLink="/records" class="my-6 flex cursor-pointer" (mouseover)="histo = 'HistorialIconYellow.png'" (mouseout)="histo = 'HistorialIcon.png'">
-            <img src="../../../assets/resources/{{histo}}" class="w-8 mx-4 aspect-auto" alt="">
-            @if (view) {
-                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Historial</p>
-            }
-        </a>
-        <a routerLink="/myData" class="my-6 flex cursor-pointer" (mouseover)="data = 'DataIconYellow.png'" (mouseout)="data = 'DataIcon.png'">
-            <img src="../../../assets/resources/{{data}}" class="w-8 mx-4 aspect-auto" alt="">
-            @if (view) {
-                <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
-            }
-        </a>
+        @if (authenticaService.isCustomer()) {
+            <a routerLink="/userInterface" class="my-6 flex cursor-pointer" (mouseover)="location = 'Location Icon.png'" (mouseout)="location = 'Location IconWhite.png'">
+                <img src="../../../assets/resources/{{location}}" class="w-6 mx-5 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Reservar Parqueadero</p>
+                }
+            </a>
+            <a routerLink="/myReservations" class="my-6 flex cursor-pointer" (mouseover)="car = 'CarIconYellow.png'" (mouseout)="car = 'CarIcon.png'">
+                <img src="../../../assets/resources/{{car}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Reservas</p>
+                }
+            </a>
+            <a routerLink="/records" class="my-6 flex cursor-pointer" (mouseover)="histo = 'HistorialIconYellow.png'" (mouseout)="histo = 'HistorialIcon.png'">
+                <img src="../../../assets/resources/{{histo}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Historial</p>
+                }
+            </a>
+            <a routerLink="/myData" class="my-6 flex cursor-pointer" (mouseover)="data = 'DataIconYellow.png'" (mouseout)="data = 'DataIcon.png'">
+                <img src="../../../assets/resources/{{data}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
+                }
+            </a>
+        }
+        @if (authenticaService.isManger()) {
+            <a routerLink="/registeredParking" class="my-6 flex cursor-pointer" (mouseover)="parametri = 'Recurso 21 yellow.png'" (mouseout)="parametri = 'Recurso 21.png'">
+                <img src="../../../assets/resources/{{parametri}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Parametrización</p>
+                }
+            </a>
+            <a routerLink="/generateReport" class="my-6 flex cursor-pointer" (mouseover)="reports = 'DataIconYellow.png'" (mouseout)="reports = 'DataIcon.png'">
+                <img src="../../../assets/resources/{{reports}}" class="w-8 mx-4 aspect-auto" alt="">
+                @if (view) {
+                    <p class="font-medium min_oculy:text-xl text-sm text-white hover:text-secondColor my-auto" >Mis Datos</p>
+                }
+            </a>
+        }
+        @if (
+            authenticaService.isAdmin()
+        ) {}
         <a routerLink="/" (click)="clearCookies()" class="my-6 flex cursor-pointer" (mouseover)="log = 'LogOutIconYellow.png'" (mouseout)="log = 'LogOutIcon.png'">
             <img src="../../../assets/resources/{{log}}" class="w-8 mx-4 aspect-auto" alt="">
             @if (view) {

@@ -23,13 +23,16 @@ export class SidebarComponent implements DoCheck {
   public histo: string = 'HistorialIcon.png';
   public data: string = 'DataIcon.png';
   public log: string = 'LogOutIcon.png';
-  public logo: string = ''
+  public parametri: string = 'Recurso 21.png';
+  public reports: string = 'DataIcon.png';
+  public logo: string = '';
   public logoStyle: string = 'w-16 h-16 my-10 rounded-full';
 
   public user!: string;
+  private seguro: boolean = true;
 
   constructor(
-    private authenticaService: AuthenticateService, 
+    public authenticaService: AuthenticateService, 
     private root: Router, 
     private authenticate: AuthenticateState,
     private customer: Customer,
@@ -39,10 +42,16 @@ export class SidebarComponent implements DoCheck {
   }
 
   ngOnInit() {
-    if(this.authenticaService.isSession()) {
-      this.user = this.authenticaService.getCookieSession()[0];
+    if(this.authenticaService.isCustomer() && this.seguro) {
+      this.user = this.authenticaService.getCookieSessionCustomer();
       this.customer.loadCustomer(this.user, true);
-    } else {
+      this.seguro = false;
+    } else if(this.authenticaService.isManger() && this.seguro) {
+      this.seguro = false;
+    } else if(this.authenticaService.isAdmin() && this.seguro) {
+      this.seguro = false;
+    }
+    else {
       this.root.navigate(['/'])
     }
   }

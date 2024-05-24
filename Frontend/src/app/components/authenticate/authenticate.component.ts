@@ -109,21 +109,20 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.dataInvalid = Response.message
         this.status = false;
 
-        this.AuService.cookieSession(this.infoLogin.user, this.infoLogin.password);
+        this.AuService.cookieSession(this.infoLogin.user, Response.rol);
         this.AuService.cookieToken(Response.token);
         this.customer.loadCustomer(this.infoLogin.user, true)
-        this.root.navigate(['/userInterface'])
         Notiflix.Loading.remove()
-        Notiflix.Notify.success(Response.message, {timeout: 7000})
+        Notiflix.Notify.success(Response.message, {timeout: 5000})
       },
       error: Error => {
         this.dataInvalid = Error.error.mensaje;
         this.status = true;
         Notiflix.Loading.remove()
         if(this.dataInvalid == null || this.dataInvalid == '' || this.dataInvalid == undefined) {
-          Notiflix.Notify.failure(Error.error, { timeout: 7000})
+          Notiflix.Notify.failure(Error.error, { timeout: 5000})
         } else {
-          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 7000})
+          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 5000})
         }
       }
     })
@@ -156,16 +155,16 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.AuService.cookieToken(Response.token);
         this.customer.loadCustomer(this.infoSignin.userName)
         Notiflix.Loading.remove()
-        Notiflix.Notify.success(Response.message, {timeout: 7000})
+        Notiflix.Notify.success(Response.message, {timeout: 5000})
         this.root.navigate(['/userInterface']);
       },
       error: Error => {
         this.dataInvalid = Error.error.message;
         this.status = true;
         if(this.dataInvalid == null || this.dataInvalid == '' || this.dataInvalid == undefined) {
-          Notiflix.Notify.failure(Error.error, { timeout: 7000})
+          Notiflix.Notify.failure(Error.error, { timeout: 5000})
         } else {
-          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 7000})
+          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 5000})
         }
       }
     })

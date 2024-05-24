@@ -5,39 +5,50 @@ import { SigninDataInterface, SigninResponse } from '../../../interfaces/Signin'
 import { Observable } from 'rxjs/internal/Observable';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticateService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { 
+  constructor(private http: HttpClient, private cookieService: CookieService, private root: Router) { 
 
   }
 
-  public cookieSession(user: string, password: string) {
-    let value = user + '|' + password;
-
+  public cookieSession(user: string, type: string) {
     const HA = new Date();
     const expireDate = new Date(HA.getTime() + 60 * 60 * 1000);
+    let name = '';
+    if(type == 'C') {name = 'customer'; this.root.navigate(['/userInterface'])}
+    else if (type == 'G') {name = 'manager'; this.root.navigate(['/registeredParking'])}
+    else if (type == 'A') {name = 'admin'; this.root.navigate(['/userAdmin'])}
         
-    this.cookieService.set('session', value, { expires: expireDate, secure: true, sameSite: 'None'})
+    this.cookieService.set(name, user, { expires: expireDate, secure: true, sameSite: 'None'})
   }
 
   public cookieToken(token: string) {
     this.cookieService.set('_token', token);
   }
 
-  public getCookieSession(): string[] {
-    return this.cookieService.get('session').split('|')
+  public  getCookieSessionCustomer(): string {
+    return this.cookieService.get('customer')
   }
 
   public getCookieToken(): string {
     return this.cookieService.get('_token');
   }
 
-  public isSession(): boolean {
-    return this.cookieService.check('session')
+  public isCustomer(): boolean {
+    return this.cookieService.check('customer');
+  }
+
+  public isManger(): boolean {
+    return this.cookieService.check('manager');
+  }
+
+  public isAdmin(): boolean {
+    return this.cookieService.check('admin');
   }
 
   public isToken(): boolean {

@@ -32,7 +32,7 @@ export class MyReservationsComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.customer.getInfo() == undefined && this.seguros[0]) {this.customer.loadCustomer(this.AutheService.getCookieSession()[0]);this.seguros[0] = false}
+    if (this.customer.getInfo() == undefined && this.seguros[0]) {this.customer.loadCustomer(this.AutheService. getCookieSessionCustomer()[0]);this.seguros[0] = false}
     if (this.parks.getParkings() == undefined && this.seguros[1]) {this.parks.loadParkings();this.seguros[1] = false}
     if (this.parks.getCities() == undefined && this.seguros[2]) {this.parks.loadCities();this.seguros[2] = false}
     if (this.parks.getReserves() == undefined && this.customer.getInfo() != undefined && this.reserveState.seguroReserves) {this.parks.loadReserves(this.customer.getInfo()!.K_NUM_DOCUMENTO, this.customer.getInfo()!.I_TIPO_DOC); this.reserveState.seguroReserves = false}
