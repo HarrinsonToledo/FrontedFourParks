@@ -13,5 +13,6 @@ export interface SigninDataInterface {
 
 export interface SigninResponse {
     message: string,
-    token: string
+    token: string,
+    rol: string
 }
