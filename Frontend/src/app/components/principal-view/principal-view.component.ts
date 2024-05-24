@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticateState } from '../../core/class/AuthenticateState';
+import { AuthenticateState } from '../../core/class/States/AuthenticateState';
 import { RouterLink } from '@angular/router';
 import { NarBarComponent } from '../nar-bar/nar-bar.component';
 import { NewsInterface } from '../../interfaces/News';

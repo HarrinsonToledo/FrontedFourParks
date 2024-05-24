@@ -1,10 +1,10 @@
 import { Component, DoCheck } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthenticateState } from '../../core/class/AuthenticateState';
-import { Customer } from '../../core/class/Customer';
+import { AuthenticateState } from '../../core/class/States/AuthenticateState';
+import { Customer } from '../../core/class/Users/Customer';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
-import { Parking } from '../../core/class/Parking';
+import { Parking } from '../../core/class/Objets/Parking';
 
 @Component({
   selector: 'app-sidebar',

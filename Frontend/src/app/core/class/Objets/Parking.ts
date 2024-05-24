@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { infoCities, infoParking } from "../../interfaces/Parqueaderos";
-import { ParkingServices } from "../services/parking/parking.service";
-import { InfoGetFee, InfoReserveUser, InfoSendReserve } from "../../interfaces/Reserve";
+import { infoCities, infoParking } from "../../../interfaces/Parqueaderos";
+import { ParkingServices } from "../../services/parking/parking.service";
+import { InfoGetFee, InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
 import Notiflix from "notiflix";
-import { ReserveState } from "./ReserveState";
+import { ReserveState } from "../States/ReserveState";
 
 
 @Injectable({

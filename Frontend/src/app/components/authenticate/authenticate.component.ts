@@ -2,7 +2,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDataInterface } from '../../interfaces/Login';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
-import { AuthenticateState } from '../../core/class/AuthenticateState';
+import { AuthenticateState } from '../../core/class/States/AuthenticateState';
 import { NarBarComponent } from '../nar-bar/nar-bar.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SigninDataInterface } from '../../interfaces/Signin';
@@ -10,7 +10,7 @@ import * as sha1 from 'js-sha1'
 import { Router } from '@angular/router';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../environments/environment';
-import { Customer } from '../../core/class/Customer';
+import { Customer } from '../../core/class/Users/Customer';
 import Notiflix from 'notiflix';
 
 @Component({

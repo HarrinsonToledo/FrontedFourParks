@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { infoParking } from "../../interfaces/Parqueaderos";
-import { InfoReserveUser } from "../../interfaces/Reserve";
+import { infoParking } from "../../../interfaces/Parqueaderos";
+import { InfoReserveUser } from "../../../interfaces/Reserve";
 
 
 @Injectable({

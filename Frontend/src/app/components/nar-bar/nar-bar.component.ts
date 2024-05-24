@@ -1,5 +1,5 @@
 import { Component, DoCheck, HostListener, OnInit } from '@angular/core';
-import { AuthenticateState } from '../../core/class/AuthenticateState';
+import { AuthenticateState } from '../../core/class/States/AuthenticateState';
 import { RouterLink } from '@angular/router';
 
 @Component({

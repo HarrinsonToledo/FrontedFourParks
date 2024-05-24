@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, DoCheck, OnInit } from '@angular/core';
-import { ReserveState } from '../../../core/class/ReserveState';
+import { ReserveState } from '../../../core/class/States/ReserveState';
 import { MapScreenComponent } from '../../maps/screens/map-screen/map-screen.component';
 import { MapService } from '../../maps/servicios/map.service';
 import { PlacesService } from '../../maps/servicios/places.service';

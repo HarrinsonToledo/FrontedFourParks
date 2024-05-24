@@ -6,8 +6,8 @@ import { infoCities, infoParking } from '../../interfaces/Parqueaderos';
 import { MapService, PlacesService } from '../maps/servicios';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
-import { ReserveState } from '../../core/class/ReserveState';
-import { Parking } from '../../core/class/Parking';
+import { ReserveState } from '../../core/class/States/ReserveState';
+import { Parking } from '../../core/class/Objets/Parking';
 import { ParkingServices } from '../../core/services/parking/parking.service';
 
 @Component({

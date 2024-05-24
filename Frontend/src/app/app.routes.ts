@@ -8,7 +8,7 @@ import { ServicesComponent } from './components/p-view/services/services.compone
 import { WeViewComponent } from './components/p-view/we-view/we-view.component';
 import { ContactsComponent } from './components/p-view/contacts/contacts.component';
 import { RecordsComponent } from './components/records/records.component';
-import { RegisteredParkingComponent } from './components/registered-Parking/registered-parking/registered-parking.component';
+import { RegisteredParkingComponent } from './components/registered-Parking/registered-parking.component';
 import { GenerateReportComponent } from './components/generate-report/generate-report.component';
 import { TrasabilidadComponent } from './components/trasabilidad/trasabilidad.component';
 import { UserAdminComponent } from './components/user-admin/user-admin.component';
@@ -23,8 +23,8 @@ export const routes: Routes = [
     {path: 'myReservations', component: MyReservationsComponent},
     {path: 'myData', component: MyDataComponent},
     {path: 'records', component: RecordsComponent},
-    {path:'registeredParking', component: RegisteredParkingComponent},
-    {path:'generateReport', component: GenerateReportComponent},
-    {path:'trasabilidad', component: TrasabilidadComponent},
+    {path: 'registeredParking', component: RegisteredParkingComponent},
+    {path: 'generateReport', component: GenerateReportComponent},
+    {path: 'trasabilidad', component: TrasabilidadComponent},
     {path: 'userAdmin', component: UserAdminComponent},
 ];

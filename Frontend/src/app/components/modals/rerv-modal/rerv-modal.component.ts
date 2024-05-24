@@ -1,11 +1,11 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { infoParking } from '../../../interfaces/Parqueaderos';
-import { ReserveState } from '../../../core/class/ReserveState';
-import { Customer } from '../../../core/class/Customer';
+import { ReserveState } from '../../../core/class/States/ReserveState';
+import { Customer } from '../../../core/class/Users/Customer';
 import { InfoCard } from '../../../interfaces/User';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InfoGetFee, InfoReserveUser, InfoSendReserve } from '../../../interfaces/Reserve';
-import { Parking } from '../../../core/class/Parking';
+import { Parking } from '../../../core/class/Objets/Parking';
 import { sha1 } from 'js-sha1';
 
 @Component({

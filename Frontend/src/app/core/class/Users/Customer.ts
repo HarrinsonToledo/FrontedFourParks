@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoSendPassword, InfoUser } from "../../interfaces/User";
-import { AuthenticateService } from "../services/autheticate/authenticate.service";
-import { UserDataService } from "../services/userData/userdata.service";
+import { InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoSendPassword, InfoUser } from "../../../interfaces/User";
+import { AuthenticateService } from "../../services/autheticate/authenticate.service";
+import { UserDataService } from "../../services/userData/userdata.service";
 import Notiflix from "notiflix";
 
 

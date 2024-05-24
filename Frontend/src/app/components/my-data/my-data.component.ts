@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { InfoCard, InfoDeleteCard, InfoUser } from '../../interfaces/User';
-import { Customer } from '../../core/class/Customer';
+import { Customer } from '../../core/class/Users/Customer';
 import { UpdateDataModalComponent } from '../modals/update-data-modal/update-data-modal.component';
 
 @Component({

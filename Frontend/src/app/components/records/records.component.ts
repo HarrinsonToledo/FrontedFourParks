@@ -2,8 +2,8 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InfoReserveUser } from '../../interfaces/Reserve';
-import { Parking } from '../../core/class/Parking';
-import { Customer } from '../../core/class/Customer';
+import { Parking } from '../../core/class/Objets/Parking';
+import { Customer } from '../../core/class/Users/Customer';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 
 @Component({

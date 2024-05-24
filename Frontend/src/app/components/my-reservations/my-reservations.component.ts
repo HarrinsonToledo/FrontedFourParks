@@ -1,11 +1,11 @@
 import { Component, DoCheck } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ArriveModalComponent } from '../modals/arrive-modal/arrive-modal.component';
-import { ReserveState } from '../../core/class/ReserveState';
+import { ReserveState } from '../../core/class/States/ReserveState';
 import { infoParking } from '../../interfaces/Parqueaderos';
-import { Parking } from '../../core/class/Parking';
+import { Parking } from '../../core/class/Objets/Parking';
 import { RervModalComponent } from '../modals/rerv-modal/rerv-modal.component';
-import { Customer } from '../../core/class/Customer';
+import { Customer } from '../../core/class/Users/Customer';
 import { InfoReserveUser } from '../../interfaces/Reserve';
 import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 

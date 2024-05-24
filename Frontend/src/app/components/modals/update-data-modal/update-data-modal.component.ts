@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { Customer } from '../../../core/class/Customer';
+import { Customer } from '../../../core/class/Users/Customer';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthenticateState } from '../../../core/class/AuthenticateState';
+import { AuthenticateState } from '../../../core/class/States/AuthenticateState';
 import { InfoCardSend, InfoChangeUser, InfoSendPassword } from '../../../interfaces/User';
 import { sha1 } from 'js-sha1';
 

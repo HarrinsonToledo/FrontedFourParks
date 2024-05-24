@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NarBarComponent } from '../../nar-bar/nar-bar.component';
-import { AuthenticateState } from '../../../core/class/AuthenticateState';
+import { AuthenticateState } from '../../../core/class/States/AuthenticateState';
 
 @Component({
   selector: 'app-contacts',
