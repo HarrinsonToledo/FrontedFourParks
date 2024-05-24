@@ -12,6 +12,7 @@ import { RegisteredParkingComponent } from './components/registered-Parking/regi
 import { GenerateReportComponent } from './components/generate-report/generate-report.component';
 import { TrasabilidadComponent } from './components/trasabilidad/trasabilidad.component';
 import { UserAdminComponent } from './components/user-admin/user-admin.component';
+import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
 
 export const routes: Routes = [
     {path: '', component: PrincipalViewComponent},
@@ -27,4 +28,5 @@ export const routes: Routes = [
     {path: 'generateReport', component: GenerateReportComponent},
     {path: 'trasabilidad', component: TrasabilidadComponent},
     {path: 'userAdmin', component: UserAdminComponent},
+    {path: 'registerAdmin', component: RegisterAdminComponent},
 ];
