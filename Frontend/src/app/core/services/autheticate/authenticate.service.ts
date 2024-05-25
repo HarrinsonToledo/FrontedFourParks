@@ -35,6 +35,14 @@ export class AuthenticateService {
     return this.cookieService.get('customer')
   }
 
+  public  getCookieSessionManager(): string {
+    return this.cookieService.get('manager')
+  }
+
+  public  getCookieSessionAdmin(): string {
+    return this.cookieService.get('admin')
+  }
+
   public getCookieToken(): string {
     return this.cookieService.get('_token');
   }
@@ -43,7 +51,7 @@ export class AuthenticateService {
     return this.cookieService.check('customer');
   }
 
-  public isManger(): boolean {
+  public isManager(): boolean {
     return this.cookieService.check('manager');
   }
 

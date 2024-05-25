@@ -1,5 +1,5 @@
 <div class="w-full min-h-screen relative flex items-center justify-center">
-    <div (click)="manegerState.showModalEdit = false" class="w-full min-h-screen absolute bg-black opacity-30"
+    <div (click)="managerState.showModalEdit = false" class="w-full min-h-screen absolute bg-black opacity-30"
         style="z-index: 60;"></div>
     <div class="absolute m-auto bg-white rounded-xl min_oculy:w-1/2 w-11/12" style="z-index: 70;">
         <div class="relative bg-white rounded-lg shadow">
@@ -10,7 +10,7 @@
                 </h3>
                 <p class="font-medium text-base text-gray-600">(Los cambios se aplicarán a los parqueaderos
                     seleccionados.)</p>
-                <button (click)="manegerState.showModalEdit = false" type="button"
+                <button (click)="managerState.showModalEdit = false" type="button"
                     class="absolute right-2 top-2 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-base w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
@@ -125,7 +125,7 @@
                         class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
                         Actualizar parqueaderos
                     </button>
-                    <button (click)="manegerState.showModalEdit = false"
+                    <button (click)="managerState.showModalEdit = false"
                         class="py-2.5 px-5 ms-3 text-base font-medium text-gray-900 focus:outline-none bg-white hover:bg-gray-300 rounded-lg border border-gray-200">
                         Cancelar
                     </button>

@@ -1,19 +1,19 @@
 import { Injectable } from "@angular/core";
 import { UserDataService } from "../../services/userData/userdata.service";
-import { InfoManager } from "../../../interfaces/User";
+import { InfoAdmin } from "../../../interfaces/User";
 
 @Injectable({
     providedIn: 'root'
 })
-export class Manager {
-    private infoData: InfoManager | undefined;
+export class Administrator {
+    private infoData: InfoAdmin | undefined;
 
     constructor(private userData: UserDataService) {
 
     }
 
-    public loadManager(user: string) {
-        this.userData.getManager(user).subscribe({
+    public loadAdministrator(user: string) {
+        this.userData.getAdmin(user).subscribe({
             next: response => {
                 this.infoData = response;
             },
@@ -23,7 +23,7 @@ export class Manager {
         })
     }
 
-    public getInfo(): InfoManager | undefined {
+    public getInfo(): InfoAdmin | undefined {
         return this.infoData;
     }
 }

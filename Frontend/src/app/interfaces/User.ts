@@ -53,3 +53,27 @@ export interface InfoSendPassword {
 export interface InfoDeleteCard {
     idCard: string
 }
+
+export interface InfoManager {
+    O_EMAIL: string,
+    I_ESTADO: string,
+    N_NOMBRE_USUARIO: string,
+    N_SEGUNDO_NOMBRE: string,
+    N_PRIMER_APELLIDO: string,
+    K_COD_GERENTE: string,
+    N_SEGUNDO_APELLIDO: string,
+    I_ROL: string,
+    N_PRIMER_NOMBRE: string
+}
+
+export interface InfoAdmin {
+    O_EMAIL: string,
+    I_ESTADO: string,
+    N_NOMBRE_USUARIO: string,
+    N_SEGUNDO_NOMBRE: string,
+    N_PRIMER_APELLIDO: string,
+    K_COD_ADMINISTRADOR: string,
+    N_SEGUNDO_APELLIDO: string,
+    I_ROL: string,
+    N_PRIMER_NOMBRE: string
+}

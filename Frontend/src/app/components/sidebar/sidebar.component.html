@@ -32,7 +32,7 @@
                 }
             </a>
         }
-        @if (authenticaService.isManger()) {
+        @if (authenticaService.isManager()) {
             <a routerLink="/registeredParking" class="my-6 flex cursor-pointer" (mouseover)="parametri = 'Recurso 21 yellow.png'" (mouseout)="parametri = 'Recurso 21.png'">
                 <img src="../../../assets/resources/{{parametri}}" class="w-8 mx-4 aspect-auto" alt="">
                 @if (view) {

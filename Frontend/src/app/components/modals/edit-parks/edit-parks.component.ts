@@ -14,7 +14,7 @@ export class EditParksComponent implements OnInit {
   public horas: Array<string> = Array.from({ length: 24 }, (_, index) => index < 10 ? '0' + index.toString() : index.toString());
   public minutos: Array<string> = Array.from({ length: 60 }, (_, index) => index < 10 ? '0' + index.toString() : index.toString());
 
-  constructor(public manegerState: ManagerState, private form: FormBuilder) {
+  constructor(public managerState: ManagerState, private form: FormBuilder) {
 
   }
 

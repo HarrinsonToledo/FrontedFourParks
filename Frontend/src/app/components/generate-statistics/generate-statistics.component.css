@@ -1,0 +1,13 @@
+@media (max-width: 1024px) {
+    .max-screen {
+        position: fixed;
+    }
+}
+
+.scroll-view::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.scroll-view::-webkit-scrollbar:vertical {
+    width: 0px;
+}

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
-import { InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoSendPassword, InfoUser } from "../../../interfaces/User";
+import { InfoAdmin, InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoManager, InfoSendPassword, InfoUser } from "../../../interfaces/User";
 import { AuthenticateService } from "../autheticate/authenticate.service";
 
 @Injectable({
@@ -25,7 +25,17 @@ export class UserDataService {
 
     public getDataUser(user: string): Observable<InfoUser> {
         this.loadHead();
-        return this.http.get<InfoUser>(`${environment.apiReser}/usuarios/misdatos/${user}`, {headers: this.header});
+        return this.http.get<InfoUser>(`${environment.apiAuthen}/usuarios/misdatos/${user}`, {headers: this.header});
+    }
+
+    public getManager(user: string): Observable<InfoManager> {
+        this.loadHead()
+        return this.http.get<InfoManager>(`${environment.apiAuthen}/gerente/obtener/${user}`, { headers: this.header })
+    }
+
+    public getAdmin(user: string): Observable<InfoAdmin> {
+        this.loadHead()
+        return this.http.get<InfoAdmin>(`${environment.apiAuthen}/administrador/obtener/${user}`, { headers: this.header })
     }
 
     public getCards(nDoc: number, tDoc: string): Observable<Array<InfoCard>> {
