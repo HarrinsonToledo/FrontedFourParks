@@ -1,57 +1,54 @@
 <div class="max-screen w-full top-0 min-h-screen left-0 flex">
     <app-sidebar class="min-h-screen"></app-sidebar>
     <div class="w-full max-h-screen min_oculy:p-20 p-5 flex flex-col">
-        <form class="bg-secondColor p-5 w-full  border border-firstColor rounded-3xl grid min_oculy:grid-cols-3 grid-cols-1 gap-3 ">
-            
-            
-                    <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2 absolute">
-                        Generar reportes
-                    </p>
-               
-            
-        <div >
-            <label
-                class="block mb-2 text-base font-medium text-gray-900 mt-16">Tipo de reporte</label>
-            <select id="category" formControlName="state" 
-                class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-4/5 p-2.5">
-                <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                <option class="text-center text-base font-medium" value="T">Ciudad</option>
-                <option class="text-center text-base font-medium" value="C">Parqueaderos</option>
-                <option class="text-center text-base font-medium" value="A">Clientes</option>
-            </select>
+        <div
+            class="bg-secondColor p-5 w-full border border-firstColor rounded-3xl">
+            <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2">
+                Generar reportes
+            </p>
+            <div class="grid min_oculy:grid-cols-4 w-full gap-2">
+                <div>
+                    <label class="block mb-2 text-base font-medium text-gray-900 ">Tipo de reporte</label>
+                    <select id="category" formControlName="state"
+                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5">
+                        <option class="text-center text-base font-medium" value="C" selected>General</option>
+                        <option class="text-center text-base font-medium" value="P">Por parqueadero</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block mb-2 text-base font-medium text-gray-900  ">Info</label>
+                    <select id="category" formControlName="state"
+                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                        <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button (click)="generatePDF()"
+                        class="bg-firstColor font-medium text-secondColor text-3xl w-full h-12 rounded-3xl hover:bg-black">
+                        Generar
+                    </button>
+                </div>
+                <div class="flex items-end">
+                    <button
+                        class="bg-secondColor w-full text-firstColor border-firstColor font-medium text-3xl border-solid border-2 outline-firstColor flex mx-auto justify-center rounded-3xl p-1 hover:bg-black">
+                        <img class="w-10 p-2" src="../../../../assets/resources/Recurso 28.png" alt="" />
+                        Descargar </button>
+                </div>
+            </div>
         </div>
-        <div>
-            <label
-                class="block mb-2 text-base font-medium text-gray-900  mt-16">Salida</label>
-            <select id="category" formControlName="state" 
-                class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-4/6 p-2.5">
-                <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                <option class="text-center text-base font-medium" value="T">PDF</option>
-                <option class="text-center text-base font-medium" value="C">EXCEL</option>
-                <option class="text-center text-base font-medium" value="A">JSON</option>
-            </select>
+        <div class="p-5 overflow-hidden mt-3 w-full h-full rounded-3xl bg-yellow-300 border-firstColor border-solid border-2">
+            <p class="font-medium text-4xl mb-2">Vista previa</p>
+            <div class="relative w-full h-[85%]">
+                <div class="absolute overflow-x-hidden overflow-y-scroll w-full h-full bg-white p-5">
+                    <img class="w-60" src="../../../assets/resources/Logo/LOGOB.png" alt="">
+                    <p class="text-7xl font-bold text-right w-full my-10">Four Parks Colombia</p>
+                    <p class="text-4xl font-bold text-right w-full my-2">Reporte Ciudad de Bogotá</p>
+                    <p class="text-2xl font-bold mt-36 mb-3 w-full">Estimados miembros del equipo y socios:</p>
+                    <p class="text-2xl font-medium w-2/3 break-words">Me complace presentarles el reporte financiero de la Four Parks Colombia, desglosado por ciudad para el mes 04 del 2024. Este reporte detalla el desempeño financiero de nuestros parqueaderos en la ciudad de Bogotá donde operamos, brindando una visión clara y detallada de nuestros ingresos, reservas y otros indicadores financieros clave.</p>
+                    <p class="text-2xl font-medium w-full mt-20"> <b>Gerente:</b> Harrrasdad</p>
+                    <p class="text-2xl font-medium w-full mt-4"> 24 de mayo del 2024</p>
+                </div>
+            </div>
         </div>
-        <div class="ml-auto pr-10">
-            <button
-            class="bg-firstColor font-medium text-secondColor  text-3xl w-56 h-12 rounded-3xl hover:bg-black mt-24 ">
-            Generar
-        </button>
-        </div>
-    </form>
-
-    <div class="grid grid-cols-2 w-full h-full">
-
-        <div class="p-5 m-5 w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2">
-            <p class="font-medium text-6xl">Vista previa</p>
-        </div>  
-        <div class="p-5 m-5 ml-auto w-4/6 h-3/4">
-            <button class="bg-secondColor  text-firstColor border-firstColor font-medium text-4xl border-solid border-2 outline-firstColor flex mx-auto justify-center w-4/6 rounded-3xl p-1 hover:bg-black">
-                <img class="h-12 w-12 p-2" src="../../../../assets/resources/Recurso 28.png"
-                    alt="" />
-           Descargar </button>
-        </div>  
-    </div>   
-
-
     </div>
 </div>

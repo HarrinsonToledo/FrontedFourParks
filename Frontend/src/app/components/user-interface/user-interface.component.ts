@@ -24,6 +24,8 @@ export class UserInterfaceComponent implements DoCheck, OnInit {
   public user!: string;
   public show: boolean = this.reserveState.showModalReserve;
 
+  private seguro: boolean = true;
+
   constructor(
     private parks: Parking,
     private mapService: MapService,
@@ -37,6 +39,11 @@ export class UserInterfaceComponent implements DoCheck, OnInit {
   ngDoCheck(): void {
     this.show = this.reserveState.showModalReserve;
 
+    if (this.parks.getCities() == undefined && this.parks.getParkings() == undefined && this.seguro) {
+      this.parks.loadCities();
+      this.parks.loadParkings();
+      this.seguro = false;
+    }
     if (this.cities == undefined || this.parking == undefined) {
       this.cities = this.parks.getCities()!
       this.parking = this.parks.getParkings()!
