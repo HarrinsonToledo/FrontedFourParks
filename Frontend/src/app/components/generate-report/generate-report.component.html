@@ -9,17 +9,20 @@
             <div class="grid min_oculy:grid-cols-4 w-full gap-2">
                 <div>
                     <label class="block mb-2 text-base font-medium text-gray-900 ">Tipo de reporte</label>
-                    <select id="category" formControlName="state"
+                    <select id="category" formControlName="state" (change)="changeType($event)"
                         class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5">
-                        <option class="text-center text-base font-medium" value="C" selected>General</option>
-                        <option class="text-center text-base font-medium" value="P">Por parqueadero</option>
+                        <option class="text-center text-base font-medium" value="C">General</option>
+                        <option class="text-center text-base font-medium" value="P" selected>Por parqueadero</option>
                     </select>
                 </div>
                 <div>
                     <label class="block mb-2 text-base font-medium text-gray-900  ">Info</label>
-                    <select id="category" formControlName="state"
+                    <select id="category" formControlName="state" (change)="changePark($event)" #parks
                         class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                         <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
+                        @for (item of reportCity; track $index) {
+                            <option class="text-center text-base font-medium" [value]="item.codParqueadero">{{item.nombre}}</option>
+                        }
                     </select>
                 </div>
                 <div class="flex items-end">
@@ -29,7 +32,7 @@
                     </button>
                 </div>
                 <div class="flex items-end">
-                    <button
+                    <button (click)="downloadPDF()"
                         class="bg-secondColor w-full text-firstColor border-firstColor font-medium text-3xl border-solid border-2 outline-firstColor flex mx-auto justify-center rounded-3xl p-1 hover:bg-black">
                         <img class="w-10 p-2" src="../../../../assets/resources/Recurso 28.png" alt="" />
                         Descargar </button>
@@ -37,16 +40,31 @@
             </div>
         </div>
         <div class="p-5 overflow-hidden mt-3 w-full h-full rounded-3xl bg-yellow-300 border-firstColor border-solid border-2">
-            <p class="font-medium text-4xl mb-2">Vista previa</p>
-            <div class="relative w-full h-[85%]">
-                <div class="absolute overflow-x-hidden overflow-y-scroll w-full h-full bg-white p-5">
-                    <img class="w-60" src="../../../assets/resources/Logo/LOGOB.png" alt="">
-                    <p class="text-7xl font-bold text-right w-full my-10">Four Parks Colombia</p>
-                    <p class="text-4xl font-bold text-right w-full my-2">Reporte Ciudad de Bogotá</p>
-                    <p class="text-2xl font-bold mt-36 mb-3 w-full">Estimados miembros del equipo y socios:</p>
-                    <p class="text-2xl font-medium w-2/3 break-words">Me complace presentarles el reporte financiero de la Four Parks Colombia, desglosado por ciudad para el mes 04 del 2024. Este reporte detalla el desempeño financiero de nuestros parqueaderos en la ciudad de Bogotá donde operamos, brindando una visión clara y detallada de nuestros ingresos, reservas y otros indicadores financieros clave.</p>
-                    <p class="text-2xl font-medium w-full mt-20"> <b>Gerente:</b> Harrrasdad</p>
-                    <p class="text-2xl font-medium w-full mt-4"> 24 de mayo del 2024</p>
+            <p class="font-medium text-4xl mb-2">Vista previa información</p>
+            <div class="relative w-full h-full overflow-scroll scroll-view">
+                <div class="absolute w-full h-full ">
+                    @if (table.length !== 0) {
+                        <table class="w-full">
+                            <thead class="bg-firstColor bg-opacity-30">
+                                <tr class="text-firstColor font-bold min_oculy:text-3xl text-xl">
+                                    <th class="p-3 border border-firstColor">@if (type == 'C') {Código} @else {Fecha}</th>
+                                    <th class="p-3 border border-firstColor">@if (type == 'C') {Parqueadero} @else {Reservas}</th>
+                                    <th class="p-3 border border-firstColor">@if (type == 'C') {Total reservas} @else {Ingresos}</th>
+                                    <th class="p-3 border border-firstColor ">@if (type == 'C') {Ingresos} @else {% Ocupación}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="min_oculy:text-xl text-lg">
+                                @for (item of table; track $index) {
+                                <tr class="font-bold text-center">
+                                    <td class="border border-firstColor">{{item[0]}}</td>
+                                    <td class="border border-firstColor">{{item[1]}}</td>
+                                    <td class="border border-firstColor">{{item[2]}}</td>
+                                    <td class="border border-firstColor">{{item[3]}}</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { Injectable } from "@angular/core";
 import * as pdfMake from 'pdfmake/build/pdfmake'
 import * as pdfFonts from 'pdfmake/build/vfs_fonts'
@@ -6,7 +7,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts'
     providedIn: 'root'
 })
 export class GeneratePDF {
-    constructor() {
+    constructor(private datePipe: DatePipe) {
 
     }
 
@@ -36,7 +37,21 @@ export class GeneratePDF {
         });
     }
 
-    public async createPDFGeneral(info: Array<any>) {
+    public openReportCity(info: Array<any>, manager: string) {
+        this.structureCity(info, manager).then(d => {
+            pdfMake.createPdf(d, pdfMake.tableLayouts, pdfMake.fonts, pdfFonts.pdfMake.vfs).open()
+        });
+    }
+
+    public downloadReportCity(info: Array<any>, manager: string) {
+        this.structureCity(info, manager).then(d => {
+            pdfMake.createPdf(d, pdfMake.tableLayouts, pdfMake.fonts, pdfFonts.pdfMake.vfs).download('report.pdf')
+        });
+    }
+
+    private async structureCity(info: Array<any>, manager: string): Promise<any> {
+        const today = new Date()
+        const formatDate = this.datePipe.transform(today, 'dd \'de\' MM \'del\' yyyy')
         const bodyTable = [
             [{ text: 'Código', style: 'tableHeader', alignment: 'center' },
             { text: 'Parqueadero', style: 'tableHeader', alignment: 'center' },
@@ -45,8 +60,12 @@ export class GeneratePDF {
             ],
         ]
 
+        let x = 0;
+        let y = 0;
         info.map((p) => {
             bodyTable.push(p)
+            x = x + p[2],
+            y = y + p[3]
         })
 
         const dd: any = {
@@ -66,7 +85,7 @@ export class GeneratePDF {
                 {
                     stack: [
                         'Four Parks Colombia',
-                        { text: 'Reporte Financiero ciudad de Bogotá', style: 'subheader' },
+                        { text: 'Reporte Financiero', style: 'subheader' },
                     ],
                     style: 'header'
                 },
@@ -74,20 +93,20 @@ export class GeneratePDF {
                     stack: ['Estimados miembros del equipo y socios:\n\n',
                         {
                             text: 'Me complace presentarles el reporte financiero de la Four Parks Colombia, ' +
-                                'desglosado por ciudad para el mes 04 del 2024. Este reporte detalla el desempeño financiero de nuestros ' +
-                                'parqueaderos en la ciudad de Bogotá donde operamos, brindando una visión clara y detallada de ' +
+                                'desglosado por Parqueaderos a cargo del Gerente. Este reporte detalla el desempeño financiero de nuestros ' +
+                                'parqueaderos, brindando una visión clara y detallada de ' +
                                 'nuestros ingresos, reservas y otros indicadores financieros clave.', style: 'boldeSub'
                         }],
                     margin: [0, 20],
                     style: 'bolde'
                 },
                 {
-                    text: 'Gerente Camilo',
+                    text: 'Gerente: ' + manager,
                     style: 'manager'
 
                 },
                 {
-                    text: '25 de mayo de 2024',
+                    text: formatDate,
                     style: 'manager'
                 },
                 { text: 'Tabla comparativa de resultados financieros', pageBreak: 'before', style: 'title' },
@@ -99,12 +118,12 @@ export class GeneratePDF {
                         body: bodyTable
                     }
                 },
-                { text: '\nPara la ciudad de Bogotá\n\n', style: 'subtitle' },
+                { text: '\nTomando en cuenta:\n\n', style: 'subtitle' },
                 {
                     ul: [
-                        'Ingresos totales de la ciudad: $1000000.',
-                        'Reservas totales de la ciudad: 10000.',
-                        'Ocupación media por dia: 13.00'
+                        'Ingresos totales: $' + y,
+                        'Reservas totales: ' + x,
+                        'Ocupación media por dia: ' + x/15
                     ]
                 }
             ],
@@ -122,7 +141,7 @@ export class GeneratePDF {
                     fontSize: 19,
                 },
                 title: {
-                    fontSize: 30,
+                    fontSize: 20,
                     margin: [0, 0, 0, 35]
                 },
                 subtitle: {
@@ -142,7 +161,8 @@ export class GeneratePDF {
                     bold: true
                 },
                 tableExample: {
-                    margin: [0, 5, 0, 15]
+                    margin: [0, 5, 0, 15],
+                    alignment: 'center'
                 },
                 tableHeader: {
                     bold: true,
@@ -151,6 +171,146 @@ export class GeneratePDF {
                 }
             }
         }
-        pdfMake.createPdf(dd, pdfMake.tableLayouts, pdfMake.fonts, pdfFonts.pdfMake.vfs).open();
+        return new Promise<any>((resolve, reject) => {
+            resolve(dd);
+        });
+    }
+
+    public openReportPark(info: Array<any>, manager: string, nombre: string) {
+        this.structureParks(info, manager, nombre).then(d => {
+            pdfMake.createPdf(d, pdfMake.tableLayouts, pdfMake.fonts, pdfFonts.pdfMake.vfs).open()
+        });
+    }
+
+    public downloadReportPark(info: Array<any>, manager: string, nombre: string) {
+        this.structureParks(info, manager, nombre).then(d => {
+            pdfMake.createPdf(d, pdfMake.tableLayouts, pdfMake.fonts, pdfFonts.pdfMake.vfs).download('report.pdf')
+        });
+    }
+
+    private async structureParks(info: Array<any>, manager: string, nombre: string): Promise<any> {
+        const today = new Date()
+        const formatDate = this.datePipe.transform(today, 'dd \'de\' MM \'del\' yyyy')
+        const bodyTable = [
+            [{ text: 'Fecha', style: 'tableHeader', alignment: 'center' },
+            { text: 'Reservas', style: 'tableHeader', alignment: 'center' },
+            { text: 'Ingresos', style: 'tableHeader', alignment: 'center' },
+            { text: '% Ocupación', style: 'tableHeader', alignment: 'center' }
+            ],
+        ]
+
+        let x = 0;
+        let y = 0;
+        info.map((p) => {
+            bodyTable.push(p)
+            x = x + p[1],
+            y = y + p[2]
+        })
+
+        const dd: any = {
+            info: {
+                title: 'Reporte FourParksColombia',
+                author: 'createjs',
+                subject: 'subjest',
+                keywords: 'keywords'
+            },
+            content: [
+                {
+                    image: await this.getBase64ImageFromURL('../../../../assets/resources/Logo/LOGOB.png'),
+                    width: 300,
+                    height: 155,
+                    style: 'icono'
+                },
+                {
+                    stack: [
+                        'Four Parks Colombia',
+                        { text: 'Reporte Financiero', style: 'subheader' },
+                    ],
+                    style: 'header'
+                },
+                {
+                    stack: ['Estimados miembros del equipo y socios:\n\n',
+                        {
+                            text: 'Me complace presentarles el reporte financiero de la Four Parks Colombia, ' +
+                                'desglosado por Parqueadero y sus actividades diarias. Este reporte detalla el desempeño financiero de nuestros ' +
+                                'parqueaderos, brindando una visión clara y detallada de ' +
+                                'nuestros ingresos, reservas y otros indicadores financieros clave.', style: 'boldeSub'
+                        }],
+                    margin: [0, 20],
+                    style: 'bolde'
+                },
+                {
+                    text: 'Gerente: ' + manager,
+                    style: 'manager'
+
+                },
+                {
+                    text: formatDate,
+                    style: 'manager'
+                },
+                { text: 'Tabla comparativa de resultados financieros ' + nombre, pageBreak: 'before', style: 'title' },
+                {
+                    style: 'tableExample',
+                    color: '#444',
+                    table: {
+                        widths: [120, 150, 100, 100],
+                        body: bodyTable
+                    }
+                },
+                { text: '\nTomando en cuenta:\n\n', style: 'subtitle' },
+                {
+                    ul: [
+                        'Ingresos totales del Parqueadero: $' + y,
+                        'Reservas totales del Parquedero: ' + x
+                    ]
+                }
+            ],
+            styles: {
+                icono: {
+                    alignment: 'center'
+                },
+                header: {
+                    fontSize: 45,
+                    bold: true,
+                    alignment: 'right',
+                    margin: [0, 190, 0, 80]
+                },
+                subheader: {
+                    fontSize: 19,
+                },
+                title: {
+                    fontSize: 20,
+                    margin: [0, 0, 0, 35]
+                },
+                subtitle: {
+                    bold: true,
+                    fontSize: 15
+                },
+                bolde: {
+                    bold: true,
+                    fontSize: 15
+                },
+                boldeSub: {
+                    bold: false,
+                    fontSize: 13
+                },
+                manager: {
+                    fontSize: 15,
+                    bold: true
+                },
+                tableExample: {
+                    margin: [0, 5, 0, 15],
+                    alignment: 'center'
+                },
+                tableHeader: {
+                    bold: true,
+                    fontSize: 13,
+                    color: 'black'
+                }
+            }
+        }
+        return new Promise<any>((resolve, reject) => {
+            resolve(dd);
+        });
     }
 }

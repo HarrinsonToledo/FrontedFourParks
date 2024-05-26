@@ -6,12 +6,16 @@ import { InfoEditPark, infoParking } from "../../../interfaces/Parqueaderos";
 import Notiflix from "notiflix";
 import { ManagerState } from "../States/ManagerState";
 import { Parking } from "../Objets/Parking";
+import { InfoReportPark,  InfoReportCity } from "../../../interfaces/Reports";
 
 @Injectable({
     providedIn: 'root'
 })
 export class Manager {
     private infoData: InfoManager | undefined;
+    private infoCalcCity:  InfoReportCity[] | undefined;
+    private infoCalcPark: InfoReportPark[] | undefined;
+    public seguroC: boolean = true;
 
     constructor(
         private userData: UserDataService,
@@ -20,6 +24,11 @@ export class Manager {
         private parks: Parking
     ) {
 
+    }
+
+    private resetReports() {
+        this.infoCalcCity = undefined;
+        this.seguroC = true;
     }
 
     public loadManager(user: string) {
@@ -50,12 +59,14 @@ export class Manager {
                     this.managerState.showModalEdit = false;
                     this.parks.seguroParks = true;
                     this.parks.resetParks();
+                    this.resetReports();
                 } else if (response.fail.length == 0) {
                     message = message + response.success.join(", ") + ' se modificaron';
                     Notiflix.Report.success('Modificaciones fueron exitosas', message, 'ok');
                     this.managerState.showModalEdit = false;
                     this.parks.seguroParks = true;
                     this.parks.resetParks();
+                    this.resetReports();
                 } else if (response.success.length == 0) {
                     message = response.fail.join(", ");
                     Notiflix.Report.failure('Error de modificaciones', message, 'ok');
@@ -77,10 +88,41 @@ export class Manager {
                 this.managerState.showModalAdmin = false;
                 this.parks.seguroParks = true;
                 this.parks.resetParks();
+                this.resetReports();
             },
             error: error => {
                 Notiflix.Loading.remove()
                 Notiflix.Report.failure('Error servidor', error, 'ok')
+            }
+        })
+    }
+
+    public getCalcCity():  InfoReportCity[] | undefined {
+        return this.infoCalcCity;
+    }
+
+    public loadCalcCity(manager: string) {
+        this.managerService.getCalcCity(manager).subscribe({
+            next: response => {
+                this.infoCalcCity = response;
+            },
+            error: error => {
+                console.error(error);
+            }
+        })
+    }
+
+    public getCalcPark(): InfoReportPark[] | undefined {
+        return this.infoCalcPark;
+    }
+
+    public loadCalcPark(park: string) {
+        this.managerService.getCalcPark(park).subscribe({
+            next: response => {
+                this.infoCalcPark = response;
+            },
+            error: error => {
+                console.error(error);
             }
         })
     }
