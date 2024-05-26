@@ -25,11 +25,3 @@ export interface InfoReserveUser {
     codParqueadero: string,
     tipoVechiculo: string
 }
-
-export interface InfoGetFee {
-    idTarifa: string,
-    tarifaMoto: number,
-    tarifaCarro: number,
-    tarifaExtraCarro: number,
-    tarifaExtraMoto: number
-}

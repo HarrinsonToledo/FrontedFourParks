@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { infoCities, infoParking } from "../../../interfaces/Parqueaderos";
+import { infoCities, infoParking, InfoGetFee } from "../../../interfaces/Parqueaderos";
 import { environment } from "../../../../environments/environment";
 import { AuthenticateService } from "../autheticate/authenticate.service";
-import { InfoGetFee, InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
+import { InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +38,10 @@ export class ParkingServices {
 
     public getFees(tarifa: string): Observable<InfoGetFee> {
         return this.http.get<InfoGetFee>(`${environment.apiReser}/consulta/tarifas/${tarifa}`);
+    }
+
+    public getAllFees(): Observable<InfoGetFee[]> {
+        return this.http.get<InfoGetFee[]>(`${environment.apiReser}/consulta/tarifas`)
     }
 
     public getReserves(doc: number, typeDoc: string): Observable<InfoReserveUser[]> {

@@ -35,6 +35,9 @@
                         <input type="text" formControlName="address"
                             class="pl-10 bg-gray-50 border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Dirección">
+                            @if(checkAddress()) {
+                                <p class="text-base text-red-600 col-span-2">La Dirección ya esta asignada a un parquedero de la ciudad</p>
+                            }
                     </div>
                     <div class="relative">
                         <label class="block mb-2 text-base font-medium text-gray-900">Latitud</label>
@@ -53,9 +56,12 @@
                             placeholder="Longitud">
                     </div>
                 </div>
+                @if(checkLatLong()) {
+                    <p class="text-base text-red-600 col-span-2">La latitud y longitud ya estan vinculadas a un parquedaero</p>
+                }
                 <!-- Modal footer -->
                 <div class="min_oculy:flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                    <button [disabled]="!formAdmin.valid"
+                    <button [disabled]="!formAdmin.valid" (click)="sendData()"
                         class="text-white bg-firstColor hover:opacity-85 focus:ring-4 focus:outline-none font-medium rounded-lg text-base px-5 py-2.5 text-center">
                         Actualizar parqueadero
                     </button>

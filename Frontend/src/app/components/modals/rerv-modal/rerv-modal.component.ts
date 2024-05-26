@@ -1,10 +1,10 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
-import { infoParking } from '../../../interfaces/Parqueaderos';
+import { InfoGetFee, infoParking } from '../../../interfaces/Parqueaderos';
 import { ReserveState } from '../../../core/class/States/ReserveState';
 import { Customer } from '../../../core/class/Users/Customer';
 import { InfoCard } from '../../../interfaces/User';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InfoGetFee, InfoReserveUser, InfoSendReserve } from '../../../interfaces/Reserve';
+import { InfoReserveUser, InfoSendReserve } from '../../../interfaces/Reserve';
 import { Parking } from '../../../core/class/Objets/Parking';
 import { sha1 } from 'js-sha1';
 
@@ -80,7 +80,7 @@ export class RervModalComponent implements DoCheck, OnInit {
       this.parking.loadFeePark(this.park.codTarifa);
       this.seguro = false;
     }
-    if (this.parking.getFees() != undefined) this.fees = this.parking.getFees();
+    if (this.parking.getFees() != undefined) this.fees = this.parking.getFees()!;
     if (this.reserveState.showEditReserve) {
       this.reserveEdit = this.reserveState.getEditReserve()!;
       if(this.seguroCost) {this.cost = this.reserveEdit.subTotal;this.seguroCost = false}

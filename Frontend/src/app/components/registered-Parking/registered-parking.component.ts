@@ -18,7 +18,7 @@ import { AdminParkComponent } from '../modals/admin-park/admin-park.component';
 export class RegisteredParkingComponent implements DoCheck {
   public parkings!: infoParking[];
   public cities!: infoCities[];
-  public seguro: boolean[] = [true, true];
+  public seguro: boolean = true;
   public parksForEdit: infoParking[] = [];
 
   public nameCity: string = '';
@@ -28,8 +28,8 @@ export class RegisteredParkingComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.parks.getParkings() == undefined && this.seguro[0]) { this.parks.loadParkings(); this.seguro[0] = false}
-    if (this.parks.getCities() == undefined && this.seguro[1]) { this.parks.loadCities(); this.seguro[0] = false}
+    if (this.parks.getParkings() == undefined && this.parks.seguroParks) { this.parks.loadParkings(); this.parks.seguroParks = false}
+    if (this.parks.getCities() == undefined && this.seguro) { this.parks.loadCities(); this.seguro = false}
     this.parkings = this.parks.getParkings()!;
     this.cities = this.parks.getCities()!;
 
@@ -47,8 +47,13 @@ export class RegisteredParkingComponent implements DoCheck {
     else this.parksForEdit = this.parksForEdit.filter((p) => p !== parkInfo);
   }
 
-  editAdmin(park: infoParking) {
+  adminPark(park: infoParking) {
     this.managerState.showModalAdmin = true;
     this.managerState.setEditParkAdmin(park);
+  }
+
+  editParks() {
+    this.managerState.showModalEdit = true
+    this.managerState.setEditParksData(this.parksForEdit);
   }
 }

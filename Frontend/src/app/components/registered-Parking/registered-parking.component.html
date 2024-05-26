@@ -14,7 +14,7 @@
         </p>
         <div class="flex flex-row  h-1/6 w-full ">
             <p class="font-bold min_oculy:text-3xl text-xl">Ciudad: {{nameCity}}</p>
-            <button (click)="managerState.showModalEdit = true" [disabled]="parksForEdit.length == 0"
+            <button (click)="editParks()" [disabled]="parksForEdit.length == 0"
                 class="bg-firstColor font-bold text-secondColor text-3xl w-56 h-12 rounded-3xl hover:bg-black ml-auto">
                 Editar
             </button>
@@ -33,7 +33,6 @@
                             <th class="p-3 border border-firstColor">Parqueadero</th>
                             <th class="p-3 border border-firstColor">Dirección</th>
                             <th class="p-3 border border-firstColor ">Administrar</th>
-                            <th class="p-3 border border-firstColor ">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody class="min_oculy:text-xl text-lg">
@@ -48,7 +47,7 @@
                             <td class="border border-firstColor">{{item.direccion}}</td>
                             <td class="border border-firstColor h-1 w-1 ">
                                 <button
-                                    (click)="editAdmin(item)"
+                                    (click)="adminPark(item)"
                                     class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-2 hover:bg-black">
                                     <svg class="w-10" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -66,13 +65,6 @@
                                                 stroke-linejoin="round"></path>
                                         </g>
                                     </svg>
-                                </button>
-                            </td>
-                            <td class="border border-firstColor">
-                                <button
-                                    class="bg-firstColor flex mx-auto justify-center min_oculy:w-2/6 w-3/6 rounded-3xl p-1 hover:bg-black">
-                                    <img class="h-12 w-12 p-2" src="../../../../assets/resources/Recurso 30.png"
-                                        alt="" />
                                 </button>
                             </td>
                         </tr>

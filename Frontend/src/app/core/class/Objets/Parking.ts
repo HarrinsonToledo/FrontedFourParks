@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { infoCities, infoParking } from "../../../interfaces/Parqueaderos";
+import { infoCities, infoParking, InfoGetFee } from "../../../interfaces/Parqueaderos";
 import { ParkingServices } from "../../services/parking/parking.service";
-import { InfoGetFee, InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
+import { InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
 import Notiflix from "notiflix";
 import { ReserveState } from "../States/ReserveState";
 
@@ -12,16 +12,27 @@ import { ReserveState } from "../States/ReserveState";
 export class Parking {
     private cities: infoCities[] | undefined;
     private parkings: infoParking[] | undefined;
-    private fees!: InfoGetFee;
+    private fees: InfoGetFee | undefined;
+    private allFees: InfoGetFee[] | undefined;
     private Reserves: InfoReserveUser[] | undefined;
 
+    public seguroParks: boolean = true;
+
     constructor(private parkingService: ParkingServices, private reserveState: ReserveState) {
-        this.loadParkings();
-        this.loadCities();
+
     } 
 
-    public getFees(): InfoGetFee {
+    public resetParks() {
+        this.parkings = undefined;
+        this.allFees = undefined;
+    }
+
+    public getFees(): InfoGetFee | undefined {
         return this.fees;
+    }
+
+    public getAllFees(): InfoGetFee[] | undefined {
+        return this.allFees;
     }
 
     public sendReserve(info: InfoSendReserve, type: boolean) {
@@ -116,6 +127,17 @@ export class Parking {
             },
             error: error => {
                 console.error(error)
+            }
+        })
+    }
+
+    public loadAllFees() {
+        this.parkingService.getAllFees().subscribe({
+            next: response => {
+                this.allFees = response;
+            },
+            error: error => {
+                console.log(error)
             }
         })
     }
