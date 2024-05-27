@@ -11,26 +11,28 @@
                     <thead class="bg-firstColor bg-opacity-30">
                         <tr class="text-firstColor font-bold min_oculy:text-3xl text-xl">
                             <th class="p-3 border border-firstColor">Tipo</th>
-                            <th class="p-3 border border-firstColor">Número de documento</th>
+                            <th class="p-3 border border-firstColor">Identificación</th>
                             <th class="p-3 border border-firstColor">Nombre</th>
                             <th class="p-3 border border-firstColor ">Correo electronico</th>
                             <th class="p-3 border border-firstColor ">Activar</th>
                         </tr>
                     </thead>
                     <tbody class="min_oculy:text-xl text-lg">
-                        @for (item of parking; track $index) {
-                        <tr class="font-bold text-center">
-                            <td class="border border-firstColor">CC</td>
-                            <td class="border border-firstColor">102034112</td>
-                            <td class="border border-firstColor">Juan Perez</td>
-                            <td class="border border-firstColor">juanperezqmail.com</td>
-                            <td class="border border-firstColor">
-                                <button class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-1 hover:bg-black">
-                                    <img class="h-12 w-16 p-2" src="../../../assets/resources/Recurso 25.png"
-                                        alt="" />
-                                </button>
-                            </td>
-                        </tr>
+                        @if (usersLock.length != 0) {
+                            @for (item of usersLock; track $index) {
+                                <tr class="font-bold text-center">
+                                    <td class="border border-firstColor">{{item.tipoDoc}}</td>
+                                    <td class="border border-firstColor">{{item.numDocumento}}</td>
+                                    <td class="border border-firstColor">{{item.nombre}}</td>
+                                    <td class="border border-firstColor">{{item.email}}</td>
+                                    <td class="border border-firstColor">
+                                        <button (click)="unlock(item)" class="bg-firstColor flex mx-auto justify-center w-8/12 rounded-3xl p-1 hover:bg-black">
+                                            <img class="min_oculy:w-16 w-10 p-2" src="../../../assets/resources/Recurso 25.png"
+                                                alt="" />
+                                        </button>
+                                    </td>
+                                </tr>
+                                }
                         }
                     </tbody>
                 </table>
@@ -46,26 +48,21 @@
                     <thead class="bg-firstColor bg-opacity-30">
                         <tr class="text-firstColor font-bold min_oculy:text-3xl text-xl">
                             <th class="p-3 border border-firstColor">Tipo</th>
-                            <th class="p-3 border border-firstColor">Número de documento</th>
+                            <th class="p-3 border border-firstColor">Identificación</th>
                             <th class="p-3 border border-firstColor">Nombre</th>
                             <th class="p-3 border border-firstColor ">Correo electronico</th>
-                            <th class="p-3 border border-firstColor ">Activar</th>
                         </tr>
                     </thead>
                     <tbody class="min_oculy:text-xl text-lg">
-                        @for (item of parking; track $index) {
-                        <tr class="font-bold text-center">
-                            <td class="border border-firstColor">CC</td>
-                            <td class="border border-firstColor">102034112</td>
-                            <td class="border border-firstColor">Juan Perez</td>
-                            <td class="border border-firstColor">juanperezqmail.com</td>
-                            <td class="border border-firstColor">
-                                <button class="bg-firstColor flex mx-auto justify-center w-2/6 rounded-3xl p-1 hover:bg-black">
-                                    <img class="h-12 w-16 p-2" src="../../../assets/resources/Recurso 26.png"
-                                        alt="" />
-                                </button>
-                            </td>
-                        </tr>
+                        @if (usersNormal.length != 0) {
+                            @for (item of usersNormal; track $index) {
+                                <tr class="font-bold text-center">
+                                    <td class="border border-firstColor">{{item.tipoDoc}}</td>
+                                    <td class="border border-firstColor">{{item.numDocumento}}</td>
+                                    <td class="border border-firstColor">{{item.nombre}}</td>
+                                    <td class="border border-firstColor">{{item.email}}</td>
+                                </tr>
+                                }
                         }
                     </tbody>
                 </table>

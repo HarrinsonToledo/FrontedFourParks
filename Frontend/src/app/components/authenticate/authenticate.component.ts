@@ -54,6 +54,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.createForms();
+    this.recatchap.execute('importantAction').subscribe((token) => { })
   }
 
   ngDoCheck() {
@@ -86,7 +87,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
       firstName: ['', [Validators.required, this.authenticate.customValidator('')]],
       secondName: [],
       firstLastName: ['', [Validators.required, this.authenticate.customValidator('')]],
-      secondLastName: ['', Validators.required],
+      secondLastName: ['', [Validators.required, this.authenticate.customValidator('')]],
       NID: ['', Validators.required],
       typeID: ['', Validators.required],
       numberCell: ['', Validators.required],
@@ -125,8 +126,6 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         }
       }
     })
-
-    this.recatchap.execute('importantAction').subscribe((token) => { })
   }
 
   sendSignin() {

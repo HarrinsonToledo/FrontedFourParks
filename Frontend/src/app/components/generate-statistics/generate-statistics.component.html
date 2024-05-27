@@ -1,58 +1,49 @@
 <div class="max-screen w-full top-0 min-h-screen left-0 flex">
     <app-sidebar class="min-h-screen"></app-sidebar>
     <div class="w-full max-h-screen min_oculy:p-20 p-5 flex flex-col">
-        <form class="bg-secondColor p-5 w-full  border border-firstColor rounded-3xl grid min_oculy:grid-cols-3 grid-cols-1 gap-3 ">
-            
-            
-                    <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2 absolute">
-                        Generar Estadísticas
-                    </p>
-               
-            
-        <div >
-            <label
-                class="block mb-2 text-base font-medium text-gray-900 mt-16">Tipo de estadística</label>
-            <select id="category" formControlName="state" 
-                class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-4/5 p-2.5">
-                <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                <option class="text-center text-base font-medium" value="T">Ganancias</option>
-                <option class="text-center text-base font-medium" value="C">Reservas</option>
-                <option class="text-center text-base font-medium" value="A">Capacidad</option>
-            </select>
+        <div
+            class="bg-secondColor p-5 w-full border border-firstColor rounded-3xl">
+            <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2">
+                Generar Estadísticas
+            </p>
+            <div class="w-full grid min_oculy:grid-cols-2 gap-5">
+                <div class="">
+                    <label class="block mb-2 text-base font-medium text-gray-900">Tipo de estadística</label>
+                    <select id="category" formControlName="state"
+                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                        <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
+                        <option class="text-center text-base font-medium" value="T">Ganancias</option>
+                        <option class="text-center text-base font-medium" value="C">Reservas</option>
+                        <option class="text-center text-base font-medium" value="A">Capacidad</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block mb-2 text-base font-medium text-gray-900">Ciudad</label>
+                    <select id="category" formControlName="state"
+                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                        <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
+                        <option class="text-center text-base font-medium" value="T">Bogotá</option>
+                        <option class="text-center text-base font-medium" value="T">Cali</option>
+                        <option class="text-center text-base font-medium" value="C">Medellín</option>
+                        <option class="text-center text-base font-medium" value="A">Neiva</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div>
-            <label
-                class="block mb-2 text-base font-medium text-gray-900  mt-16">Ciudad</label>
-            <select id="category" formControlName="state" 
-                class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-4/6 p-2.5">
-                <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                <option class="text-center text-base font-medium" value="T">Bogotá</option>
-                <option class="text-center text-base font-medium" value="T">Cali</option>
-                <option class="text-center text-base font-medium" value="C">Medellín</option>
-                <option class="text-center text-base font-medium" value="A">Neiva</option>
-            </select>
-        </div>
-        <div class="ml-auto pr-10">
-            <button
-            class="bg-firstColor font-medium text-secondColor  text-3xl w-56 h-12 rounded-3xl hover:bg-black mt-24 ">
-            Generar
-        </button>
-        </div>
-    </form>
 
-    <div class="p-5 grid grid-cols-3 w-full h-full border border-firstColor items-center justify-center">
+        <div class="p-5 w-full h-full border border-firstColor items-center justify-center">
 
-        <div class="  w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-            <p class="font-medium text-6xl">Grafica 1</p>
-        </div>  
-        <div class=" w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-            <p class="font-medium text-6xl">Grafica 2</p>
-        </div>  
-        <div class="w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-            <p class="font-medium text-6xl">Grafica 3</p>
-        </div>  
-        
-    </div>   
+            <div class="  w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
+                <p class="font-medium text-6xl">Grafica 1</p>
+            </div>
+            <div class=" w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
+                <p class="font-medium text-6xl">Grafica 2</p>
+            </div>
+            <div class="w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
+                <p class="font-medium text-6xl">Grafica 3</p>
+            </div>
+
+        </div>
 
 
     </div>

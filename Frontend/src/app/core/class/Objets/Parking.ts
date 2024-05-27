@@ -4,6 +4,8 @@ import { ParkingServices } from "../../services/parking/parking.service";
 import { InfoReserveUser, InfoSendReserve } from "../../../interfaces/Reserve";
 import Notiflix from "notiflix";
 import { ReserveState } from "../States/ReserveState";
+import { Customer } from "../Users/Customer";
+import { AuthenticateService } from "../../services/autheticate/authenticate.service";
 
 
 @Injectable({
@@ -18,7 +20,12 @@ export class Parking {
 
     public seguroParks: boolean = true;
 
-    constructor(private parkingService: ParkingServices, private reserveState: ReserveState) {
+    constructor(
+        private parkingService: ParkingServices, 
+        private reserveState: ReserveState, 
+        private customer: Customer,
+        private autheService: AuthenticateService
+    ) {
 
     } 
 
@@ -45,6 +52,7 @@ export class Parking {
                     this.reserveState.showModalReserve = false;
                     this.reserveState.seguroReserves = true
                     this.Reserves = undefined;
+                    this.customer.loadCustomer(this.autheService.getCookieSessionCustomer())
                 },
                 error: error => {
                     Notiflix.Loading.remove()

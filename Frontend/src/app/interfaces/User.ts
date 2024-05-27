@@ -77,3 +77,32 @@ export interface InfoAdmin {
     I_ROL: string,
     N_PRIMER_NOMBRE: string
 }
+
+export interface InfoAdminUsers {
+    user: string,
+    estado: string,
+    numDocumento: string,
+    email: string,
+    tipoDoc: string,
+    nombre: string
+}
+
+export interface SendManager {
+    userName: string,
+    pass: string,
+    passSha: string,
+    email: string,
+    primerNombre: string,
+    segundoNombre: string,
+    primerApellido: string,
+    segundoApellido: string,
+    codGerente: string
+}
+
+export interface trasabilidad {
+    usuario: string,
+    tipo_cambio: string,
+    elemento_cambiado: string,
+    fecha: string,
+    direccionIP: string
+}
