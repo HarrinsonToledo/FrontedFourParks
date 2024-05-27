@@ -5,6 +5,7 @@ import { AdminService } from "../../services/admin/admin.service";
 import { AdminState } from "../States/AdminState";
 import Notiflix from "notiflix";
 import { Parking } from "../Objets/Parking";
+import { InfoReportCity } from "../../../interfaces/Reports";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +14,7 @@ export class Administrator {
     private infoData: InfoAdmin | undefined;
     private users: InfoAdminUsers[] | undefined;
     private trasabi: trasabilidad[] | undefined;
+    private static: InfoReportCity[] | undefined;
 
     constructor(
         private userData: UserDataService, 
@@ -105,5 +107,20 @@ export class Administrator {
 
     public getTrasabilidad(): trasabilidad[] | undefined {
         return this.trasabi;
+    }
+
+    public loadStadistics() {
+        this.adminService.getStadistics().subscribe({
+            next: response => {
+                this.static = response;
+            },
+            error: error => {
+                console.error(error)
+            }
+        })
+    }
+
+    public getStadistics(): InfoReportCity[] | undefined {
+        return this.static
     }
 }

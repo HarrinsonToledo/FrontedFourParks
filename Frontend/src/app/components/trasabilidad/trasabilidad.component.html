@@ -40,10 +40,10 @@
                     <tbody class="min_oculy:text-xl text-lg">
                         @for (item of trasability; track $index) {
                         <tr class="font-bold text-center">
-                            <td class="border border-firstColor">Juan</td>
-                            <td class="border border-firstColor">Tipo de interccion</td>
-                            <td class="border border-firstColor">66.249.79.98</td>
-                            <td class="border border-firstColor">3:00 - 17/07/2024 </td>
+                            <td class="border border-firstColor">{{item.usuario}}</td>
+                            <td class="border border-firstColor">{{item.tipo_cambio}}</td>
+                            <td class="border border-firstColor">{{item.direccionIP}}</td>
+                            <td class="border border-firstColor">{{item.fecha}}</td>
                         </tr>
                         }
                     </tbody>

@@ -2,7 +2,7 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { Parking } from '../../core/class/Objets/Parking';
 import { infoParking } from '../../interfaces/Parqueaderos';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticateState } from '../../core/class/States/AuthenticateState';
 import Notiflix from 'notiflix';
 import { sha1 } from 'js-sha1';
@@ -81,7 +81,8 @@ export class RegisterAdminComponent implements DoCheck, OnInit {
         segundoNombre: this.formManager.value.sn != '' ? this.formManager.value.sn : null,
         primerApellido: this.formManager.value.fln,
         segundoApellido: this.formManager.value.sln,
-        codGerente: sha1(pass + this.formManager.value.user).slice(0,10)
+        codGerente: sha1(pass + this.formManager.value.user).slice(0,10),
+        codParqueadero: this.formManager.value.park
       }
       this.admin.sendManager(info);
     } else {

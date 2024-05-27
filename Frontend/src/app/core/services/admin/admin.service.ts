@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { AuthenticateService } from "../autheticate/authenticate.service";
 import { InfoAdminUsers, SendManager, trasabilidad } from "../../../interfaces/User";
+import { InfoReportCity } from "../../../interfaces/Reports";
 
 @Injectable({
     providedIn: 'root'
@@ -41,5 +42,9 @@ export class AdminService {
     public getTrasabilidad(): Observable<trasabilidad[]> {
         this.loadHead()
         return this.http.get<trasabilidad[]>(`${environment.apiParame}/administrador/auditoria`, { headers: this.header})
+    }
+
+    public getStadistics(): Observable<InfoReportCity[]> {
+        return this.http.get<InfoReportCity[]>(`${environment.apiParame}/administrador/estadisticas`, { headers: this.header})
     }
 }

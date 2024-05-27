@@ -96,7 +96,8 @@ export interface SendManager {
     segundoNombre: string,
     primerApellido: string,
     segundoApellido: string,
-    codGerente: string
+    codGerente: string,
+    codParqueadero: string 
 }
 
 export interface trasabilidad {

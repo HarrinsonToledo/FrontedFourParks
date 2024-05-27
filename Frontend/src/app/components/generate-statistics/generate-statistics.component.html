@@ -1,50 +1,38 @@
 <div class="max-screen w-full top-0 min-h-screen left-0 flex">
     <app-sidebar class="min-h-screen"></app-sidebar>
-    <div class="w-full max-h-screen min_oculy:p-20 p-5 flex flex-col">
+    <div class="w-full max-h-screen min_oculy:p-12 p-5 flex flex-col">
         <div
             class="bg-secondColor p-5 w-full border border-firstColor rounded-3xl">
-            <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2">
+            <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-5 mb-2">
                 Generar Estadísticas
             </p>
             <div class="w-full grid min_oculy:grid-cols-2 gap-5">
-                <div class="">
+                <div class="w-full">
                     <label class="block mb-2 text-base font-medium text-gray-900">Tipo de estadística</label>
-                    <select id="category" formControlName="state"
-                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                    <select id="category" (change)="selectT($event)"
+                        class="bg-secondColor w-full border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
                         <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                        <option class="text-center text-base font-medium" value="T">Ganancias</option>
-                        <option class="text-center text-base font-medium" value="C">Reservas</option>
-                        <option class="text-center text-base font-medium" value="A">Capacidad</option>
+                        <option class="text-center text-base font-medium" value="G">Ganancias</option>
+                        <option class="text-center text-base font-medium" value="R">Reservas</option>
+                        <option class="text-center text-base font-medium" value="A">Ambas</option>
                     </select>
                 </div>
-                <div>
-                    <label class="block mb-2 text-base font-medium text-gray-900">Ciudad</label>
-                    <select id="category" formControlName="state"
-                        class="bg-secondColor border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
+                <div class="w-full">
+                    <label class="block mb-2 text-base font-medium text-gray-900">Tipo de gráfica</label>
+                    <select id="category" (change)="selectG($event)"
+                        class="bg-secondColor w-full border border-firstColor text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5">
                         <option class="text-center text-base font-medium" value="S" selected>Seleccionar</option>
-                        <option class="text-center text-base font-medium" value="T">Bogotá</option>
-                        <option class="text-center text-base font-medium" value="T">Cali</option>
-                        <option class="text-center text-base font-medium" value="C">Medellín</option>
-                        <option class="text-center text-base font-medium" value="A">Neiva</option>
+                        <option class="text-center text-base font-medium" value="radar">Radar</option>
+                        <option class="text-center text-base font-medium" value="bar">Barras</option>
+                        <option class="text-center text-base font-medium" value="line">Linea</option>
                     </select>
                 </div>
             </div>
         </div>
-
-        <div class="p-5 w-full h-full border border-firstColor items-center justify-center">
-
-            <div class="  w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-                <p class="font-medium text-6xl">Grafica 1</p>
+        <div class="p-1 w-full items-center justify-center scroll-view overflow-scroll">
+            <div class="p-4 w-full h-full rounded-3xl flex justify-center bg-white border-firstColor border-solid border-2">
+                <canvas class="w-full h-full" id="chart">{{chart}}</canvas>
             </div>
-            <div class=" w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-                <p class="font-medium text-6xl">Grafica 2</p>
-            </div>
-            <div class="w-full h-full rounded-3xl bg-white border-firstColor border-solid border-2 col-span-1">
-                <p class="font-medium text-6xl">Grafica 3</p>
-            </div>
-
         </div>
-
-
     </div>
 </div>
