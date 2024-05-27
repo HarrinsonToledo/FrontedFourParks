@@ -54,13 +54,13 @@ export class SidebarComponent implements DoCheck {
   ngOnInit() {
     if(this.authenticaService.isCustomer()) {
       this.user = this.authenticaService.getCookieSessionCustomer();
-      this.customer.loadCustomer(this.user, true);
+      if (this.customer.getInfo() == undefined) this.customer.loadCustomer(this.user, true);
     } else if(this.authenticaService.isManager()) {
       this.user = this.authenticaService.getCookieSessionManager();
-      this.manager.loadManager(this.user)
+      if (this.manager.getInfo() == undefined) this.manager.loadManager(this.user)
     } else if(this.authenticaService.isAdmin()) {
       this.user = this.authenticaService.getCookieSessionAdmin();
-      this.admin.loadAdministrator(this.user);
+      if (this.admin.getInfo() == undefined) this.admin.loadAdministrator(this.user);
     }
     else {
       this.root.navigate(['/'])

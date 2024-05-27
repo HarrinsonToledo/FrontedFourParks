@@ -31,7 +31,7 @@ export class RecordsComponent implements OnInit, DoCheck {
 
   ngDoCheck(): void {
     if(this.customer.getInfo() == undefined && this.seguros[0]) {
-      this.customer.loadCustomer(this.authe. getCookieSessionCustomer()[0], true);
+      this.customer.loadCustomer(this.authe.getCookieSessionCustomer(), true);
       this.seguros[0] = false;
     }
     if(this.parking.getReserves() == undefined && this.customer.getInfo() != undefined && this.seguros[1]) {

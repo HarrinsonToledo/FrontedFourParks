@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { InfoCard, InfoCardSend, InfoChangeUser, InfoDeleteCard, InfoSendPassword, InfoUser } from "../../../interfaces/User";
-import { AuthenticateService } from "../../services/autheticate/authenticate.service";
 import { UserDataService } from "../../services/userData/userdata.service";
 import Notiflix from "notiflix";
 
@@ -19,8 +18,10 @@ export class Customer {
   public isAddCard: number = 0;
   public isChagePassword: number = 0;
 
-  constructor(private userDataService: UserDataService, private autheticate: AuthenticateService) {
-    this.loadCustomer(autheticate. getCookieSessionCustomer()[0])
+  public seguroChange: boolean = true;
+
+  constructor(private userDataService: UserDataService) {
+
   }
 
   getCards(): InfoCard[] | undefined {
@@ -47,6 +48,8 @@ export class Customer {
         this.isAddCard = 1;
         Notiflix.Loading.remove();
         Notiflix.Report.success('Tarjeta guardada', 'La tarjeta fue añadida con éxito', 'ok')
+        this.seguroChange = true;
+        this.clearInfo();
       },
       error: Error => {
         this.isAddCard = 2;
@@ -78,6 +81,8 @@ export class Customer {
       next: Response => {
         Notiflix.Loading.remove();
         Notiflix.Report.success('Información Guardada', 'Procedimiento completado', 'ok')
+        this.clearInfo();
+        this.seguroChange = true;
         this.isChangeDate = 1;
       },
       error: Error => {

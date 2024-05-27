@@ -21,7 +21,6 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
   public errorMessage: string[] = [];
 
   public succes: boolean = false;
-  public seguro: boolean = true;
 
   constructor(
     public customer: Customer,
@@ -32,10 +31,10 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.customer.isChangeDate == 1 && this.seguro) {
+    if (this.customer.isChangeDate == 1 && this.customer.seguroChange) {
       this.succes = true;
       this.customer.loadCustomer(this.customer.getInfo()!.N_NOMBRE_USUARIO, true)
-      this.seguro = false;
+      this.customer.seguroChange = false;
     } else if (this.customer.isChangeDate == 2 && this.errorMessage.length == 0) {
       this.errorMessage.push('Error no fue posible actualizar la infomación.')
     }
@@ -46,10 +45,10 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
       this.errorMessage.push('Error no fue posible cambiar la contraseña.')
     }
 
-    if (this.customer.isAddCard == 1 && this.seguro) {
+    if (this.customer.isAddCard == 1 && this.customer.seguroChange) {
       this.succes = true;
       this.customer.loadCards();
-      this.seguro = false;
+      this.customer.seguroChange = false;
     } else if (this.customer.isAddCard == 2 && this.errorMessage.length == 0) {
       this.errorMessage.push('Error no fue posible guardar la tarjeta.')
     }
@@ -107,7 +106,6 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
       N_PRIMER_APELLIDO: this.formData.value.firstLastName
     }
 
-    this.seguro = true;
     this.customer.changeData(info);
   }
 
@@ -121,7 +119,6 @@ export class UpdateDataModalComponent implements OnInit, DoCheck {
     if (find.length != 0) this.errorMessage.push('Tarjeta ya ingresada.')
     this.verifyDate(this.formCard.value.dateExpiration)
 
-    this.seguro = false;
     if (this.errorMessage.length == 0) this.sendInfoCard();
   }
 

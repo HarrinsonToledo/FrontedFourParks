@@ -151,7 +151,6 @@ export class AuthenticateComponent implements OnInit, DoCheck {
 
         this.AuService.cookieSession(this.infoSignin.userName, this.infoSignin.password);
         this.AuService.cookieToken(Response.token);
-        this.customer.loadCustomer(this.infoSignin.userName)
         Notiflix.Loading.remove()
         Notiflix.Notify.success(Response.message, {timeout: 5000})
         this.root.navigate(['/userInterface']);

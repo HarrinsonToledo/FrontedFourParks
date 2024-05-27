@@ -163,8 +163,6 @@ export class RervModalComponent implements DoCheck, OnInit {
     const today = new Date()
     const dateCard = new Date(this.selectedCard.fechaVencimiento);
 
-    console.log(dateCard <= today)
-
     if(dateCard <= today) this.errorMessage.push('La tarjeta ya expiro por favor elija otra tarjeta y actualice su infomación.')
   }
 

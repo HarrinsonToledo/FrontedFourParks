@@ -3,6 +3,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { InfoCard, InfoDeleteCard, InfoUser } from '../../interfaces/User';
 import { Customer } from '../../core/class/Users/Customer';
 import { UpdateDataModalComponent } from '../modals/update-data-modal/update-data-modal.component';
+import { AuthenticateService } from '../../core/services/autheticate/authenticate.service';
 
 @Component({
   selector: 'app-my-data',
@@ -17,15 +18,18 @@ export class MyDataComponent implements DoCheck {
   public show: boolean[] = [this.customer.showUpdateData, this.customer.showUpdatePassword];
 
   constructor(
-    public customer: Customer
+    public customer: Customer,
+    private authe: AuthenticateService
   ) {
     
   }
   ngDoCheck() {
-    if(this.userData == undefined || this.cardsData == undefined) {
-      this.userData = this.customer.getInfo()!;
-      this.cardsData = this.customer.getCards()!;
-    }
+    if(this.customer.getInfo() == undefined && this.customer.seguroChange) {
+      this.customer.loadCustomer(this.authe.getCookieSessionCustomer());
+      this.customer.seguroChange = false;
+    } 
+    this.userData = this.customer.getInfo()!;
+    this.cardsData = this.customer.getCards()!;
     this.show = [this.customer.showUpdateData, this.customer.showUpdatePassword, this.customer.showAddCard];
   }
 
