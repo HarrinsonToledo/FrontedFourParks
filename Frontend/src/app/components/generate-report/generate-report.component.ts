@@ -1,10 +1,10 @@
 import { Component, DoCheck, ElementRef, ViewChild } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { GeneratePDF } from '../../core/class/Objets/generatePDF';
-import { Parking } from '../../core/class/Objets/Parking';
-import { infoParking } from '../../interfaces/Parqueaderos';
 import { Manager } from '../../core/class/Users/Manager';
-import {  InfoReportCity, InfoReportPark } from '../../interfaces/Reports';
+import { InfoReportCity, InfoReportPark } from '../../interfaces/Reports';
+import Notiflix from 'notiflix';
+import { GenerateExcel } from '../../core/class/Objets/generateExcel';
 
 @Component({
   selector: 'app-generate-report',
@@ -23,10 +23,8 @@ export class GenerateReportComponent implements DoCheck {
   public type: string = 'P';
   public select: string = 'S';
   public table: Array<any> = [];;
-  private tRe: number = 0;
-  private tIn: number = 0;
 
-  constructor(private pdf: GeneratePDF, private manager: Manager) {
+  constructor(private pdf: GeneratePDF, private excel: GenerateExcel, private manager: Manager) {
 
   }
 
@@ -71,6 +69,8 @@ export class GenerateReportComponent implements DoCheck {
         this.manager.getInfo()?.N_PRIMER_NOMBRE! + " " + this.manager.getInfo()?.N_PRIMER_APELLIDO!,
         this.select
       );
+    } else {
+      Notiflix.Notify.warning('Para la descarga de PDF necesitas especificar la información', { timeout: 5000 })
     }
   }
 
@@ -104,6 +104,26 @@ export class GenerateReportComponent implements DoCheck {
         this.manager.getInfo()?.N_PRIMER_NOMBRE! + " " + this.manager.getInfo()?.N_PRIMER_APELLIDO!,
         this.select
       );
+    } else {
+      Notiflix.Notify.warning('Para la generación de PDF necesitas especificar la información', { timeout: 5000 })
+    }
+  }
+
+  downloadExcel() {
+    if (this.type == 'C') {
+      this.excel.downloadExcel(
+        this.getInfoCity(),
+        ['', 'Código', 'Parqueadero', 'Total reservas', 'Ingresos'],
+        'General'
+      );
+    } else if(this.select != 'S') {
+      this.excel.downloadExcel(
+        this.getInfoPark(),
+        ['', 'Fecha', 'Reservas', 'Ingresos', '% Ocupación'],
+        this.select
+      );
+    } else {
+      Notiflix.Notify.warning('Para la descarga de Excel necesitas especificar la información', { timeout: 5000 })
     }
   }
 }

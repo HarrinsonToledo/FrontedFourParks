@@ -171,12 +171,12 @@ export class RervModalComponent implements DoCheck, OnInit {
     const fin = parseInt(this.formReserve.value.horaFin + this.formReserve.value.minFin)
 
     const today = new Date()
-    const date = new Date(this.formReserve.value.date)
+    const date = new Date(this.formReserve.value.date+'T'+this.formReserve.value.horaIni+':'+this.formReserve.value.minIni+':00')
     
     const newDate = new Date(today); 
     newDate.setDate(today.getDate() + 30)
 
-    if (date < today || date > newDate) this.errorMessage.push('La fecha está para un día erróneo, hasta 30 días de posible reservación.')
+    if (date < today || date > newDate) this.errorMessage.push('La fecha y hora de inicio erróneas, se puede hasta 30 días de posible reservación.')
 
     if (this.park.i24Hrs !== 'S') {
       const apertura = this.transformTime(this.park.horaApertura)

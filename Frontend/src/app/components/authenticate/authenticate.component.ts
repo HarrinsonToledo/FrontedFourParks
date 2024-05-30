@@ -104,7 +104,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
     }
 
     Notiflix.Loading.dots()
-
+    this.AuService.clearCookies();
     this.AuService.ActionLogin(this.infoLogin).subscribe({
       next: Response => {
         this.dataInvalid = Response.message
@@ -143,7 +143,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
     }
 
     Notiflix.Loading.dots()
-
+    this.AuService.clearCookies();
     this.AuService.ActionSignin(this.infoSignin).subscribe({
       next: Response => {
         this.dataInvalid = Response.message;

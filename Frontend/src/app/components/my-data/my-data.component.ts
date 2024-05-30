@@ -25,7 +25,7 @@ export class MyDataComponent implements DoCheck {
   }
   ngDoCheck() {
     if(this.customer.getInfo() == undefined && this.customer.seguroChange) {
-      this.customer.loadCustomer(this.authe.getCookieSessionCustomer());
+      this.customer.loadCustomer(this.authe.getCookieSessionCustomer(), true);
       this.customer.seguroChange = false;
     } 
     this.userData = this.customer.getInfo()!;

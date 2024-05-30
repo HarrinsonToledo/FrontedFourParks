@@ -6,7 +6,7 @@
             <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2">
                 Generar reportes
             </p>
-            <div class="grid min_oculy:grid-cols-4 w-full gap-2">
+            <div class="grid min_oculy:grid-cols-5 w-full gap-2">
                 <div>
                     <label class="block mb-2 text-base font-medium text-gray-900 ">Tipo de reporte</label>
                     <select id="category" formControlName="state" (change)="changeType($event)"
@@ -27,21 +27,29 @@
                 </div>
                 <div class="flex items-end">
                     <button (click)="generatePDF()"
-                        class="bg-firstColor font-medium text-secondColor text-3xl w-full h-12 rounded-3xl hover:bg-black">
-                        Generar
+                        class="bg-firstColor font-medium text-secondColor text-xl w-full h-12 rounded-xl hover:bg-black">
+                        Generar PDF
                     </button>
                 </div>
                 <div class="flex items-end">
                     <button (click)="downloadPDF()"
-                        class="bg-secondColor w-full text-firstColor border-firstColor font-medium text-3xl border-solid border-2 outline-firstColor flex mx-auto justify-center rounded-3xl p-1 hover:bg-black">
+                        class="bg-secondColor w-full text-firstColor hover:text-secondColor border-firstColor font-medium text-xl border-solid border-2 outline-firstColor flex mx-auto justify-center items-center rounded-3xl p-1 hover:bg-black">
                         <img class="w-10 p-2" src="../../../../assets/resources/Recurso 28.png" alt="" />
-                        Descargar </button>
+                        Descargar PDF
+                    </button>
+                </div>
+                <div class="flex items-end">
+                    <button (click)="downloadExcel()"
+                        class="bg-secondColor w-full text-firstColor hover:text-secondColor border-firstColor font-medium text-xl border-solid border-2 outline-firstColor flex mx-auto justify-center items-center rounded-3xl p-1 hover:bg-black">
+                        <img class="w-10 p-2" src="../../../../assets/resources/Recurso 28.png" alt="" />
+                        Descargar Excel
+                    </button>
                 </div>
             </div>
         </div>
         <div class="p-5 overflow-hidden mt-3 w-full h-full rounded-3xl bg-yellow-300 border-firstColor border-solid border-2">
-            <p class="font-medium text-4xl mb-2">Vista previa información</p>
-            <div class="relative w-full h-full overflow-scroll scroll-view">
+            <p class="font-medium min_oculy:text-4xl text-xl mb-2">Vista previa información</p>
+            <div class="relative w-full h-[85%] overflow-scroll scroll-view">
                 <div class="absolute w-full h-full ">
                     @if (table.length !== 0) {
                         <table class="w-full">
@@ -54,13 +62,15 @@
                                 </tr>
                             </thead>
                             <tbody class="min_oculy:text-xl text-lg">
-                                @for (item of table; track $index) {
-                                <tr class="font-bold text-center">
-                                    <td class="border border-firstColor">{{item[0]}}</td>
-                                    <td class="border border-firstColor">{{item[1]}}</td>
-                                    <td class="border border-firstColor">{{item[2]}}</td>
-                                    <td class="border border-firstColor">{{item[3]}}</td>
-                                </tr>
+                                @if((type == 'C') || (type == 'P' && select != 'S')) {
+                                    @for (item of table; track $index) {
+                                        <tr class="font-bold text-center">
+                                            <td class="border border-firstColor">{{item[0]}}</td>
+                                            <td class="border border-firstColor">{{item[1]}}</td>
+                                            <td class="border border-firstColor">{{item[2]}}</td>
+                                            <td class="border border-firstColor">{{item[3]}}</td>
+                                        </tr>
+                                        }
                                 }
                             </tbody>
                         </table>

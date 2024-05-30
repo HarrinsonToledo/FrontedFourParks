@@ -2,7 +2,7 @@
     <app-sidebar class="min-h-screen"></app-sidebar>
     <div class="w-full max-h-screen min_oculy:p-20 p-5 flex flex-col">
         <p class="font-impact min_oculy:text-6xl text-3xl min_oculy:mb-10 mb-2">
-            Trasabilidad de usuarios
+            Trazabilidad de usuarios
         </p>
 
         <form novalidate [formGroup]="formFilter"
@@ -16,12 +16,12 @@
                 <div>
                     <label class="block mb-2 text-base font-medium text-gray-900">Fecha inicio</label>
                     <input type="date" formControlName="dateI" (change)="select($event)"
-                        class="bg-secondColor border border-firstColor text-gray-900 text-2xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  p-2.5">
+                        class="bg-secondColor border border-firstColor text-gray-900 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full  p-2.5">
                 </div>
                 <div>
                     <label class="block mb-2 text-base font-medium text-gray-900">Fecha fin</label>
                     <input type="date" formControlName="dateF" (change)="select($event)"
-                        class="bg-secondColor border border-firstColor text-gray-900 text-2xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                        class="bg-secondColor border border-firstColor text-gray-900 text-xl rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                 </div>
             </div>
         </form>
@@ -32,7 +32,7 @@
                     <thead class="bg-firstColor bg-opacity-30">
                         <tr class="text-firstColor font-bold min_oculy:text-3xl text-xl">
                             <th class="p-3 border border-firstColor">Usuario</th>
-                            <th class="p-3 border border-firstColor">Mensjae</th>
+                            <th class="p-3 border border-firstColor">Mensaje</th>
                             <th class="p-3 border border-firstColor">IP</th>
                             <th class="p-3 border border-firstColor ">Fecha</th>
                         </tr>

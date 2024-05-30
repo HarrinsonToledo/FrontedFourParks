@@ -117,11 +117,15 @@ export class Manager {
     }
 
     public loadCalcPark(park: string) {
+        Notiflix.Loading.dots()
         this.managerService.getCalcPark(park).subscribe({
             next: response => {
                 this.infoCalcPark = response;
+                Notiflix.Loading.remove()
             },
             error: error => {
+                Notiflix.Loading.remove()
+                Notiflix.Notify.failure('Error al cargar la información', { timeout: 5000 });
                 console.error(error);
             }
         })

@@ -52,7 +52,7 @@ export class Parking {
                     this.reserveState.showModalReserve = false;
                     this.reserveState.seguroReserves = true
                     this.Reserves = undefined;
-                    this.customer.loadCustomer(this.autheService.getCookieSessionCustomer())
+                    this.customer.loadCustomer(this.autheService.getCookieSessionCustomer(), true)
                 },
                 error: error => {
                     Notiflix.Loading.remove()
@@ -71,6 +71,7 @@ export class Parking {
                     this.reserveState.showEditReserve = false;
                     this.reserveState.seguroReserves = true;
                     this.Reserves = undefined;
+                    this.customer.loadCustomer(this.autheService.getCookieSessionCustomer(), true)
                 },
                 error: error => {
                     Notiflix.Loading.remove()
