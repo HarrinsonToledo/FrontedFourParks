@@ -92,7 +92,7 @@ export class RervModalComponent implements DoCheck, OnInit {
   sendReserve(type: string) {
     if (type == 'send') {
       this.errorMessage = [];
-      if (parseInt(this.formReserve.value.csv) != this.selectedCard.codSegur) this.errorMessage.push('El CSV no concuerda con sus datos.');
+      if (parseInt(this.formReserve.value.csv) != this.selectedCard.codSegur) this.errorMessage.push('El CVV no concuerda con sus datos.');
       this.calcuCost();
       this.verifyTime();
       this.verifyCardTime();
