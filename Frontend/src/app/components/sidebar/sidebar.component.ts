@@ -6,11 +6,12 @@ import { AuthenticateService } from '../../core/services/autheticate/authenticat
 import { Parking } from '../../core/class/Objets/Parking';
 import { Manager } from '../../core/class/Users/Manager';
 import { Administrator } from '../../core/class/Users/Administrator';
+import { ManagerPassComponent } from '../modals/manager-pass/manager-pass.component';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ManagerPassComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
@@ -44,7 +45,7 @@ export class SidebarComponent implements DoCheck {
     private root: Router, 
     private authenticate: AuthenticateState,
     private customer: Customer,
-    private manager: Manager,
+    public manager: Manager,
     private admin: Administrator,
     private parking: Parking
   ) {
@@ -78,6 +79,7 @@ export class SidebarComponent implements DoCheck {
   clearCookies() {
     this.parking.clearReserves();
     this.customer.clearInfo();
+    this.admin.reset();
     this.authenticate.setIsLoginShow(false);
     this.authenticaService.clearCookies();
   }

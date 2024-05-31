@@ -6,5 +6,6 @@ export interface LoginDataInterface {
 export interface LoginResponse {
     message: string,
     token: string,
-    rol: string
+    rol: string,
+    firstlogin: boolean
 }

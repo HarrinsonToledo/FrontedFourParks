@@ -1,3 +1,6 @@
+@if (this.authenticaService.isManager() && authenticaService.isCookieFirstSession()) {
+    <app-manager-pass class="min-w-full min-h-screen absolute top-0 left-0"></app-manager-pass>
+}
 <div id="sidebar" class=" bg-firstColor h-full transition-width duration-300 {{w}} flex-shrink-0 flex flex-col justify-between">
     <div class="mt-10 mx-auto">
         <img src="../../../assets/resources/User Photo.png" class="mx-auto {{wimg}}" alt="">

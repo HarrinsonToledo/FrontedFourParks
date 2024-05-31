@@ -28,7 +28,9 @@ export class AuthenticateService {
   }
 
   public cookieToken(token: string) {
-    this.cookieService.set('_token', token);
+    const HA = new Date();
+    const expireDate = new Date(HA.getTime() + 60 * 60 * 1000);
+    this.cookieService.set('_token', token, { expires: expireDate, secure: true, sameSite: 'None'});
   }
 
   public  getCookieSessionCustomer(): string {
@@ -65,6 +67,18 @@ export class AuthenticateService {
 
   public clearCookies() {
     this.cookieService.deleteAll();
+  }
+
+  public setFirstSession() {
+    this.cookieService.set('_firstSession', '0-9');
+  }
+
+  public deleteFirstSession() {
+    this.cookieService.delete('_firstSession');
+  }
+
+  public isCookieFirstSession(): boolean {
+    return this.cookieService.check('_firstSession')
   }
 
   public ActionLogin(body: LoginDataInterface): Observable<LoginResponse> {

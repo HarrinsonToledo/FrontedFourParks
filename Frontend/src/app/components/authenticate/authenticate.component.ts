@@ -12,6 +12,7 @@ import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../environments/environment';
 import { Customer } from '../../core/class/Users/Customer';
 import Notiflix from 'notiflix';
+import { Manager } from '../../core/class/Users/Manager';
 
 @Component({
   selector: 'app-authenticate',
@@ -40,7 +41,7 @@ export class AuthenticateComponent implements OnInit, DoCheck {
     private cookieService: CookieService,
     private root: Router,
     private recatchap: ReCaptchaV3Service,
-    private customer: Customer,
+    private manager: Manager
   ) {
     this.siteKey = environment.siteKey;
 
@@ -110,6 +111,9 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.dataInvalid = Response.message
         this.status = false;
 
+        if ('firstlogin' in Response && Response.firstlogin !== undefined) {
+          if(Response.firstlogin) this.AuService.setFirstSession();
+        }
         this.AuService.cookieSession(this.infoLogin.user, Response.rol);
         this.AuService.cookieToken(Response.token);
         Notiflix.Loading.remove()
@@ -120,9 +124,9 @@ export class AuthenticateComponent implements OnInit, DoCheck {
         this.status = true;
         Notiflix.Loading.remove()
         if(this.dataInvalid == null || this.dataInvalid == '' || this.dataInvalid == undefined) {
-          Notiflix.Notify.failure(Error.error, { timeout: 5000})
+          Notiflix.Notify.failure(Error.error, { timeout: 5000 })
         } else {
-          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 5000})
+          Notiflix.Notify.failure(Error.error.mensaje, { timeout: 5000 })
         }
       }
     })

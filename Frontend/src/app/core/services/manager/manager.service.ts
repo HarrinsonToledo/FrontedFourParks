@@ -5,6 +5,7 @@ import { InfoEditPark, infoParking, ResponseEditPark } from "../../../interfaces
 import { environment } from "../../../../environments/environment";
 import { AuthenticateService } from "../autheticate/authenticate.service";
 import { InfoReportPark,  InfoReportCity } from "../../../interfaces/Reports";
+import { InfoSendPassword } from "../../../interfaces/User";
 
 @Injectable({
     providedIn: 'root'
@@ -42,5 +43,10 @@ export class ManagerServices {
     public getCalcPark(park: string): Observable<InfoReportPark[]> {
         this.loadHead();
         return this.http.get<InfoReportPark[]>(`${environment.apiParame}/reportes/reporteParqueadero/${park}`, { headers: this.header})
+    }
+
+    public updatePassword(info: InfoSendPassword): Observable<string> {
+        this.loadHead();
+        return this.http.patch<string>(`${environment.apiAuthen}/actualizarContra`, info, {headers: this.header});
     }
 }

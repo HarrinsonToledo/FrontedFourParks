@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { UserDataService } from "../../services/userData/userdata.service";
-import { InfoManager } from "../../../interfaces/User";
+import { InfoManager, InfoSendPassword } from "../../../interfaces/User";
 import { ManagerServices } from "../../services/manager/manager.service";
 import { InfoEditPark, infoParking } from "../../../interfaces/Parqueaderos";
 import Notiflix from "notiflix";
 import { ManagerState } from "../States/ManagerState";
 import { Parking } from "../Objets/Parking";
 import { InfoReportPark,  InfoReportCity } from "../../../interfaces/Reports";
+import { AuthenticateService } from "../../services/autheticate/authenticate.service";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,8 @@ export class Manager {
         private userData: UserDataService,
         private managerService: ManagerServices,
         private managerState: ManagerState,
-        private parks: Parking
+        private parks: Parking,
+        private authen: AuthenticateService
     ) {
 
     }
@@ -45,6 +47,21 @@ export class Manager {
     public getInfo(): InfoManager | undefined {
         return this.infoData;
     }
+
+    public changePassword(password: InfoSendPassword) {
+        Notiflix.Loading.dots()
+        this.managerService.updatePassword(password).subscribe({
+          next: Response => {
+            Notiflix.Loading.remove();
+            Notiflix.Report.success('Contraseña cambiada', 'Su contraseña fue cambiada', 'ok')
+            this.authen.deleteFirstSession();
+          },
+          error: Error => {
+            Notiflix.Loading.remove();
+            Notiflix.Report.success('Error', Error, 'ok')
+          }
+        })
+      }
 
     public editParks(info: InfoEditPark[]) {
         Notiflix.Loading.dots();

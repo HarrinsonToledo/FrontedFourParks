@@ -25,6 +25,12 @@ export class Administrator {
 
     }
 
+    public reset() {
+        this.users = undefined;
+        this.trasabi = undefined;
+        this.static = undefined;
+    }
+
     public loadAdministrator(user: string) {
         this.userData.getAdmin(user).subscribe({
             next: response => {
@@ -61,7 +67,7 @@ export class Administrator {
     }
 
     public unlockUser(user: string) {
-        Notiflix.Loading.dots()
+        Notiflix.Loading.dots();
         this.adminService.unlockUser(user).subscribe({
             next: response => {
                 Notiflix.Loading.remove();
@@ -76,6 +82,7 @@ export class Administrator {
     }
 
     public sendManager(info: SendManager) {
+        Notiflix.Loading.dots();
         this.adminService.sendManager(info).subscribe({
             next: response => {
                 Notiflix.Loading.remove()
