@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NarBarComponent } from '../nar-bar/nar-bar.component';
 import { NewsInterface } from '../../interfaces/News';
 import { NewsService } from '../../core/services/news/news.service';
+import Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-principal-view',
@@ -21,6 +22,7 @@ export class PrincipalViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    Notiflix.Report.info('Anuncio', 'Dado que los servicios estan en servidores de render con el plan free las primeras cargas seran lentas por inactividad tendran que activarce los servicios segun render', 'ok')
     this.news.getNews().subscribe({
       next: Response => {
         this.News = Response

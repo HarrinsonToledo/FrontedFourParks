@@ -111,6 +111,12 @@ export class Customer {
     this.userDataService.getCards(this.info!.K_NUM_DOCUMENTO, this.info!.I_TIPO_DOC).subscribe({
       next: Response => {
         this.cards = Response
+        this.cards.map((card) => {
+          const numTarjeta = card.numTarjeta;
+          const fecha = card.fechaVencimiento;
+          card.numTarjeta = `${fecha.slice(0, 3)}${'*'.repeat(fecha.length - 3)}`;
+          card.fechaVencimiento = `${fecha.slice(0, 4)}${'*'.repeat(fecha.length - 4)}`;
+        });
       },
       error: Error => {
         console.log(Error)

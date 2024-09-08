@@ -10,7 +10,6 @@ import * as sha1 from 'js-sha1'
 import { Router } from '@angular/router';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from '../../../environments/environment';
-import { Customer } from '../../core/class/Users/Customer';
 import Notiflix from 'notiflix';
 import { Manager } from '../../core/class/Users/Manager';
 
