@@ -29,7 +29,7 @@
     "file-saver": "^2.0.5",
     "frontend": "file:",
     "js-sha1": "^0.7.0",
-    "jspdf-autotable": "^3.8.2",
+    "jspdf-autotable": "^5.0.2",
     "mapbox-gl": "^3.3.0",
     "ng-recaptcha": "^13.2.1",
     "ngx-cookie-service": "^17.1.0",
