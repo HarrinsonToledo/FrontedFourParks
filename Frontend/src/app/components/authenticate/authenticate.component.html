@@ -25,14 +25,14 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="user">
                     <img src="../../../assets/resources/User Photo.png"
                     class="absolute right-3 top-2 h-10 w-10"
-                    alt="">
+                    alt="user foto">
                 </div>
                 <label for="" class="font-medium text-2xl">Contraseña:</label>
                 <div class="relative my-4">
                     <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
                     <img src="../../../assets/resources/PWIcon.png"
                     class="absolute right-4 top-2 h-10 w-8"
-                    alt="">
+                    alt="icono contraseña">
                 </div>
                 <div class="flex justify-center">
                     <button 
@@ -106,7 +106,7 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <input type="email" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="email">
                     <img src="../../../assets/resources/EmailIcon.png"
                     class="absolute right-3 top-3 h-8 w-10"
-                    alt="">
+                    alt="icono email">
                     @if (authenticate.setError(FormSignData.value.email, 'e', FormSignData.get('email')?.hasError('email')) !== '' && FormSignData.value.email !== '') {
                         <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.email, 'e', FormSignData.get('email')?.hasError('email'))"></p>
                     }
@@ -116,7 +116,7 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <input type="text" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="userName">
                     <img src="../../../assets/resources/User Photo.png"
                     class="absolute right-3 top-2 h-10 w-10"
-                    alt="">
+                    alt="icono usuario">
                     @if (authenticate.setError(FormSignData.value.userName, 'u') !== '' && FormSignData.value.userName !== '') {
                         <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.userName, 'u')"></p>
                     }
@@ -126,7 +126,7 @@ min_oculy:my-1 my-14 overflow-hidden rounded-4xl flex flex-col"
                     <input type="password" class="w-full rounded-3xl py-4 pr-10 pl-5 font-medium" name="" formControlName="password">
                     <img src="../../../assets/resources/PWIcon.png"
                     class="absolute right-4 top-2 h-10 w-8"
-                    alt="">
+                    alt="icono contraseña">
                     @if (authenticate.setError(FormSignData.value.password, 'p') !== '' && FormSignData.value.password !== '') {
                         <p class="font-medium my-1 text-red-700" [innerHTML]="authenticate.setError(FormSignData.value.password, 'p')"></p>
                     }

@@ -19,7 +19,7 @@ module.exports = {
       },
       colors: {
         firstColor: '#400E32',
-        secondColor: '#F8DE22'
+        secondColor: '#C79100'
       },
       height: {
         'h-90-h': '90%'
